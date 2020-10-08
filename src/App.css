@@ -1,0 +1,401 @@
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media only screen and (max-width: 1300px) {
+  #footer {
+    margin: 30rem 0 0;
+    display: grid;
+    margin-left: -5vw;
+    grid-template-rows: repeat(1fr, fit-content);
+    width: 100vw;
+    background-color: #212529;
+    height: fit-content;
+    padding-top: 7rem;
+    position: relative;
+  }
+  /* #upperrow {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+  } */
+
+  #footersct3 {
+    display: flex;
+    margin-left: -5rem;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 1161px) and (min-width: 501px) {
+  #mainimgcontainer {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+  #upperrow {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr fit-content;
+  }
+  #footersct1 {
+    grid-column: 1/-1;
+    justify-self: center;
+    margin-bottom: 5rem;
+    transform: translateX(-25%);
+  }
+  #footersct2 {
+    justify-self: center;
+
+    padding-left: 3rem;
+  }
+  #footersct4 {
+    justify-self: end;
+    padding-right: 3rem;
+  }
+  #slider {
+    transform: translateX(-100%);
+    transition: transform 0.6s ease-out;
+    user-select: none;
+    height: 30vw;
+    margin-top: 100px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  #slider label {
+    margin: auto;
+    width: 60vw;
+    height: 50vh;
+    border-radius: 4px;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+  label .text p {
+    padding-bottom: 0.5rem;
+    margin-left: 2rem;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-weight: bolder;
+    text-align: left;
+    font-size: 1.3vw;
+    text-transform: uppercase;
+    position: relative;
+  }
+  label .text h2 {
+    font-size: 2vw;
+  }
+  label .text p::before {
+    content: '';
+    display: none;
+  }
+  .hide {
+    display: none;
+  }
+  label a {
+    border-radius: 4px;
+    position: absolute;
+    font-family: 'Roboto Mono';
+    bottom: -3%;
+    right: 0%;
+    text-decoration: none;
+    color: #fcbf1e;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem 1rem;
+    border: 3px solid #fcbf1e;
+    font-size: 1.4vw;
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    transition: border-color 0.5s ease, color 0.5s ease;
+    z-index: 1;
+  }
+  .s1overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media only screen and (max-width: 975px) and (min-width: 501px) {
+  #uslugebody {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 5rem;
+    border-top: 1px solid rgba(83, 109, 254, 0.1);
+    margin-top: 2rem;
+  }
+  .boxtxt h2 {
+    font-size: 2vw;
+    align-self: center;
+    color: lightgreen;
+    padding-bottom: 0rem;
+  }
+
+  .boxtxt p {
+    text-align: center;
+    color: #fff;
+    font-size: 1.6vw;
+    align-self: center;
+  }
+  .boxtxt {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 840px) and (min-width: 501px) {
+  nav ul li a {
+    text-decoration: none;
+    color: #1b6ca8;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 1rem;
+    padding-bottom: 5px;
+  }
+  #liimg {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 501px) {
+  #nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr fit-content;
+  }
+  #nav #homelink {
+    justify-self: center;
+    transform: translateX(-10%);
+  }
+  #nav ul {
+    justify-self: center;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #1b6ca8;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 1.5rem;
+    padding-bottom: 5px;
+  }
+  nav ul li:nth-of-type(2) {
+    margin-left: 4rem;
+  }
+  #slider label {
+    margin: auto;
+    width: 60vw;
+    height: 50vh;
+    border-radius: 4px;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+  nav ul li {
+    padding: 2.9rem 0.6rem;
+    position: relative;
+    transition: background-color 0.2s ease-out;
+    cursor: pointer;
+  }
+  nav ul li:hover .underline {
+    width: 80%;
+  }
+
+  #gridparent {
+    position: relative;
+    margin-top: 15rem;
+    background-color: #fff;
+    width: 100%;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: 100rem;
+  }
+  .gbox:nth-of-type(1) {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  .gbox:nth-of-type(2) {
+    grid-row: 2/3;
+  }
+  .gbox:nth-of-type(3) {
+    grid-row: 3/4;
+  }
+  .gbox:nth-of-type(4) {
+    grid-row: 4/5;
+  }
+
+  .gbox:nth-of-type(5) {
+    grid-row: 1/2;
+    grid-column: 2/3;
+  }
+  .gbox:nth-of-type(6) {
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
+  .gbox:nth-of-type(7) {
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+  .gbox:nth-of-type(8) {
+    grid-row: 4/5;
+    grid-column: 2/3;
+  }
+  #linijay1,
+  #linijay3 {
+    display: none;
+  }
+  .gbox:nth-of-type(1),
+  .gbox:nth-of-type(2),
+  .gbox:nth-of-type(3),
+  .gbox:nth-of-type(5),
+  .gbox:nth-of-type(6),
+  .gbox:nth-of-type(7),
+  .gbox:nth-of-type(8) {
+    border-bottom: 1px solid lightgreen;
+  }
+  .boxtxt {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr;
+    padding: 1rem;
+    text-align: center;
+  }
+  .boxtxt h2 {
+    align-self: flex-end;
+  }
+  .project {
+    width: 38vw !important;
+  }
+}
+
+/* USLUGE */
+#nav {
+  background: rgba(0, 0, 0, 0.5);
+}
+#headeru {
+  height: 100vh;
+  width: 100vw;
+  /* background-color: red; */
+  display: grid;
+  grid-template-rows: auto 100%;
+  position: relative;
+}
+
+#slideru {
+  height: 100vh;
+  width: 100%;
+  background-color: red;
+}
+#sliderux {
+  height: 100%;
+  width: 900vw;
+  background-color: #192257;
+  transform: translateX(-100vw);
+  display: flex;
+}
+.sld {
+  width: 100%;
+  height: 100%;
+}
+.sld:first-of-type {
+  background: url('/img/usluge/plan.jpeg') no-repeat center center/cover;
+}
+.sld:nth-of-type(2) {
+  background: url('/img/usluge/ormar.jpg') no-repeat center center/cover;
+}
+.sld:nth-of-type(3) {
+  background: url('/img/usluge/slabastrshowc1.jpg') no-repeat left center/cover;
+  background-size: cover;
+}
+.sld:nth-of-type(4) {
+  background: url('/img/usluge/Dark-Smart-Home-Background.jpeg') no-repeat left
+    center/cover;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+.sld:nth-of-type(5) {
+  background: url('/img/usluge/Luxury-apartment-living-room-wallpaper-1920x1200.jpg')
+    no-repeat left center/cover;
+  background-size: cover;
+}
+.sld:nth-of-type(6) {
+  background: url('/img/usluge/instruments.jpg') no-repeat left center/cover;
+  background-size: cover;
+}
+.sld:nth-of-type(7) {
+  background: url('/img/usluge/security-technology.jpg') no-repeat left center /
+    cover;
+  background-size: cover;
+}
+.sld:nth-of-type(8) {
+  background: url('/img/usluge/plan.jpeg') no-repeat center center/cover;
+  background-size: cover;
+  /* 50% 0 on tablet mobile */
+}
+.sld:nth-of-type(9) {
+  background: url('/img/usluge/ormar.jpg') no-repeat center center/cover;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 800px) and (max-height: 500px) {
+  #showcaseb,
+  #showcase,
+  #header {
+    height: 200vh;
+    width: 100vw;
+  }
+  #header {
+    overflow-y: hidden;
+  }
+  main {
+    position: absolute;
+    top: 200vh;
+  }
+  #slider label {
+    margin: auto;
+    width: 60vw;
+    height: 100vh;
+    border-radius: 4px;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+  #projects #project {
+    position: relative;
+    max-width: 77vw;
+    height: 80vh;
+    padding: 0 auto;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    /* bottom: calc(0px - (35rem / 2)); */
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    /* background-color: red; */
+  }
+}

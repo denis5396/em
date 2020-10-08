@@ -1,0 +1,222 @@
+.contactcol i {
+  color: #98e5fb;
+}
+#nav {
+  background: transparent;
+}
+#nav ul li a {
+  color: #fff;
+  font-weight: 400;
+}
+.current {
+  color: #ffcd3c !important;
+}
+#contactbl {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 1fr;
+  padding-top: 2rem;
+}
+#contactbl h2 {
+  grid-row: 1/2;
+}
+#contact h1 {
+  text-align: center;
+}
+#contactblicons {
+  grid-column: 1/2;
+  display: grid;
+  height: fit-content;
+  padding-top: 10rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1fr;
+}
+#contactblicons h2 {
+  font-size: 2.5rem;
+
+  font-weight: 400;
+}
+.contactcol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-items: flex-start;
+}
+#contactblicons h2 {
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  padding-bottom: 5rem;
+  text-align: center;
+  font-family: cursive;
+  color: #444;
+}
+
+.contactcol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+  line-height: 3rem;
+  padding: 2rem;
+  position: relative;
+}
+.contactcol i {
+  display: block;
+}
+.contactcol h3 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #333;
+}
+.contactcol p {
+  font-size: 1.3rem;
+}
+.contactcol i {
+  padding: 5rem;
+  border-radius: 50%;
+  border: 1px solid aqua;
+}
+iframe {
+  margin-top: 5rem;
+  height: 100%;
+  width: 100%;
+}
+form {
+  margin-top: 10rem !important;
+  width: 50%;
+  background-color: #f8f8f8;
+  margin: auto;
+  padding: 5rem 5rem 1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+form label {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  color: #313439;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+form input,
+textarea {
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ddd;
+  margin-bottom: 2rem;
+}
+form input:focus,
+textarea:focus {
+  outline: 0;
+  background-color: #fff;
+  border-color: #1c86f2;
+  box-shadow: 0 0 0 1px #1c86f2 inset;
+}
+form label {
+  font-family: cursive;
+  font-weight: 400;
+}
+
+input[type='submit'] {
+  background-color: rgb(3, 169, 244);
+  width: 20%;
+  margin: auto;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+input[type='submit']:hover {
+  background-color: rgba(3, 169, 244, 0.8);
+}
+.contactcol:nth-of-type(1),
+.contactcol:nth-of-type(3) {
+  border-right: 0.1rem solid #444;
+  border-right: 0.1rem solid #444;
+}
+#contactshowcase {
+  height: 470px;
+  width: 100%;
+  background: url(../../assets/img/contactshowc.jpg) no-repeat center
+    center/cover;
+  position: relative;
+}
+#contactshowcase::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    to right,
+    rgba(117, 55, 207, 0.98) 0,
+    rgba(117, 55, 207, 0.065) 100%
+  );
+}
+
+#contacttitle {
+  width: 100%;
+  height: fit-content;
+
+  text-align: center;
+  transform: translateY(70%);
+}
+#contacttitle h1 {
+  color: rgb(103, 4, 252);
+  font-weight: 400 !important;
+  font-size: 5rem;
+}
+@media only screen and (max-width: 500px) {
+  #nav {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  #contactbl {
+    display: flex;
+    flex-direction: column;
+  }
+  iframe {
+    width: 100%;
+    height: 50vh;
+    margin-top: 5rem;
+  }
+  form {
+    width: 90%;
+  }
+  #contactblicons {
+    grid-column: 1/2;
+    display: grid;
+    height: fit-content;
+    padding-top: 10rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .contactcol:nth-of-type(1),
+  .contactcol:nth-of-type(3) {
+    border-right: none;
+    border-right: none;
+  }
+  .contactcol h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #333;
+    margin: 1rem auto;
+  }
+  form input[type='submit'] {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 501px) and (max-width: 768px) {
+  #contactbl {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding-top: 2rem;
+  }
+  #contact form {
+    width: 90%;
+  }
+}
