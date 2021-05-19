@@ -92,14 +92,14 @@ class Usluge extends Component {
   };
   componentWillUnmount() {
     document.querySelector('html').style.scrollBehavior = 'smooth';
-    this.removeInterval();
-    this.loop = undefined;
+    // this.removeInterval();
+    // this.loop = undefined;
     this.setState = (state, callback) => {
       return;
     };
   }
   componentDidMount() {
-    this.callInterval();
+    // this.callInterval();
     const dropDown = this.navRef.current.clientHeight;
     this.mobileDropdownUlRef.current.style.transform = 'translateY(10rem)';
     this.mobileDropdownUlRef.current.style.opacity = '0';
@@ -143,7 +143,7 @@ class Usluge extends Component {
         window.scroll(0, 0);
     }
 
-    document.title = 'Elektro Plus | Usluge';
+    document.title = 'ELEKTROMONTING | Usluge';
   }
   findPos = (obj) => {
     var curtop = 0;
@@ -154,31 +154,31 @@ class Usluge extends Component {
       return [curtop];
     }
   };
-  loop = undefined;
-  callInterval = () => {
-    this.loop = setInterval(() => {
-      if (this.state.clickable) {
-        this.setState(
-          (prevState) => ({
-            clickable: false,
-            count: prevState.count + 1,
-          }),
-          () => {
-            this.sliderux.current.style.transition = 'transform 0.5s ease';
+  // loop = undefined;
+  // callInterval = () => {
+  //   this.loop = setInterval(() => {
+  //     if (this.state.clickable) {
+  //       this.setState(
+  //         (prevState) => ({
+  //           clickable: false,
+  //           count: prevState.count + 1,
+  //         }),
+  //         () => {
+  //           this.sliderux.current.style.transition = 'transform 0.5s ease';
 
-            this.changeSlide();
-            setTimeout(() => {
-              this.setState({ clickable: false });
-              if (this.state.count === 8) {
-                this.sliderux.current.style.transition = 'none';
-              }
-              this.identify();
-            }, 1000);
-          }
-        );
-      }
-    }, 3000);
-  };
+  //           this.changeSlide();
+  //           setTimeout(() => {
+  //             this.setState({ clickable: false });
+  //             if (this.state.count === 8) {
+  //               this.sliderux.current.style.transition = 'none';
+  //             }
+  //             this.identify();
+  //           }, 1000);
+  //         }
+  //       );
+  //     }
+  //   }, 3000);
+  // };
 
   handleSearch = (e) => {
     if (
@@ -319,9 +319,9 @@ class Usluge extends Component {
         break;
     }
   };
-  removeInterval = () => {
-    clearInterval(this.loop);
-  };
+  // removeInterval = () => {
+  //   clearInterval(this.loop);
+  // };
 
   handleClickHmenu = () => {
     this.dropdownClick.current.disabled = true;
@@ -335,7 +335,12 @@ class Usluge extends Component {
       this.setState({ working: false });
     }
     if (!this.state.working) {
-      this.mobileDropdownUlRef.current.style.display = 'flex';
+      // this.mobileDropdownUlRef.current.style.display = 'flex';
+      this.mobileDropdownUlRef.current.style.setProperty(
+        'display',
+        'flex',
+        'important'
+      );
       setTimeout(() => {
         this.mobileDropdownUlRef.current.style.transform = 'translateY(0rem)';
         this.mobileDropdownUlRef.current.style.opacity = '1';
@@ -359,15 +364,14 @@ class Usluge extends Component {
         <header id={styles.headeru}>
           <nav id={styles.nav} ref={this.navRef}>
             <a id={styles.homelink} href="index.html">
-              <Link to="/">
+              <Link to={'/'}>
                 <div id={styles.logo}>
+                  <span id={styles.ones}>Elektromonting</span>
                   <img
                     id={styles.logoimg}
-                    src={require('../../assets/img/giphy5.gif')}
+                    src={require('../../assets/img/emlogo.png')}
                     alt=""
                   />
-                  <span id={styles.ones}>Elektro</span>
-                  <span id={styles.twos}>Plus</span>
                 </div>
               </Link>
             </a>
@@ -395,10 +399,10 @@ class Usluge extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="./radovi.html">Radovi</a>
+                  <Link to="/radovi">Radovi</Link>
                 </li>
                 <li>
-                  <a href="./kontakt.html">Kontakt</a>
+                  <Link to="/kontakt">Kontakt</Link>
                 </li>
               </ul>
             </div>
@@ -424,16 +428,20 @@ class Usluge extends Component {
                 </Link>
               </li>
               <li>
-                <a href="/radovi.html">Radovi</a>
-                <span className={styles.underline}></span>
+                <Link to="/radovi">
+                  <a href="/radovi.html">Radovi</a>
+                  <span className={styles.underline}></span>
+                </Link>
               </li>
               <li>
-                <a href="/kontakt.html">Kontakt</a>
-                <span className={styles.underline}></span>
+                <Link to="/kontakt">
+                  <a href="/kontakt.html">Kontakt</a>
+                  <span className={styles.underline}></span>
+                </Link>
               </li>
             </ul>
           </nav>
-          <div id={styles.slideru}>
+          {/* <div id={styles.slideru}>
             <div
               id={styles.sliderux}
               ref={this.sliderux}
@@ -582,7 +590,7 @@ class Usluge extends Component {
             className={`${styles.fas} ${styles.faangleleft} fas fa-angle-left fa-7x`}
             ref={this.left}
             onClick={this.goLeft}
-          ></i>
+          ></i> */}
         </header>
         <div id={styles.searchbox}>
           <i className={`fas fa-search fa-3x`}></i>
@@ -646,7 +654,7 @@ class Usluge extends Component {
             <h4>Projektovanje</h4>
           </div>
         </div>
-        <div id={styles.jakastrp}>
+        {/* <div id={styles.jakastrp}>
           <section id={styles.jakastr} ref={this.jakastrS}>
             <div className={styles.uscont}>
               <div id={styles.jakastrh}>
@@ -4008,8 +4016,8 @@ class Usluge extends Component {
                 cijenu materijala i njegovu potrebnu količinu.
               </p>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
         <div id={styles.totop1}>
           <i className={`fas fa-chevron-up fa-2x`}></i>
         </div>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 .contactcol i {
   color: #98e5fb;
 }
@@ -19,6 +20,7 @@
   grid-template-rows: 1fr;
   padding-top: 2rem;
 }
+
 #contactbl h2 {
   grid-row: 1/2;
 }
@@ -33,9 +35,11 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto 1fr;
 }
+
 #contactblicons h2 {
   font-size: 2.5rem;
-
+  /* color: #666 !important; */
+  font-family: 'Raleway' !important;
   font-weight: 400;
 }
 .contactcol {
@@ -49,14 +53,14 @@
   grid-column: 1/-1;
   padding-bottom: 5rem;
   text-align: center;
-  font-family: cursive;
+  font-family: 'Roboto';
   color: #444;
 }
 
 .contactcol {
   position: relative;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   padding-bottom: 3rem;
   line-height: 3rem;
@@ -72,7 +76,7 @@
   color: #333;
 }
 .contactcol p {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 .contactcol i {
   padding: 5rem;
@@ -80,20 +84,21 @@
   border: 1px solid aqua;
 }
 iframe {
-  margin-top: 5rem;
   height: 100%;
   width: 100%;
+  box-shadow: rgb(0 0 0 / 30%) 0px 2px 5px -1px;
 }
 form {
   margin-top: 10rem !important;
   width: 50%;
   background-color: #f8f8f8;
   margin: auto;
-  padding: 5rem 5rem 1rem;
+  padding: 5rem 5rem 3rem;
   border-radius: 0.8rem;
   display: flex;
   flex-direction: column;
   text-align: left;
+  box-shadow: rgb(0 0 0 / 30%) 0px 2px 5px -1px;
 }
 form label {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -108,13 +113,16 @@ textarea {
   border: 1px solid #ddd;
   margin-bottom: 2rem;
 }
-form input:focus,
+textarea {
+  resize: vertical;
+}
 textarea:focus {
   outline: 0;
   background-color: #fff;
   border-color: #1c86f2;
   box-shadow: 0 0 0 1px #1c86f2 inset;
 }
+
 form label {
   font-family: cursive;
   font-weight: 400;
@@ -133,8 +141,18 @@ input[type='submit']:hover {
 }
 .contactcol:nth-of-type(1),
 .contactcol:nth-of-type(3) {
-  border-right: 0.1rem solid #444;
-  border-right: 0.1rem solid #444;
+  /* border-right: 0.1rem solid aqua;
+  border-right: 0.1rem solid aqua; */
+}
+.contactcol:nth-of-type(3) {
+  grid-column: 1/-1;
+}
+/* .contactcol:last-of-type {
+  display: flex;
+  flex-direction: column;
+} */
+.contactcol:last-of-type i {
+  padding: 5rem;
 }
 #contactshowcase {
   height: 470px;
@@ -197,12 +215,14 @@ input[type='submit']:hover {
     border-right: none;
     border-right: none;
   }
+
   .contactcol h3 {
     font-size: 2rem;
     font-weight: 400;
     color: #333;
     margin: 1rem auto;
   }
+
   form input[type='submit'] {
     width: 50%;
   }
@@ -219,4 +239,31 @@ input[type='submit']:hover {
   #contact form {
     width: 90%;
   }
+}
+
+#contactbr {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#contactbr iframe {
+  height: 100%;
+}
+#whiteBox {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
+  border-radius: 2px;
+  font-family: 'Roboto', 'sans-serif';
+  font-weight: bold;
+  background-color: #fff;
+}
+#whiteBox h1 {
+  font-weight: lighter;
+  font-size: 2rem;
 }

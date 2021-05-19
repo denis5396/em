@@ -1,14 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 #headeru {
-  height: 100vh;
+  height: 470px;
+  background: url(../../assets/img/showcaseclassic.jpg) no-repeat center
+    center/cover;
   width: 100vw;
   /* background-color: red; */
   display: grid;
   grid-template-rows: auto 100%;
   position: relative;
 }
+#headeru::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
 
+  background: linear-gradient(
+    to left,
+    rgba(55, 83, 207, 0.548) 0,
+    rgba(19, 11, 31, 0.065) 100%
+  );
+}
 #slideru {
   height: 100vh;
   width: 100%;
@@ -32,18 +45,25 @@
 .sld:nth-of-type(2) {
   background: url('../../assets/img/usluge/ormar.jpg') no-repeat center
     center/cover;
-}
-.sld:nth-of-type(3) {
-  background: url('../../assets/img/usluge/slabastrshowc1.jpg') no-repeat left
-    center/cover;
-  background-size: cover;
-}
-.sld:nth-of-type(4) {
   background: url('../../assets/img/usluge/Dark-Smart-Home-Background.jpeg')
     no-repeat left center/cover;
   background-size: cover;
   display: flex;
   flex-direction: column;
+}
+.sld:nth-of-type(4) {
+  background: url('../../assets/img/usluge/slabastrshowc1.jpg') no-repeat left
+    center/cover;
+  background-size: cover;
+}
+.sld:nth-of-type(3) {
+  background: url('../../assets/img/usluge/Dark-Smart-Home-Background.jpeg')
+    no-repeat left center/cover;
+  background: url('../../assets/img/usluge/ormar.jpg') no-repeat center
+    center/cover;
+  /* background-size: cover;
+  display: flex;
+  flex-direction: column; */
 }
 .sld:nth-of-type(5) {
   background: url('../../assets/img/usluge/Luxury-apartment-living-room-wallpaper-1920x1200.jpg')
@@ -69,7 +89,11 @@
 .sld:nth-of-type(9) {
   background: url('../../assets/img/usluge/ormar.jpg') no-repeat center
     center/cover;
+  background: url('../../assets/img/usluge/Dark-Smart-Home-Background.jpeg')
+    no-repeat left center/cover;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 
 #nav ul li a {
@@ -80,12 +104,15 @@
 }
 #nav ul {
   z-index: 200;
+  align-self: flex-start;
 }
 #ones {
   color: #fff;
+  text-transform: uppercase;
 }
 #logoimg {
   width: 80px;
+  transform: scale(0.8);
   z-index: 2;
 }
 
@@ -122,16 +149,16 @@
   user-select: none;
 }
 #logo {
-  width: 30%;
-
+  padding: 20px 0 0 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   z-index: 1;
 }
 #ones {
   font-size: 2.8rem;
   z-index: 2;
-  letter-spacing: 2px;
+  color: #f6d54d;
 }
 #twos {
   margin-left: 0.5rem;
@@ -200,7 +227,8 @@ nav ul li a {
   background-color: #1b6ca8;
 }
 .current {
-  color: aquamarine !important;
+  /* color: aquamarine !important; */
+  color: #ffcd3c !important;
 }
 .fas {
   color: aquamarine;
@@ -209,14 +237,14 @@ nav ul li a {
 }
 .faangleright {
   position: absolute;
-  top: 55%;
+  top: 68%;
   right: 2%;
   transform: translateY(-55%);
 }
 .faangleleft {
   position: absolute;
-  top: 55%;
-  left: 2%;
+  top: 68%;
+  left: 1%;
   transform: translateY(-55%);
 }
 .fas:hover {
@@ -251,6 +279,10 @@ nav ul li a {
   border-radius: 0;
   background-color: none;
   opacity: 0.7;
+}
+.sldtxt h2 {
+  font-family: 'Montserrat' !important;
+  color: red;
 }
 .sld:nth-of-type(5) .sldtxt h2 {
   margin-bottom: 5rem !important;
@@ -2234,6 +2266,10 @@ za kasnije
 
 /* MEDIA QUERY MOBILE */
 @media only screen and (max-width: 500px) {
+  #logo {
+    flex-direction: row-reverse;
+    padding: 0;
+  }
   #nav {
     display: grid;
     align-items: center;
@@ -2457,16 +2493,16 @@ za kasnije
       no-repeat center center/cover;
   }
   .sld:nth-of-type(2) {
-    background: url(../../assets/img/usluge/mobileresize/ormar2.jpg) no-repeat
-      center center/cover;
+    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background2.jpg)
+      no-repeat center center/cover;
   }
   .sld:nth-of-type(3) {
-    background: url(../../assets/img/usluge/mobileresize/slabastrshowc12.jpg)
-      no-repeat left center/cover;
+    background: url(../../assets/img/usluge/mobileresize/ormar2.jpg) no-repeat
+      left center/cover;
     background-size: cover;
   }
   .sld:nth-of-type(4) {
-    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/slabastrshowc12.jpg)
       no-repeat left center/cover;
     background-size: cover;
     display: flex;
@@ -2479,8 +2515,8 @@ za kasnije
     background-size: cover;
   }
   .sld:nth-of-type(9) {
-    background: url(../../assets/img/usluge/mobileresize/ormar2.jpg) no-repeat
-      center center/cover;
+    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background2.jpg)
+      no-repeat center center/cover;
     background-size: cover;
   }
   #jakastr::before {
@@ -3211,6 +3247,12 @@ za kasnije
   display: none;
 }
 @media only screen and (max-width: 768px) and (min-width: 501px) {
+  #logo {
+    padding-left: 0;
+  }
+  #logoimg {
+    transform: scale(1.5);
+  }
   #senzoriimgs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -3247,6 +3289,8 @@ za kasnije
   #logoimg {
     width: 4rem;
     z-index: 1;
+    padding-top: 1.5rem;
+    transform: scale(1.6);
   }
   .sldtxt {
     background-color: rgba(0, 0, 0, 0.4);

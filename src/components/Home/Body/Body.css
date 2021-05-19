@@ -8,15 +8,109 @@ main {
   left: 5%;
   margin: auto;
 }
+#whatwedo {
+  width: 100%;
+  height: 40vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* box-shadow: 0px 3px 6px rgba(149, 157, 165, 0.3); */
+}
 
+#bx1 {
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/img/kvservis.jpg') 50% 100% / contain;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  position: relative;
+  box-shadow: 0px 3px 6px rgba(149, 157, 165, 0.3);
+}
+#bx1 h1 {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  text-transform: capitalize;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+}
+#bx1::before,
+#bx2::before,
+#bx3::before,
+#bx4::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#bx2 {
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
+  background: url('../../../assets/img/electric-eng.jpg') center / cover
+    no-repeat;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  position: relative;
+}
+
+#bx2 h1,
+#bx3 h1,
+#bx4 h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+}
+
+#bx3 {
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
+  background: url('../../../assets/img/najntehn2.png') center / cover no-repeat;
+  /* clip-path: circle(47.5% at 50% 50%); */
+  border-radius: 50%;
+  width: 90%;
+  margin: auto;
+  position: relative;
+}
+#bx3::before {
+  clip-path: none;
+  border-radius: 50%;
+}
+#bx4 {
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
+  background: url('../../../assets/img/strucnitim2.png') center right / cover
+    no-repeat;
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
+  position: relative;
+}
 main #spoji h2 {
-  margin: 10rem 0;
+  margin: 10rem 0 0;
   text-align: center;
   font-size: 4rem;
   color: #fcbf1e;
   position: relative;
   letter-spacing: 0.5rem;
   font-weight: 500;
+}
+#spoji img {
+  transform: scale(0.6) translateY(-5rem);
 }
 main h2 strong {
   font-weight: 500;
@@ -48,15 +142,17 @@ main span::after {
 #spoji {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 #spoji h2 {
-  position: absolute;
+  /* position: absolute;
   margin-left: -5vw;
-  left: -3%;
+  left: -3%; */
 }
+
 #maingif {
   display: block;
   width: 100px;
@@ -370,31 +466,20 @@ i {
   position: relative;
   text-align: center;
   display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 #footersct1 h2 {
-  font-size: 3rem;
-  color: #fcbf1e;
-  letter-spacing: 0.2rem;
+  font-size: 2.8rem;
+  color: #f6d54d;
   cursor: pointer;
   font-weight: 500;
-  height: fit-content;
-  border-bottom: 2px solid #fcbf1e;
-  position: relative;
 }
-#footersct1 h2::before {
-  position: absolute;
-  content: '';
-  bottom: -1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 2px;
-  background-color: #1b6ca8;
-}
+
 #footersct1 img {
-  margin-left: 5rem;
-  width: 5rem;
+  width: 6rem;
   height: 6rem;
 }
 #fix {
@@ -562,6 +647,7 @@ i {
 
 #footersct3 {
   padding-left: 2rem;
+  margin-left: 8rem;
 }
 #footersct3 h2 {
   color: wheat;
@@ -633,6 +719,12 @@ i {
   margin-top: 10rem;
   width: 100%;
   height: auto;
+  /* background: rgb(228, 4, 211);
+  background: linear-gradient(
+    310deg,
+    rgba(228, 4, 211, 1) 0%,
+    rgba(79, 16, 240, 1) 96%
+  ); */
 }
 
 /* SECTION USLUGE */
@@ -693,6 +785,10 @@ i {
   text-align: center;
   position: relative;
 }
+#usluge header h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+}
 #uslugebody .usluge .imgwrapper {
   width: 150px;
   height: 150px;
@@ -721,6 +817,7 @@ i {
   margin-top: 2rem;
   font-size: 2.5rem;
   color: #333;
+  color: #555;
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
   position: relative;
 }
@@ -751,6 +848,7 @@ i {
 }
 .usluge i {
   color: rgba(173, 216, 230, 0.4);
+  color: rgba(173, 216, 230, 1);
 }
 /* .imgwrapper .fa-house-damage {
   color: rgba(112, 186, 210, 0.7);
@@ -910,6 +1008,17 @@ i {
   color: #fff;
 }
 
+.fa-facebook-square {
+  color: #3b579d;
+  transform: scale(1.5);
+  padding-right: 0.5rem;
+}
+
+#resizeGmail {
+  height: 2rem;
+  transform: translateX(-0.4rem);
+}
+
 #projects #project #projectslider {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -924,7 +1033,7 @@ i {
 }
 
 #projects #project #projectslider #one {
-  width: 24vw;
+  width: 25vw;
   height: 90%;
   background-color: red;
   background: url('../../../assets/img/jakastruja.jpg') no-repeat center/cover;
@@ -1038,6 +1147,7 @@ i {
   width: fit-content;
   margin: auto;
   color: #333;
+  color: #555;
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
   border-bottom: 2px solid #536dfe;
   margin-bottom: 1rem;
@@ -1058,11 +1168,69 @@ i {
 .box:nth-of-type(4) > .content h2 {
   margin-bottom: 1rem;
 }
+
+@media only screen and (max-width: 1250px) {
+  #whatwedo {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100vh;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  #whatwedo #bx1,
+  #whatwedo #bx2,
+  #whatwedo #bx3,
+  #whatwedo #bx4 {
+    /* padding: 5rem; */
+    width: 80%;
+    margin: auto;
+  }
+  #whatwedo #bx1 h1 {
+    text-align: center;
+  }
+  #whatwedo #bx3 {
+    /* height: 80%; */
+    width: 70%;
+    clip-path: none;
+    border-radius: 50%;
+  }
+  #whatwedo #bx3::before {
+    border-radius: 50%;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  #whatwedo {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 150vh;
+    width: 60%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #whatwedo {
+    width: 70%;
+    height: 200vh;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   /* html,
   body {
     overflow-x: hidden;
   } */
+  #spoji {
+    transform: translateX(0) !important;
+  }
+  #bx1,
+  #bx2,
+  #bx3,
+  #bx4 {
+    width: 100% !important;
+  }
   .nav {
     display: grid;
     align-items: center;
@@ -1256,7 +1424,7 @@ i {
     z-index: 1;
   }
   #spoji {
-    transform: translateX(-5%);
+    /* transform: translateX(-5%); */
   }
 
   #uppertext {
@@ -1527,7 +1695,7 @@ i {
     grid-column: 1/-1;
     justify-self: center;
     margin-bottom: 5rem;
-    transform: translateX(-25%);
+    transform: translateX(0) !important;
   }
   #footersct2 {
     justify-self: center;
@@ -1888,6 +2056,12 @@ i {
   #showcase {
     background: url('../../../assets/img/LED_Lightings.jpg') no-repeat center
       top/cover;
+  }
+  #footersct3 {
+    margin-left: -2rem !important;
+  }
+  #footersct1 {
+    margin-left: 5rem !important;
   }
 }
 @media only screen and (max-width: 800px) and (max-height: 500px) {

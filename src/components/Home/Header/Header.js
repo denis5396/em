@@ -133,7 +133,7 @@ class Header extends Component {
     let { checked5 } = this.state;
     return (
       <div id="header">
-        <div id="showcase" ref={this.firstShowcase}></div>
+        {/* <div id="showcase" ref={this.firstShowcase}></div>
         <div id="showcaseb" ref={this.overlay}></div>
 
         <section className="slider" ref={this.slider}>
@@ -328,8 +328,8 @@ class Header extends Component {
               </div>
             </div>
             <Link to="usluge#slabastr">Saznaj više</Link>
-          </label>
-        </section>
+          </label> */}
+        {/* </section> */}
       </div>
     );
   }

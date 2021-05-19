@@ -56,7 +56,7 @@ class Nav extends Component {
                   alt=""
                 />
                 <span className="ones">Elektro</span>
-                <span className="twos">Plus</span>
+                <span className="twos">Monting</span>
               </div>
             </Link>
           </a>

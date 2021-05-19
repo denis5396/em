@@ -10,6 +10,7 @@
 }
 #logoimg {
   width: 80px;
+  transform: scale(0.8);
   z-index: 2;
 }
 
@@ -45,21 +46,28 @@
 #mobilemenu {
   user-select: none;
 }
-#logo {
-  width: 30%;
 
+#fixUl {
+  /* margin-top: -5rem; */
+}
+
+#logo {
+  padding: 20px 0 0 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   z-index: 1;
 }
 #ones {
   font-size: 2.8rem;
   z-index: 2;
-  letter-spacing: 2px;
+  color: #f6d54d;
+  text-transform: uppercase;
 }
 #twos {
+  text-transform: uppercase;
   margin-left: 0.5rem;
-  color: #1b6ca8;
+  color: #f6d54d;
   z-index: 2;
   font-size: 2rem;
   padding-bottom: 0.2rem;
@@ -74,16 +82,17 @@
   text-decoration: none;
 }
 
-nav ul {
+#fixUl {
   display: flex;
   list-style-type: none;
   align-self: center;
   z-index: 0;
   position: relative;
-  margin-right: 5rem;
+  margin-right: 1.3rem;
+  align-self: flex-start;
 }
 nav ul li:hover {
-  background-color: #303960;
+  background-color: #30396096;
 }
 nav ul li:hover .underline {
   width: 80%;
@@ -121,21 +130,26 @@ nav ul li a {
   font-weight: bolder;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem !important;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   font-weight: 400;
   padding-bottom: 5px;
   color: #fff;
 }
 
 @media only screen and (max-width: 768px) and (min-width: 501px) {
+  #fixUl li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
   #nav {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 0.5fr fit-content;
+    padding-top: 0.1rem;
   }
   #nav #homelink {
     justify-self: center;
-    transform: translateX(-10%);
   }
   #nav ul {
     justify-self: center;
@@ -164,6 +178,14 @@ nav ul li a {
     grid-template-columns: 1fr auto;
     background-color: rgba(0, 0, 0, 0.5);
   }
+  #logo {
+    padding: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    z-index: 1;
+  }
   .box:hover {
     height: 45rem;
   }
@@ -171,7 +193,7 @@ nav ul li a {
     justify-self: center;
   }
   nav ul {
-    display: none;
+    display: none !important;
   }
   #mobilemenu {
     position: relative;

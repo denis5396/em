@@ -175,7 +175,23 @@ h3 {
   position: relative;
   overflow: hidden;
 }
-.item::after {
+.item2 {
+  margin-right: 1rem;
+  width: 45vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.item3 {
+  margin-right: 1rem;
+  width: 50vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.item::after,
+.item2::after,
+.item3::after {
   content: '';
   position: absolute;
   display: block;
@@ -194,7 +210,9 @@ h3 {
   transition: transform 3s cubic-bezier(0.2, 1, 0.3, 1),
     -webkit-transform 3s cubic-bezier(0.2, 1, 0.3, 1);
 }
-.item:hover::after {
+.item:hover::after,
+.item2:hover::after,
+.item3:hover::after {
   -webkit-transform: scale(2) translateX(0) translateY(0) rotate(-28deg);
   transform: scale(2) translateX(0) translateY(0) rotate(-28deg);
 }
@@ -212,7 +230,9 @@ h3 {
   padding: 0 1rem;
   margin: 0.5rem 0 0 0;
 }
-.item:hover .itemtxt {
+.item:hover .itemtxt,
+.item2:hover .itemtxt,
+.item3:hover .itemtxt {
   opacity: 1;
   -webkit-transform: translateY(0);
   transform: translateY(0);
@@ -255,14 +275,16 @@ h3 {
   transform: translateY(-50%);
 }
 
-.item:hover .itemimg {
+.item:hover .itemimg,
+.item2:hover .itemimg,
+.item3:hover .itemimg {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
 #slidetranslate {
   position: absolute;
   left: 0;
-  width: 300vw;
+  min-width: 300vw;
   height: 100%;
   display: flex;
 }
@@ -291,6 +313,7 @@ h3 {
   padding: 2rem 1rem;
   transition: background-color 0.4s ease;
 }
+
 #oneo img,
 #twoo img,
 #threeo img {
@@ -518,6 +541,7 @@ h3 {
   margin-top: 0rem;
   width: 100%;
   height: 70vh;
+  height: 47rem;
   background: url(../../assets/img/aboutuscover.jpg) no-repeat center
     center/cover;
   display: flex;

@@ -1,4 +1,6 @@
 import React, { Component, createRef } from 'react';
+import { db } from '../../firebase';
+import { v1 as uuid } from 'uuid';
 import Snav from './Snav';
 import styles from './Onama.module.css';
 
@@ -8,6 +10,8 @@ class Onama extends Component {
     unlock: true,
     forward: false,
     backwards: false,
+    imageUrl: [],
+    workers: [],
   };
 
   nexto = createRef();
@@ -16,17 +20,95 @@ class Onama extends Component {
   sliderWidtho = createRef();
   slides = createRef();
   setTX = 30;
+  exp = '';
+  yearExp = createRef();
+
   componentDidMount() {
     // window.addEventListener('orientationchange', () => {
     //   window.location.reload();
     // });
-    let boxWidth = this.slides[0].clientWidth;
-    this.slides.forEach((slide) => {
-      slide.style.width = `${boxWidth}px`;
-    });
-    this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
+
+    const n = new Date();
+    const y = n.getFullYear();
+    const showExp = y - 2016;
+    this.exp = showExp;
+    this.yearExp.current.innerText = showExp;
+    // if (this.slides[0]) {
+    //   alert('xd');
+    //   let boxWidth = this.slides[0].clientWidth;
+    //   this.slides.forEach((slide) => {
+    //     slide.style.width = `${boxWidth}px`;
+    //   });
+    //   this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
+    // }
     window.scrollTo(0, 0);
-    document.title = 'Elektro Plus | O Nama';
+    document.title = 'ELEKTROMONTING | O Nama';
+
+    const dbRef = db.ref('/content');
+    // dbRef.set({ username: 'hello' });
+    dbRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      const copyObj = [];
+      let cnt = 0;
+      const copyObj2 = [];
+      let cnt2 = 0;
+      let arrKeys = [];
+      let keyNums = [];
+      let finalKeys = [];
+      let workerArr = [];
+      for (let key in data) {
+        if (data[key].title === 'uposlenici') {
+          copyObj[cnt] = data[key];
+          cnt++;
+        }
+      }
+      arrKeys = Object.keys(copyObj[0]);
+      for (let i = 0; i < arrKeys.length; i++) {
+        if (arrKeys[i].match(/\d+/)) {
+          keyNums.push(arrKeys[i].match(/\d+/g));
+        }
+      }
+      keyNums.forEach((key) => {
+        finalKeys.push(key[0]);
+      });
+      finalKeys.forEach((key) => {
+        workerArr.push(copyObj[0][key]);
+      });
+
+      this.setState(
+        (state) => ({
+          ...state,
+          imageUrl: [...copyObj[0].imageUrl],
+          workers: [...workerArr],
+        }),
+        () => {
+          console.log(this.state);
+          console.log(this.slides.length);
+          if (this.slides[0]) {
+            let boxWidth = this.slides[0].clientWidth;
+            this.slides.forEach((slide) => {
+              slide.style.width = `${boxWidth}px`;
+              slide.style.width = `${30}vw`;
+            });
+            // this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
+          }
+          if (this.state.imageUrl.length === 2 && this.parento.current) {
+            this.parento.current.children[0].style.width = '45vw';
+            this.parento.current.children[1].style.width = '45vw';
+            this.setTX = 45;
+          } else if (this.state.imageUrl.length === 1 && this.parento.current) {
+            this.parento.current.children[0].style.width = '50vw';
+            this.setTX = 50;
+            this.sliderWidtho.current.style.width = '50%';
+          }
+        }
+      );
+      console.log(workerArr);
+      console.log(finalKeys);
+      console.log(keyNums);
+      console.log(copyObj);
+    });
   }
   componentWillUnmount() {
     document.querySelector('html').style.scrollBehavior = 'smooth';
@@ -35,7 +117,33 @@ class Onama extends Component {
     let boxWidth = await this.slides[0].clientWidth;
     this.setState({ unlock: false });
     this.parento.current.style.transition = 'transform .5s ease';
-    this.parento.current.style.transform = `translateX(${-boxWidth - 10}px)`;
+    if (this.state.imageUrl.length <= 3) {
+      let izbrisi = this.slides[0];
+      const sliderParent = izbrisi.parentElement;
+      let izbrisii = sliderParent.children[0];
+      // sliderParent.children[0].remove();
+      // this.parento.current.style.transition = 'none';
+      // this.parento.current.style.transform = 'translateX(0)';
+      console.log(izbrisi);
+      // sliderParent.appendChild(izbrisii);
+      console.log(this.state.workers);
+      let cpyState = [...this.state.workers];
+      cpyState.push(cpyState[0]);
+      this.setState(
+        (state) => ({
+          // ...(state.workers[state.workers.length] = state.workers[0]),
+          ...state,
+          workers: [...cpyState],
+        }),
+        () => {
+          console.log(this.state);
+        }
+      );
+
+      this.parento.current.style.transform = `translateX(${-boxWidth - 10}px)`;
+    } else {
+      this.parento.current.style.transform = `translateX(${-boxWidth - 10}px)`;
+    }
     this.setState({ unlock: true });
   };
   handleForward = () => {
@@ -74,35 +182,94 @@ class Onama extends Component {
       this.setTX = 90;
     }
     this.setState({ unlock: false });
-    let izbrisi = this.slides[9];
-    const sliderParent = izbrisi.parentElement;
-    let izbrisii = sliderParent.children[9];
-    sliderParent.children[9].remove();
-    sliderParent.prepend(izbrisii);
-    this.parento.current.style.transition = 'none';
-    this.parento.current.style.transform = `translateX(-${this.setTX}vw)`;
-    setTimeout(() => {
-      this.fixaj();
-    }, 1);
+    console.log(this.slides.length);
+    this.slides.forEach((slide) => {
+      console.log(slide);
+    });
+    if (this.state.imageUrl.length <= 3) {
+      let cpyState = [...this.state.workers];
+      cpyState.unshift(this.state.workers[this.state.workers.length - 1]);
+      this.setState(
+        (state) => ({
+          // ...(state.workers[state.workers.length] = state.workers[0]),
+          ...state,
+          workers: [...cpyState],
+        }),
+        () => {
+          console.log(this.state);
+        }
+      );
+      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transform = `translateX(-${this.setTX}vw)`;
+      setTimeout(() => {
+        this.fixaj();
+      }, 1);
+    } else {
+      let izbrisi = this.slides[this.slides.length - 1];
+      console.log(this.slides);
+      const sliderParent = izbrisi.parentElement;
+      let izbrisii = sliderParent.children[this.slides.length - 1];
+      sliderParent.children[this.slides.length - 1].remove();
+      sliderParent.prepend(izbrisii);
+      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transform = `translateX(-${this.setTX}vw)`;
+      setTimeout(() => {
+        this.fixaj();
+      }, 1);
+    }
   };
   fixaj = () => {
     this.parento.current.style.transition = 'transform 0.5s ease';
     this.parento.current.style.transform = `translateX(0vw)`;
-    setTimeout(() => {
-      this.setState({ unlock: true });
-    }, 500);
+
+    if (this.state.imageUrl.length <= 3) {
+      setTimeout(() => {
+        let cpyState = [...this.state.workers];
+        cpyState.splice(cpyState.length - 1, 1);
+        this.setState(
+          (state) => ({
+            ...state,
+            workers: [...cpyState],
+          }),
+          () => {
+            console.log(this.state);
+          }
+        );
+        this.setState({ unlock: true });
+      }, 499);
+
+      console.log(this.state);
+    } else {
+      setTimeout(() => {
+        this.setState({ unlock: true });
+      }, 500);
+    }
   };
 
   shiftSlide = () => {
-    // let izbrisi = this.slides[0];
-    let izbrisi = this.slides[0];
-    const sliderParent = izbrisi.parentElement;
-    let izbrisii = sliderParent.children[0];
-    sliderParent.children[0].remove();
-    this.parento.current.style.transition = 'none';
-    this.parento.current.style.transform = 'translateX(0)';
-
-    sliderParent.appendChild(izbrisii);
+    if (this.state.imageUrl.length <= 3) {
+      let cpyState = [...this.state.workers];
+      cpyState.splice(0, 1);
+      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transform = 'translateX(0)';
+      this.setState(
+        (state) => ({
+          ...state,
+          workers: [...cpyState],
+        }),
+        () => {
+          console.log(this.state);
+        }
+      );
+    } else {
+      let izbrisi = this.slides[0];
+      const sliderParent = izbrisi.parentElement;
+      let izbrisii = sliderParent.children[0];
+      sliderParent.children[0].remove();
+      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transform = 'translateX(0)';
+      sliderParent.appendChild(izbrisii);
+    }
   };
 
   render() {
@@ -116,17 +283,15 @@ class Onama extends Component {
       <>
         <Snav cur={'onama'} />
         <section id={styles.onamahead}>
-          <h1>
-            Elektro <span id={styles.farbaj}>Plus</span>
-          </h1>
+          <h1>ELEKTROMONTING</h1>
           <h2>O nama</h2>
         </section>
 
         <section id={styles.onama}>
           <p>
-            <strong>Elektro Plus d.o.o.</strong> Sarajevo je kompanija koja na
+            <strong>ELEKTROMONTING</strong> je firma koja na
             bosanskohercegovačkom tržištu posluje od 2015. i ove godine slavimo
-            5 godina uspješnog poslovanja.
+            {` ${this.exp}`} godina uspješnog poslovanja.
           </p>
           <p>
             Osnovna djelatnost su elektromontažerski i elektroinstalaterski
@@ -172,9 +337,9 @@ class Onama extends Component {
             <div class={styles.workcol}>
               <i class="fas fa-users fa-4x"></i>
               <div class={styles.iel}></div>
-              <h3>10</h3>
+              <h3>{this.state.imageUrl.length}</h3>
               <div class={styles.workl}></div>
-              <p>Zadovoljnih radnika</p>
+              <p>Uposlenika</p>
             </div>
           </div>
           <div class={styles.workdoneb}>
@@ -188,9 +353,9 @@ class Onama extends Component {
           </div>
           <div class={styles.workdoneb}>
             <div class={styles.workcol}>
-              <i class="fas fa-building fa-4x"></i>
+              <i class="fas fa-briefcase fa-4x"></i>
               <div class={styles.iel}></div>
-              <h3>5</h3>
+              <h3 ref={this.yearExp}></h3>
               <div class={styles.workl}></div>
               <p>Godina iskustva</p>
             </div>
@@ -219,7 +384,40 @@ class Onama extends Component {
                 ref={this.parento}
                 onTransitionEnd={this.handleTransition}
               >
-                <div
+                {this.state.workers.map((wrk, i) => (
+                  <div
+                    class={
+                      this.state.imageUrl.length === 2
+                        ? styles.item2
+                        : this.state.imageUrl.length === 1
+                        ? styles.item3
+                        : styles.item
+                    }
+                    id={styles.oneo}
+                    // key={uuid()}
+                    ref={(slide) => {
+                      if (
+                        this.slides.length < this.slides.length + 1 &&
+                        slide &&
+                        this.state.init
+                      ) {
+                        this.slides.push(slide);
+                      }
+                    }}
+                    style={{
+                      background: `url(${wrk.imageUrl}) no-repeat center center/cover`,
+                    }}
+                  >
+                    <div class={styles.itemtxtwrap}>
+                      <div class={styles.itemtxt}>
+                        <h4>{wrk.name}</h4>
+                        <p>{wrk.title}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {/* <div
                   class={styles.item}
                   id={styles.oneo}
                   ref={(slide) => {
@@ -382,7 +580,7 @@ class Onama extends Component {
                       <p>Električar</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

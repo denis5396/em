@@ -46,7 +46,12 @@ class Snav extends Component {
       this.setState({ working: false });
     }
     if (!this.state.working) {
-      this.mobileDropdownUlRef.current.style.display = 'flex';
+      // this.mobileDropdownUlRef.current.style.display = 'flex';
+      this.mobileDropdownUlRef.current.style.setProperty(
+        'display',
+        'flex',
+        'important'
+      );
       setTimeout(() => {
         this.mobileDropdownUlRef.current.style.transform = 'translateY(0rem)';
         this.mobileDropdownUlRef.current.style.opacity = '1';
@@ -66,13 +71,12 @@ class Snav extends Component {
         <a id={styles.homelink} href="index.html">
           <Link to={'/'}>
             <div id={styles.logo}>
+              <span id={styles.ones}>Elektromonting</span>
               <img
                 id={styles.logoimg}
-                src={require('../../assets/img/giphy5.gif')}
+                src={require('../../assets/img/emlogo.png')}
                 alt=""
               />
-              <span id={styles.ones}>Elektro</span>
-              <span id={styles.twos}>Plus</span>
             </div>
           </Link>
         </a>
@@ -115,7 +119,7 @@ class Snav extends Component {
             </li>
           </ul>
         </div>
-        <ul>
+        <ul id={styles.fixUl}>
           <li>
             <a href="index.html">
               <Link to={'/'}>Početna</Link>
@@ -129,9 +133,15 @@ class Snav extends Component {
             <span class={styles.underline}></span>
           </li>
           <li>
-            <Link to="/onama" class={this.state.onama ? styles.current : ''}>
-              O nama
-            </Link>
+            <a href="./onama.html">
+              <Link
+                to={'/onama'}
+                class={this.state.onama ? styles.current : ''}
+                style={{ color: this.state.onama ? '#ffcd3c' : '#fff' }}
+              >
+                O nama
+              </Link>
+            </a>
             <span class={styles.underline}></span>
           </li>
           <li>

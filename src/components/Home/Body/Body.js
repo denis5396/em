@@ -1,6 +1,9 @@
 import React, { Component, createRef } from 'react';
+import { db } from '../../../firebase';
 import { Link } from 'react-router-dom';
+import { v1 as uuid } from 'uuid';
 import './Body.css';
+import { getAllByPlaceholderText } from '@testing-library/react';
 class Body extends Component {
   state = {
     forward: false,
@@ -8,6 +11,8 @@ class Body extends Component {
     unlock: true,
     init: true,
     clicked: false,
+    projs: [],
+    lessThan: false,
   };
   projectSlider = createRef();
   slides = createRef();
@@ -29,19 +34,34 @@ class Body extends Component {
   };
 
   bacaj = async () => {
-    let boxWidth = await this.slides[0].clientWidth;
-    this.setState({ unlock: false });
-    this.projectSlider.current.style.transition = 'transform .5s ease';
-    this.projectSlider.current.style.transform = `translateX(${
-      -boxWidth - 10
-    }px)`;
-    this.btnAnimation('next');
-    this.setState({ unlock: true });
+    if (this.slides[0]) {
+      let boxWidth = await this.slides[0].clientWidth;
+      this.setState({ unlock: false });
+      this.projectSlider.current.style.transition = 'transform .5s ease';
+      if (this.state.projs.length <= 3) {
+        let cpyState = [...this.state.projs];
+        cpyState.push(cpyState[0]);
+        this.setState(
+          (state) => ({
+            ...state,
+            projs: [...cpyState],
+          }),
+          () => {
+            console.log(this.state);
+          }
+        );
+      }
+      this.projectSlider.current.style.transform = `translateX(${
+        -boxWidth - 10
+      }px)`;
+      this.btnAnimation('next');
+    }
   };
   handleForward = () => {
-    this.setState({
+    this.setState((state) => ({
+      ...state,
       forward: true,
-    });
+    }));
     if (this.state.unlock) {
       this.bacaj();
     }
@@ -56,23 +76,63 @@ class Body extends Component {
     if (e.propertyName === 'transform') {
       if (this.state.forward) {
         this.shiftSlide();
+      } else if (this.state.backwards && this.state.lessThan) {
+        this.shiftSlideBack();
       }
     }
   };
 
   popSlide = () => {
-    this.setState({ unlock: false });
-    let izbrisi = this.slides[5];
-    const sliderParent = izbrisi.parentElement;
-    let izbrisii = sliderParent.children[5];
-    sliderParent.children[5].remove();
-    sliderParent.prepend(izbrisii);
-    this.projectSlider.current.style.transition = 'none';
-    this.projectSlider.current.style.transform = 'translateX(-25vw)';
-    this.btnAnimation('prev');
-    setTimeout(() => {
-      this.fixaj();
-    }, 1);
+    this.setState(
+      (state) => ({ ...state, unlock: false }),
+      () => {
+        if (this.slides) {
+          if (!this.state.lessThan) {
+            let izbrisi = this.slides[this.slides.length - 1];
+            const sliderParent = izbrisi.parentElement;
+            let izbrisii = sliderParent.children[this.slides.length - 1];
+            console.log(izbrisii);
+            sliderParent.children[this.slides.length - 1].remove();
+            sliderParent.prepend(izbrisii);
+            this.projectSlider.current.style.transition = 'none';
+            this.projectSlider.current.style.transform = 'translateX(-25vw)';
+            this.btnAnimation('prev');
+            setTimeout(() => {
+              this.fixaj();
+            }, 1);
+          } else {
+            let boxWidth = this.slides[0].clientWidth;
+            this.setState({ unlock: false });
+            this.projectSlider.current.style.transition = 'none';
+            if (this.state.projs.length <= 3) {
+              let cpyState = [...this.state.projs];
+              cpyState.unshift(cpyState[cpyState.length - 1]);
+              this.setState(
+                (state) => ({
+                  ...state,
+                  projs: [...cpyState],
+                }),
+                () => {
+                  console.log(this.state);
+                }
+              );
+            }
+            this.projectSlider.current.style.transform = `translateX(-${
+              boxWidth + 10
+            }px)`;
+            this.btnAnimation('prev');
+            setTimeout(() => {
+              this.projectSlider.current.style.transition =
+                'transform .5s ease';
+              this.projectSlider.current.style.transform = 'translateX(0)';
+            }, 0.1);
+            // setTimeout(() => {
+            //   this.setState({ unlock: true });
+            // }, 500);
+          }
+        }
+      }
+    );
   };
   fixaj = () => {
     this.projectSlider.current.style.transition = 'transform 0.5s ease';
@@ -83,15 +143,52 @@ class Body extends Component {
   };
 
   shiftSlide = () => {
-    // let izbrisi = this.slides[0];
-    let izbrisi = this.slides[0];
-    const sliderParent = izbrisi.parentElement;
-    let izbrisii = sliderParent.children[0];
-    sliderParent.children[0].remove();
-    this.projectSlider.current.style.transition = 'none';
-    this.projectSlider.current.style.transform = 'translateX(0)';
+    if (this.state.lessThan) {
+      let cpyState = [...this.state.projs];
+      cpyState.splice(0, 1);
+      this.projectSlider.current.style.transition = 'none';
+      this.projectSlider.current.style.transform = 'translateX(0)';
+      this.setState(
+        (state) => ({
+          ...state,
+          projs: [...cpyState],
+        }),
+        () => {
+          console.log(this.state);
+        }
+      );
+    } else {
+      let izbrisi = this.slides[0];
+      console.log(this.slides[0]);
+      const sliderParent = izbrisi.parentElement;
+      console.log(sliderParent.children[0]);
+      let izbrisii = sliderParent.children[0];
+      sliderParent.children[0].remove();
+      this.projectSlider.current.style.transition = 'none';
+      this.projectSlider.current.style.transform = 'translateX(0)';
+      const copyObj = [...this.state.projs];
+      const firstInd = { ...copyObj[0] };
+      // this.setState(state => ({
+      //   ...state, projs:
+      // }))
+      sliderParent.appendChild(izbrisii);
+    }
+    this.setState((state) => ({ ...state, unlock: true }));
+  };
 
-    sliderParent.appendChild(izbrisii);
+  shiftSlideBack = () => {
+    let cpyState = [...this.state.projs];
+    cpyState.splice(cpyState.length - 1, 1);
+    this.setState(
+      (state) => ({
+        ...state,
+        projs: [...cpyState],
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
+    this.setState({ unlock: true });
   };
 
   btnAnimation = (nextx) => {
@@ -200,22 +297,68 @@ class Body extends Component {
   };
 
   componentDidMount() {
+    if (this.state.projs.length <= 3) {
+      this.setState({ lessThan: true });
+    }
+    if (this.slides[0]) {
+      let boxWidth = this.slides[0].clientWidth;
+      this.slides.forEach((slide) => {
+        slide.style.width = `${boxWidth}px`;
+      });
+      this.sliderWidth.current.style.width = `${boxWidth * 3 + 12}px`;
+      // ty
+      this.translateY.forEach((li) => {
+        li.addEventListener('mouseleave', this.swapback);
+        li.addEventListener('mouseenter', this.swapfront);
+      });
+    }
+    const dbRef = db.ref('/content');
+    // dbRef.set({ username: 'hello' });
+    dbRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      const copyObj = [];
+      let cnt = 0;
+      const copyObj2 = [];
+      let cnt2 = 0;
+      for (let key in data) {
+        if (data[key].imageUrl.length === 1) {
+          copyObj[cnt] = data[key];
+          cnt++;
+        }
+      }
+      this.setState(
+        (state) => ({
+          ...state,
+          projs: [...copyObj],
+        }),
+        () => {
+          console.log(this.state);
+        }
+      );
+      console.log(copyObj);
+    });
+
     window.addEventListener('orientationchange', () => {
       window.location.reload();
     });
-    let boxWidth = this.slides[0].clientWidth;
-    this.slides.forEach((slide) => {
-      slide.style.width = `${boxWidth}px`;
-    });
-    this.sliderWidth.current.style.width = `${boxWidth * 3 + 12}px`;
 
-    // ty
-    this.translateY.forEach((li) => {
-      li.addEventListener('mouseleave', this.swapback);
-      li.addEventListener('mouseenter', this.swapfront);
-    });
-    document.title = 'Elektro Plus | Početna';
+    document.title = 'ELEKTROMONTING | Početna';
   }
+
+  // componentDidUpdate() {
+  //   alert('yes');
+  // }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    console.log(nextState);
+    let bool = true;
+    if (nextState.projs === this.state.projs) {
+      bool = false;
+    }
+    return bool;
+  };
+
   render() {
     this.slides = undefined;
     if (!this.slides) {
@@ -229,11 +372,12 @@ class Body extends Component {
       <main>
         <div id="spoji">
           <h2>
-            <strong>Elektro</strong> <span>Plus</span>
+            <strong>ELEKTROMONTING</strong>
           </h2>
+          <img src={require('../../../assets/img/emlogo.png')} alt="" />
         </div>
 
-        <div id="mainimgcontainer">
+        {/* <div id="mainimgcontainer">
           <div className="box">
             <div className="imgBx"></div>
             <div className="content">
@@ -277,77 +421,19 @@ class Body extends Component {
             </div>
           </div>
         </div>
-        <section id="proces">
-          <header>
-            <div id="uppertext">
-              <img src={require('../../../assets/img/iconica1.png')} alt="" />
-              <h2>Kako Funkcionišemo</h2>
-              <p>Timski rad</p>
-            </div>
-          </header>
-          <div id="gridparent">
-            <div className="gbox ty" ref={(ty) => this.translateY.push(ty)}>
-              <div className="front">
-                <i className="fas fa-desktop fa-7x"></i>
-                <i className="fas fa-mobile fa-7x"></i>
-              </div>
-              <div className="back" style={{ background: '#212529' }}>
-                <i className="fas fa-headphones fa-7x"></i>
-              </div>
-            </div>
-            <div className="gbox ty" ref={(ty) => this.translateY.push(ty)}>
-              <div className="front">
-                <i className="fas fa-handshake fa-7x"></i>
-              </div>
-              <div className="back" style={{ background: '#212529' }}>
-                <i className="fas fa-file-signature fa-7x"></i>
-              </div>
-            </div>
-            <div className="gbox ty" ref={(ty) => this.translateY.push(ty)}>
-              <div className="front">
-                <i className="fas fa-house-damage fa-7x"></i>
-              </div>
-              <div className="back" style={{ background: '#212529' }}>
-                <i className="fas fa-tools fa-7x"></i>
-              </div>
-            </div>
-            <div className="gbox ty" ref={(ty) => this.translateY.push(ty)}>
-              <div className="front">
-                <i className="fas fa-check fa-7x"></i>
-              </div>
-              <div className="back" style={{ background: '#212529' }}>
-                <i className="fab fa-java fa-7x"></i>
-              </div>
-            </div>
-            <div className="gbox boxtxt">
-              <h2>Kontaktirajte</h2>
-              <p>Nas putem elektronske pošte ili poziva.</p>
-            </div>
-            <div className="gbox boxtxt">
-              <h2>Dogovorite Posao</h2>
-              <p>
-                Izlaskom na teren ustanoviće se problem i biće vam dostavljena
-                ponuda.
-              </p>
-            </div>
-            <div className="gbox boxtxt">
-              <h2>Status Posla</h2>
-              <p>
-                Otklanjanje kvarova vršimo brzo, stručno i kvalitetno na
-                zadovoljstvo klijenata.
-              </p>
-            </div>
-            <div className="gbox boxtxt">
-              <h2>Završetak</h2>
-              <p>
-                Nakon završenog posla naručiocu usluge se ispostavlja fisklani
-                račun i uputstva za daljnja korištenja.
-              </p>
-            </div>
-            <div id="linijax"></div>
-            <div id="linijay1"></div>
-            <div id="linijay2"></div>
-            <div id="linijay3"></div>
+    */}
+        <section id="whatwedo">
+          <div id="bx1">
+            <h1>kvalitetan servis</h1>
+          </div>
+          <div id="bx2">
+            <h1>Dugogodišnje Iskustvo</h1>
+          </div>
+          <div id="bx3">
+            <h1>Poznajemo i Pratimo Nove Tehnologije</h1>
+          </div>
+          <div id="bx4">
+            <h1>Stručni Tim</h1>
           </div>
         </section>
         <section id="usluge">
@@ -382,7 +468,6 @@ class Body extends Component {
               </div>
               <h3>Elektroinstalacije</h3>
               <p>
-                <strong>Više snage - manje potrošnje.</strong>
                 Prije je industrija odlučivala koji produkti bi bili na tržištu.
                 Danas je to Kupac. Želje i ideje kupca su odlučujući faktor u
                 razvojnom radu, prema tome je i velika raznovrsnost ponude u
@@ -414,7 +499,6 @@ class Body extends Component {
               </div>
               <h3>Rasvjeta</h3>
               <p>
-                <strong>Bolje živjeti i raditi.</strong>
                 Pojedinačno koherentni rasvjetni scenariji se mogu uz pomoć
                 jednog inteligentnog rasvjetnog menadžmenta na bazi DALI(Digital
                 Adressable Lighting Interface) regulisati i upravljati. DALI ne
@@ -510,6 +594,7 @@ class Body extends Component {
             </div>
           </div>
         </section>
+        {/*
         <section id="lookaround">
           <div id="lookaroundimg"></div>
           <div id="lookaroundtxt">
@@ -547,7 +632,7 @@ class Body extends Component {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section id="projectsheader">
           <h2>Posljednji Projekti</h2>
           <div className="lineh"></div>
@@ -566,7 +651,40 @@ class Body extends Component {
               ref={this.projectSlider}
               onTransitionEnd={this.handleTransition}
             >
-              <div
+              {this.state.projs.map((proj, i) => (
+                <div
+                  style={{ width: '30vw' }}
+                  className="project"
+                  id={
+                    // i === 0
+                    //   ? 'one'
+                    //   : i === 1
+                    //   ? 'two'
+                    //   : i === 2
+                    //   ? 'three'
+                    //   : i === 3
+                    //   ? 'four'
+                    //   : ''
+                    'one'
+                  }
+                  key={uuid()}
+                  ref={(slide) => {
+                    if (
+                      this.slides.length < this.state.projs.length &&
+                      slide &&
+                      this.state.init
+                    ) {
+                      this.slides.push(slide);
+                    }
+                  }}
+                  style={{
+                    background: `url(${proj.imageUrl}) no-repeat center/cover`,
+                  }}
+                >
+                  <h3>{proj.title}</h3>
+                </div>
+              ))}
+              {/* <div
                 className="project"
                 id="one"
                 ref={(slide) => {
@@ -631,7 +749,7 @@ class Body extends Component {
                 }}
               >
                 <h3>Objekt jedan</h3>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -646,10 +764,8 @@ class Body extends Component {
           </div>
           <div id="upperrow">
             <div id="footersct1">
-              <img src={require('../../../assets/img/giphy3.gif')} alt="" />
-              <h2>
-                Elektro <span id="fix">Plus</span>
-              </h2>
+              <img src={require('../../../assets/img/emlogo.png')} alt="" />
+              <h2>ELEKTROMONTING</h2>
             </div>
             <div id="footersct2">
               <h2>O NAMA</h2>
@@ -718,32 +834,56 @@ class Body extends Component {
               <h2>Adresa i radno vrijeme</h2>
               <ul>
                 <li>
-                  <i className="fas fa-home"></i> Marijin Dvor
+                  <i
+                    style={{ color: 'lightblue', transform: 'scale(1.2)' }}
+                    className="fas fa-home"
+                  ></i>{' '}
+                  &nbsp;Most Spasa 64, Ilidža
                 </li>
                 <li>
-                  <i className="fas fa-home"></i> Titova 4
+                  <i
+                    style={{ color: 'lightcoral', transform: 'scale(1.2)' }}
+                    className="far fa-clock"
+                  ></i>{' '}
+                  &nbsp;pon-pet: 08:00 - 17:00
                 </li>
                 <li>
-                  <i className="far fa-clock"></i> pon-pet: 08:00 - 17:00
+                  <i
+                    style={{ color: 'lightsalmon', transform: 'scale(1.2)' }}
+                    className="far fa-clock"
+                  ></i>{' '}
+                  &nbsp;subota: 08:00 - 15:00
                 </li>
                 <li>
-                  <i className="far fa-clock"></i> subota: 08:00 - 15:00
+                  <i
+                    style={{ color: 'lightgreen', transform: 'scale(1.2)' }}
+                    className="fas fa-phone-alt"
+                  ></i>{' '}
+                  +387 33 246 495
+                </li>
+                <li style={{ display: 'flex' }}>
+                  <img
+                    id="resizeGmail"
+                    src={require('../../../assets/img/Gmail_Icon.png')}
+                  />
+                  &nbsp;E-mail: elektromontingemail@gmail.com
                 </li>
                 <li>
-                  <i className="fas fa-phone-alt"></i> +387 33 246 495
-                </li>
-                <li>
-                  <i className="fas fa-envelope-open-text"></i>
-                  E-mail: ElektroPlus@gmail.com
-                </li>
-                <li>
-                  <i className="fab fa-facebook-square"></i> Facebook
+                  <a
+                    style={{ textDecoration: 'none', color: 'wheat' }}
+                    href="https://www.facebook.com/elektro.monting"
+                    target="_blank"
+                  >
+                    <i className="fab fa-facebook-square"></i> Facebook
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
           <div id="bottomrow">
-            <p>&copy;2020 Elektro Plus - Tu za vas!</p>
+            <p>
+              &copy;{`${new Date().getFullYear()}`} ELEKTROMONTING - Tu za vas!
+            </p>
           </div>
         </footer>
       </main>
