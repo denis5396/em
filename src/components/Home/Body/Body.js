@@ -13,6 +13,7 @@ class Body extends Component {
     clicked: false,
     projs: [],
     lessThan: false,
+    lng: 0,
   };
   projectSlider = createRef();
   slides = createRef();
@@ -331,9 +332,13 @@ class Body extends Component {
         (state) => ({
           ...state,
           projs: [...copyObj],
+          lng: copyObj.length,
         }),
         () => {
           console.log(this.state);
+          if (this.projectSlider.current && this.state.projs.length === 1) {
+            this.projectSlider.current.parentElement.style.maxWidth = '50vw';
+          }
         }
       );
       console.log(copyObj);
@@ -512,7 +517,7 @@ class Body extends Component {
               <div className="imgwrapper">
                 <i className="fas fa-server fa-7x"></i>
               </div>
-              <h3>Mreže</h3>
+              <h3>Mrežne Instalacije</h3>
               <ul id="fixaj">
                 <li>
                   <p>Radimo slijedeće:</p>
@@ -665,7 +670,12 @@ class Body extends Component {
                     //   : i === 3
                     //   ? 'four'
                     //   : ''
-                    'one'
+                    // 'one'
+                    this.state.lng === 2
+                      ? 'item2'
+                      : this.state.lng === 1
+                      ? 'item3'
+                      : 'one'
                   }
                   key={uuid()}
                   ref={(slide) => {

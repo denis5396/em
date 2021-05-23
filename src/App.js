@@ -12,7 +12,7 @@ import AdminPanel from './components/adminLogin/adminPanel/AdminPanel';
 function App() {
   return (
     <HashRouter basename="/">
-      <div className="App" basename="/elektro_plus/">
+      <div className="App" basename="/elektromonting/">
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/usluge" component={Usluge} />

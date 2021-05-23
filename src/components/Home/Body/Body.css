@@ -8,6 +8,20 @@ main {
   left: 5%;
   margin: auto;
 }
+#item2 {
+  width: 38vw;
+  height: 90%;
+  position: relative;
+  overflow: hidden;
+  border-top: 5px solid #536dfe;
+}
+#item3 {
+  width: 50vw;
+  height: 90%;
+  position: relative;
+  overflow: hidden;
+  border-top: 5px solid #536dfe;
+}
 #whatwedo {
   width: 100%;
   height: 40vh;
@@ -1035,7 +1049,6 @@ i {
 #projects #project #projectslider #one {
   width: 25vw;
   height: 90%;
-  background-color: red;
   background: url('../../../assets/img/jakastruja.jpg') no-repeat center/cover;
   position: relative;
   border-top: 5px solid #536dfe;
@@ -1050,7 +1063,8 @@ i {
   color: #fff;
   text-transform: uppercase;
 }
-#projects #project #one::before {
+#projects #project #one::before,
+#projects #project #item2::before {
   transition: background-color 0.5s ease;
   position: absolute;
   content: '';
@@ -1059,6 +1073,7 @@ i {
   background-color: rgba(0, 0, 0, 0.5);
 }
 #projects #project #one:hover::before,
+#projects #project #item2:hover::before,
 #projects #project #two:hover::before,
 #projects #project #three:hover::before,
 #projects #project #four:hover::before,

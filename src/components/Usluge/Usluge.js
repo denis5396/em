@@ -592,7 +592,525 @@ class Usluge extends Component {
             onClick={this.goLeft}
           ></i> */}
         </header>
-        <div id={styles.searchbox}>
+        <body id={styles.uslugeBody}>
+          <div id={styles.ourServices}>
+            <div id={styles.ourServicesHeader}>
+              <div id={styles.ourServicesHeaderHeading}>
+                <span></span>
+                <h2>
+                  Naše <br />
+                  Usluge
+                </h2>
+              </div>
+              <div id={styles.ourServicesHeaderText}>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Necessitatibus deleniti dignissimos debitis modi soluta illum
+                  inventore eius, magni ipsam est!
+                </p>
+              </div>
+            </div>
+            <div id={styles.ourServicesBody}>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/shtransp1.png')} />
+                <h2>Pametna Kuća</h2>
+                <p>Kontrolišite vaš dom pomoću interneta</p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <i class="fas fa-house-damage fa-6x"></i>
+                <h2>Instalacija Jake Struje</h2>
+                <p>
+                  Planiramo, implementiramo i održavamo različite vrste
+                  instalacija jake struje
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/weakcuricon1.png')} />
+                <h2>Instalacija Slabe Struje</h2>
+                <p>
+                  Električne instalacije slabe struje služe za napajanje i
+                  povezivanje telekomunikacijskih uređaja, uređaja za daljinsko
+                  upravljanje, mjerenje i dr.
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/cameraicontransp.png')} />
+                {/* <h2>Sigurosna Rješenja</h2> */}
+                <h2>Instalacija Tehničke Zaštite</h2>
+                <p>
+                  Protivpožarni alarmi, video nadzor, signalni uređaji, alarmne
+                  centrale i pametni alarmni sistemi, kontrole pristupa
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/solarpicon2.png')} />
+                <h2>Instalacija Solarnih Panela</h2>
+                <p>
+                  Ugradnja solarne elektrane garantuje brz povrat investicije,
+                  mogućnost totalne neovisnosti o elektro mreži i više.
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/gromobran.png')} />
+                <h2>Gromobranska Instalacija</h2>
+                <p>
+                  Gromobran je električna instalacija izvedena tako da mogućnost
+                  udara groma u zaštićeni objekt bude svedena na minimum
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/voltm1.png')} />
+                <h2>Ispitivanje Električnih Instalacija</h2>
+                <p>
+                  Ispitujemo elektroinstalacije, sigurnosne uređaje kao što su
+                  FID sklopke, razvodne ormare, električne uređaje i električne
+                  mašine, kontrolne/sigurnosne sisteme.
+                </p>
+              </div>
+              <div className={styles.ourServicesCards}>
+                <img src={require('../../assets/img/planproj1.png')} />
+                <h2>Planiranje i Projektovanje</h2>
+                <p>
+                  Naša tehničke usluge planiranja obuhvataju sva polja
+                  električnih sistema po najnovijim tehničkim i tehnološkim
+                  saznanjima
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id={styles.sh}>
+            {/* <div id={styles.shBack}>
+              <div id={styles.shBackOne}></div>
+              <div id={styles.shBackTwo}></div>
+            </div> */}
+            <h1>Pametna Kuća</h1>
+            <p>
+              Kućna Automatizacija je bila dostupna već nekoliko godina, ali
+              izvan financijskih mogućnosti za većinu ljudi. Stvari su se
+              promijenile zadnjih par godina, i kućna automatizacija postaje
+              povoljnija i popularnija.
+            </p>
+            <p>
+              Opisano je i kao pametna kuća, i mijenja način na koji se kuće
+              kabliraju i upravljaju.
+            </p>
+            <p>
+              Budućnost je tu, i sve u vašem domu se može kontrolisati putem
+              internet mreže. Šta to tačno znači? To je tehnologija koja
+              kontroliše automatizaciju integralnih funkcija bilo kakvog objekta
+              (rezidencijalnog, komercijalnog, industrijskog itd) kao što su
+              HVAC, rasvjeta, multimedija, sigurnost, energetski menadžment i
+              više, sve što se napaja električnom energijom se može kontrolisati
+              kroz mrežu.
+            </p>
+            <p>
+              Sistem pametne kuće također istovremeno enormno smanjuje
+              energetske troškove tako što konstantno nadgleda i prilagođava
+              operativne postavke za sve konektovane uređaje na KNX bus.
+            </p>
+            <p>
+              Uređaji se mogu kontrolisati uz pomoć pametnog telefona, tableta i
+              glasa(Amazon Alexa). Možete upravljati ne samo jednom stavkom,
+              nego i više njih sa jednom komandom. Recite "Alexa laku noć" i
+              nakon toga se isključuje sva rasvjeta, termostat se podesi na
+              željenu temperaturu i vrata se zaključavaju.
+            </p>
+            <h2>Mogućnosti</h2>
+            <div id={styles.shCards}>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardsigurnost.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Sigurnosni Sistem</h3>
+                  <p>
+                    Ugradnjom pametnog sigurnosnog sistema imate direktan prenos
+                    podataka o objektu, putem telefona
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardinterfon.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Integracija Interfona</h3>
+                  <p>
+                    Pametan interfon integrisan u odgovarajuću Smart Home
+                    aplikaciju
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardmob.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Pristup putem mobilnog telefona</h3>
+                  <p>Vaš telefon koristite kao ključ</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardinterval.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Podešavanje intervala za bilo koji uređaj</h3>
+                  <p>
+                    Korisno za noćnu rasvjetu, žaluzine, ali i za sve druge
+                    uređaje
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardpodno.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Kontrola podnog grijanja i hlađenja</h3>
+                  <p>
+                    Učinite vaše podno grijanje pametnim i uštedite energiju
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardgrijanje.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Kontrola grijanja i hlađenja</h3>
+                  <p>
+                    Upravljanje grijanjem i hlađenjem na pametan način, čak i sa
+                    udaljene lokacije
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardventilacija.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Integracija ventilacionog sistema</h3>
+                  <p>Pametno provjetravanje prostorije</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardrasvjeta.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Kontrola rasvjete</h3>
+                  <p>
+                    Automatska kontrola rasvjete ili kontrola sa udaljene
+                    lokacije
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardrasvjeta.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Senzori za svjetlost</h3>
+                  <p>Kreirajte automatizacije na osnovu nivoa osvjetljenja</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardvrata.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Senzori za vrata i prozore</h3>
+                  <p>
+                    Aktiviranje uređaja ako su vaša vrata i prozori otvoreni
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardsenzor.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Senzori pokreta</h3>
+                  <p>
+                    Aktiviranje uređaja ili upozorenje na osnovu detektovanja
+                    pokreta
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardbtn.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Fizički tasteri za kontrolu</h3>
+                  <p>Klasični tasteri u kombinaciji sa digitalnim</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardcamera.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Integracija video nadzora</h3>
+                  <p>Direktan prenos u aplikaciji</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardremote.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Upravljanje sa udaljene lokacije</h3>
+                  <p>
+                    Potpuna kontrola, sa bilo kog mjesta, u svakom trenutku,
+                    putem telefona
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardsmartbtn.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Pametni tasteri za kontrolu</h3>
+                  <p>Različite opcije pametnih tastera za kontrolu</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcarddim.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Dimovanje rasvjete</h3>
+                  <p>Prigušivanje rasvjete, jednostavno putem aplikacije</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardscene.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Scene</h3>
+                  <p>
+                    Jednim klikom aktivirate koliko uređaja želite, istovremeno
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardroletne.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Kontrola roletni</h3>
+                  <p>Pametna kontrola roletni i žaluzina</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardvrijeme.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Integracija vremenske prognoze</h3>
+                  <p>Aktiviranje uređaja prema vremenskim uslovima</p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardalert.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Upozorenja i obavještenja</h3>
+                  <p>
+                    Primite informacije na vrijeme, preko telefona ili tableta
+                  </p>
+                </div>
+              </div>
+              <div className={styles.shCard}>
+                <img src={require('../../assets/img/shcardgate.png')} />
+                <div className={styles.shCardTxt}>
+                  <h3>Kontrola rampe i kapije</h3>
+                  <p>
+                    Otvaranje prepoznavanjem registarskih tablica, detektovanjem
+                    lokacije ili telefonom
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id={styles.ourServicesStrongCur}>
+            <h2>Instalacija Jake Struje</h2>
+            <p>
+              Planiramo, implementiramo i održavamo različite vrste instalacija
+              jake struje:
+            </p>
+            <ul>
+              <li>
+                Utičnice, prekidači, ugradnja upravljačkih ormara i razvodnih
+                ormara
+              </li>
+              <li>
+                Uvođenje instalacija jake struje za industrijsku i drugu
+                električnu opremu
+              </li>
+              <li>
+                Instalacije za sisteme napajanja, grijanja i klimatizacije
+              </li>
+              <li>Instalacije priključnica i fiksnih spojeva</li>
+              <li>Instalacije rasvjete</li>
+              <li>Razvodne ormare</li>
+              <li>Gromobran</li>
+            </ul>
+          </div>
+          <div id={styles.ourServicesWeakCur}>
+            <h2>Instalacija Slabe Struje</h2>
+            <p>
+              Planiramo, implementiramo i održavamo različite vrste instalacija
+              slabe struje:
+            </p>
+            <ul>
+              <li>Alarmi</li>
+              <li>Video nadzor</li>
+              <li>Interfoni (video i audio)</li>
+              <li>Vatrodojava</li>
+              <li>Detekcija gasa</li>
+              <li>Antenske instalacije</li>
+              <li>Kontrole pristupa</li>
+              <li>Računarska mreža (internet)</li>
+              <li>Telefonske instalacije</li>
+            </ul>
+          </div>
+          <div id={styles.ourServicesSecurity}>
+            <h2>Instalacija Tehničke Zaštite</h2>
+            <p>
+              U svrhu zaštite imovine i osoba, pružamo kompletnu uslugu tehničke
+              zaštite. Naš stručni tim će odraditi procijenu ugroženosti objekta
+              i prijedlog njegove moguće zaštite, a zatim izraditi projekt, te
+              Vam pružiti instalaciju i održavanje instaliranog sistema. Od
+              tehničke zaštite nudimo slijedeće:
+            </p>
+            <ul>
+              <li>Protivpožarni sistemi</li>
+              <li>Uzemljenje i izjednačavanje potencijala</li>
+              <li>
+                Ugradnja prenaponskih uređaja u razvodnom ormaru i na
+                priključcima telefona, interneta i kablovske
+              </li>
+              <li>Interfoni (video i audio)</li>
+              <li>Video nadzor</li>
+              <li>Alarmne centrale</li>
+            </ul>
+          </div>
+          <div id={styles.ourServicesSolar}>
+            <h2>Solarni Paneli</h2>
+            <p>
+              Vršimo projektovanje i izgradnju solarnih elektrana sa mogučnošću
+              plasiranja i prodaje električne energije u mrežu.
+            </p>
+            <p>Zašto izabrati solarnu energiju ?</p>
+            <div id={styles.solarItems}>
+              <div className={styles.solarItem}>
+                <img src={require('../../assets/img/solarinvest.png')} />
+                <div className={styles.solarTxt}>
+                  <h3>Povratak investicije</h3>
+                  <p>
+                    Ugradnja solarne elektrane garantuje brz povrat investicije.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.solarItem}>
+                <img
+                  src={require('../../assets/img/solarhouse.png')}
+                  style={{ borderRadius: '50%' }}
+                />
+                <div className={styles.solarTxt}>
+                  <h3>Područja bez elektro mreže</h3>
+                  <p>
+                    Sistem je jako pogodan za vikendice, kuće koje ne pokrivaju
+                    elektro mrežu.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.solarItem}>
+                <img src={require('../../assets/img/solaroffgrid1.png')} />
+                <div className={styles.solarTxt}>
+                  <h3>Off-grid sistem</h3>
+                  <p>Mogućnost totalne neovisnosti o elektro mreži.</p>
+                </div>
+              </div>
+              <div className={styles.solarItem}>
+                <img src={require('../../assets/img/shcardinterval.png')} />
+                <div className={styles.solarTxt}>
+                  <h3>Dugoročno rješenje</h3>
+                  <p>Solarni paneli imaju vijek trajanja od 25 godina.</p>
+                </div>
+              </div>
+              <div className={styles.solarItem}>
+                <img src={require('../../assets/img/solareco1.png')} />
+                <div className={styles.solarTxt}>
+                  <h3>Ekološki prihvatljivo</h3>
+                  <p>
+                    Sistemi su ekološki poželjni, jer ne prouzrokuju štetne
+                    uticaje na okoliš.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.solarItem}>
+                <img src={require('../../assets/img/solarsavings1.png')} />
+                <div className={styles.solarTxt}>
+                  <h3>Ušteda</h3>
+                  <p>
+                    Sistemi ON-SWITCH prouzrokuju enormnu uštedu elekrične
+                    energije, kao i pogodnosti spajanja električne energije i
+                    grijanja/sanitarne vode
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id={styles.ourServicesGrom}>
+            <h2>Gromobranska Instalacija</h2>
+            <p>
+              Gromobran je električna instalacija izvedena tako da mogućnost
+              udara groma u zaštićeni objekat bude svedena na minimum. Ta
+              instalacija je sastavljena od: hvataljki, odvoda, uzemljivača,
+              dopunskog pribora (prema potrebi).
+            </p>
+            <p>
+              Uzemljenje omogućuje brzo pražnjenje naboja u okolno tlo. Uglavnom
+              se primjenjuju duboko zabijene čelične ili bakrene šipke ili
+              ploče, a oko kuće se postavlja prsten od debljih šipki ili traka
+              na koje se priključuju svi vertikalni krovni odvodi. Bitno je da
+              je spoj metalne površine i tla potpuno provodljiv, pa
+              konstrukciju, dimenzije, način postavljanja i izbor materijala
+              treba odrediti stručnjak.
+            </p>
+          </div>
+          <div id={styles.ourServicesTest}>
+            <h2>Ispitivanje Električnih Instalacija</h2>
+            <p>
+              Defektni uređaji ili instalacije prouzrokuju mnogo štete. Česti
+              uzrok: istrošenost ili preopterećenje, takvi rizici se mogu
+              identificirati i eliminisati uz pomoć redovnih ispitivanja.
+            </p>
+            <p>
+              Izjava o završnom pregledu i ispitivanju el. instalacija i potvrda
+              o upotrebljivosti izvedene električne instalacije je potrebna kako
+              bi distributer električne energije mogao napraviti priključak na
+              objekt. Izjavu o završnom pregledu i ispitivanju el. instalacija i
+              potvrdu o upotrebljivosti izvedene električne instalacije je
+              moguće izdati samo ako su zadovoljeni slijedeći uvjeti:
+            </p>
+            <ul>
+              <li>
+                Uzemljenje objekta postavljeno (potrebno napraviti mjerenje
+                uzemljenja)
+              </li>
+              <li>
+                Napojni vod postavljen od mjernog priključka ormara do razvodnog
+                ormara (potrebno napraviti mjerenje otpora izolacije napojnog
+                voda)
+              </li>
+              <li>
+                Razvodna kutija postavljena sa FID sklopkom 25/0,03A (30 mA)
+                (potrebno ispitati funkcionalnost FID sklopke, izmjeriti
+                indirektni dodir)
+              </li>
+              <li>
+                Minimalno postavljen jedan strujni krug (žarulja, utičnica,
+                prekidač)
+              </li>
+              <li>
+                Ispitivanje električnih instalacija (otpor izolacije,
+                impedancija petlje kvara, obrada zaštitnog uređaja
+                diferencijalne struje)
+              </li>
+              <li>Ispitivanje rasvjete</li>
+              <li>Ispitivanje otpora uzemljenja</li>
+              <li>Ispitivanje statičkog elektriciteta</li>
+              <li>Ispitivanje mjera izjednačavanja potencijala</li>
+              <li>Ispitivanje neprekidnosti zaštitnog vodiča</li>
+            </ul>
+          </div>
+          <div id={styles.ourServicesPlan}>
+            <h2>Planiranje i Projektovanje</h2>
+            <p>
+              U projektnoj dokumentaciji obrađujemo sljedeće električne
+              instalacije:
+            </p>
+            <ul>
+              <li>Električne instalacije pametne kuće</li>
+              <li>Električne instalacije jake struje</li>
+              <li>Električne instalacije slabe struje</li>
+              <li>Sistemi dojave požara</li>
+              <li>
+                Sistemi tehničke zaštite (videonadzor, kontrola pristupa,
+                protuprovala)
+              </li>
+            </ul>
+          </div>
+        </body>
+        {/* <div id={styles.searchbox}>
           <i className={`fas fa-search fa-3x`}></i>
           <input
             type="search"
@@ -653,7 +1171,7 @@ class Usluge extends Component {
           <div className={styles.tagcustom} id="tagprojektovanje">
             <h4>Projektovanje</h4>
           </div>
-        </div>
+        </div> */}
         {/* <div id={styles.jakastrp}>
           <section id={styles.jakastr} ref={this.jakastrS}>
             <div className={styles.uscont}>
