@@ -2,7 +2,7 @@
   "name": "elektromonting",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://denis5396.github.io/elektro_plus/",
+  "homepage": "https://denis5396.github.io/em/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
