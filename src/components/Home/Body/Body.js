@@ -298,6 +298,9 @@ class Body extends Component {
   };
 
   componentDidMount() {
+    document.addEventListener('DOMContentLoaded', function (event) {
+      alert('loaded');
+    });
     if (this.state.projs.length <= 3) {
       this.setState({ lessThan: true });
     }
