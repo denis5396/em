@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d298aefb24db3b9536fd51df77ec8cf5",
+    "revision": "a7d530fdc741b5f091822c38c964b1c1",
     "url": "/em/index.html"
   },
   {
-    "revision": "bbc1f1f48e0f173f6e45",
-    "url": "/em/static/css/main.6fe9eb8a.chunk.css"
+    "revision": "24b2171eb3b723997f04",
+    "url": "/em/static/css/main.b17a888b.chunk.css"
   },
   {
     "revision": "2ad8b2101872b894633c",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/js/2.71384ac0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bbc1f1f48e0f173f6e45",
-    "url": "/em/static/js/main.181f2f60.chunk.js"
+    "revision": "24b2171eb3b723997f04",
+    "url": "/em/static/js/main.5ab7798c.chunk.js"
   },
   {
     "revision": "340a55f6fe6bdcfbebc5",
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/Dark-Smart-Home-Background2.2d6564c3.jpg"
   },
   {
-    "revision": "1a6cf56c7269d66d205c9ec1ebf1a323",
-    "url": "/em/static/media/Dark-Smart-Home-Background4.1a6cf56c.jpg"
+    "revision": "acbd986f84425378edc2e08dbb63aafb",
+    "url": "/em/static/media/Dark-Smart-Home-Background4.acbd986f.webp"
   },
   {
     "revision": "598d07e7761f5bca3a3f78e95b6db422",
@@ -52,8 +52,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/Luxury-apartment-living-room-wallpaper-1920x1200.245f27f0.jpg"
   },
   {
-    "revision": "db0217df4764f9a429a69264ad955b28",
-    "url": "/em/static/media/Luxury-apartment-living-room-wallpaper-1920x12003.db0217df.jpg"
+    "revision": "986653b76dc210d606242e87636d49ce",
+    "url": "/em/static/media/Luxury-apartment-living-room-wallpaper-1920x12003.986653b7.webp"
   },
   {
     "revision": "0984e644810bd8c88759e1280e3d2e0b",
@@ -76,8 +76,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/electric-eng.aac7f761.jpg"
   },
   {
-    "revision": "cdfeb05a48780bd605c08590307b6dbd",
-    "url": "/em/static/media/electric-eng2.cdfeb05a.jpg"
+    "revision": "6533aac908e038e60bd8056f44def9b0",
+    "url": "/em/static/media/electric-eng2.6533aac9.webp"
   },
   {
     "revision": "8c9fef5a0878e20b2c25064d375ec198",
@@ -116,8 +116,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/hue9.e0f82b5c.jpg"
   },
   {
-    "revision": "a8a164e17c09c3fb6aa579c351159184",
-    "url": "/em/static/media/ibemibackground3.a8a164e1.jpg"
+    "revision": "8cc560425032d108a7c2f494a307250b",
+    "url": "/em/static/media/ibemibackground3.8cc56042.webp"
   },
   {
     "revision": "bdef804150f2dc89d32dd8cdb2cfd251",
@@ -128,8 +128,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/instruments.58fe44ad.jpg"
   },
   {
-    "revision": "0f6e5b787d95b6bacb8757de3823be21",
-    "url": "/em/static/media/instruments3.0f6e5b78.jpg"
+    "revision": "c2865e38ea5ed3306cdf1209b66d052b",
+    "url": "/em/static/media/instruments3.c2865e38.webp"
   },
   {
     "revision": "6033c3d8d58f84d3982e76754cf93207",
@@ -148,8 +148,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/kvservis.d1cede66.jpg"
   },
   {
-    "revision": "b574ea29d6a3da7891bc2c8c0a2e965d",
-    "url": "/em/static/media/kvservis2.b574ea29.jpg"
+    "revision": "591469562c3c8f63baea356a60390639",
+    "url": "/em/static/media/kvservis2.59146956.webp"
   },
   {
     "revision": "904b4d433a8c6b731d13d26634141197",
@@ -164,8 +164,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/najntehn2.9619aa5f.png"
   },
   {
-    "revision": "6c9ed3e86201e50001e9c9444d67d707",
-    "url": "/em/static/media/najntehn3.6c9ed3e8.png"
+    "revision": "54d97570161f33903eb3c9ab4574a274",
+    "url": "/em/static/media/najntehn3.54d97570.webp"
   },
   {
     "revision": "548531b583a6e887acaebf6398186f83",
@@ -176,12 +176,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/ormar.115b8e02.jpg"
   },
   {
-    "revision": "ad3f582eec012290eb3ac14fcf406692",
-    "url": "/em/static/media/ormar3.ad3f582e.jpg"
+    "revision": "37801e584a25774784f54d68bfbf6b2f",
+    "url": "/em/static/media/ormar3.37801e58.webp"
   },
   {
     "revision": "0244f9e40bf032d4ac8d9b0b5dad1de0",
     "url": "/em/static/media/output-onlinepngtools.0244f9e4.png"
+  },
+  {
+    "revision": "86da2f5e945f7314028e3a0d0b16dd0e",
+    "url": "/em/static/media/output-onlinepngtools2.86da2f5e.webp"
   },
   {
     "revision": "76ef99f7ee74158a2046e633eda8fc36",
@@ -244,8 +248,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/security-technology.dc216848.jpg"
   },
   {
-    "revision": "f3a2e2550ef442388f477a47a9d93514",
-    "url": "/em/static/media/security-technology3.f3a2e255.jpg"
+    "revision": "14459aa906a0cc148366c776a88fd996",
+    "url": "/em/static/media/security-technology3.14459aa9.webp"
   },
   {
     "revision": "e1f0172fd95c633dde4acc5b79cbb7c4",
@@ -292,8 +296,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/showcaseknx1.977a9ef1.jpg"
   },
   {
-    "revision": "2eac2fb7721302e38ddd9247dc8d304b",
-    "url": "/em/static/media/showcaseknx3.2eac2fb7.jpg"
+    "revision": "1180b66969d42c35187df4518f171e60",
+    "url": "/em/static/media/showcaseknx3.1180b669.webp"
   },
   {
     "revision": "70ffc3273d6af846007aee8ebbd5c980",
@@ -304,8 +308,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/slabastrshowc1.383f33f9.jpg"
   },
   {
-    "revision": "5fe4791d1ada2e3074c518fecbeecb33",
-    "url": "/em/static/media/slabastrshowc13.5fe4791d.jpg"
+    "revision": "bfa43e7e44d692f5caeb4dabf56791f1",
+    "url": "/em/static/media/slabastrshowc13.bfa43e7e.webp"
   },
   {
     "revision": "90494e239d13852533dd7a6a12843910",
@@ -344,8 +348,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/strucnitim2.447da629.png"
   },
   {
-    "revision": "6eb1ce54e3ec32f16332b72426d88b94",
-    "url": "/em/static/media/strucnitim3.6eb1ce54.png"
+    "revision": "31f7849412a8c0eb6406e0193f113738",
+    "url": "/em/static/media/strucnitim3.31f78494.webp"
   },
   {
     "revision": "da8a42cdaa48b95897a2db1aa7d56759",
