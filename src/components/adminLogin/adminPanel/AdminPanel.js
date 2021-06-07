@@ -811,14 +811,14 @@ const AdminLogin = () => {
   }
 
   function disableScroll() {
-    document.body.addEventListener('touchmove', preventDefault, {
-      passive: false,
-    });
+    // document.body.addEventListener('touchmove', preventDefault, {
+    //   passive: false,
+    // });
   }
   function enableScroll() {
-    document.body.removeEventListener('touchmove', preventDefault, {
-      passive: false,
-    });
+    // document.body.removeEventListener('touchmove', preventDefault, {
+    //   passive: false,
+    // });
   }
 
   const handleRemoveMode = () => {

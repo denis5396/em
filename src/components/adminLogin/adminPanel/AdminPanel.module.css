@@ -730,3 +730,36 @@ form label {
 #imgOL:hover {
   color: royalblue;
 }
+@media only screen and (max-width: 500px) {
+  #hexagonP {
+    grid-template-columns: 1fr 2fr !important;
+    grid-template-rows: 2fr auto;
+  }
+  #btnCtrl {
+    grid-template-rows: repeat(2, 80px);
+    margin-top: 5rem;
+    width: initial;
+  }
+  #innerTitle input {
+    font-size: 10px !important;
+    height: 100%;
+  }
+  #createArticle {
+    width: 90vw;
+    padding: 5rem 4rem 5rem;
+  }
+}
+@media only screen and (max-width: 900px) and (max-height: 500px) {
+  #createArticle {
+    width: 80vw;
+    height: fit-content;
+    top: 55%;
+    padding: 1rem;
+  }
+  #createArticle h2 {
+    margin-bottom: 0rem;
+  }
+  #submitArticle {
+    margin: 0;
+  }
+}

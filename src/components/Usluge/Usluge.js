@@ -19,6 +19,9 @@ class Usluge extends Component {
   jakastrS = createRef();
   slabastrS = createRef();
   knxS = createRef();
+  solarniP = createRef();
+  gromobran = createRef();
+  ispitivanje = createRef();
   dijagnozaS = createRef();
   sigurnostS = createRef();
   planiranjeS = createRef();
@@ -26,6 +29,7 @@ class Usluge extends Component {
   mobileDropdownRef = createRef();
   dropdownClick = createRef();
   navRef = createRef();
+  cardsBody = createRef();
 
   goRight = () => {
     if (this.state.clickable) {
@@ -99,7 +103,32 @@ class Usluge extends Component {
     };
   }
   componentDidMount() {
+    console.log(this.props.location);
+    // window.scroll(0, this.findPos(this.knxS.current));
     // this.callInterval();
+    if (this.props.location.state) {
+      switch (this.props.location.state.infoId) {
+        case 'sh':
+          // window.scroll(0, this.findPos(this.knxS.current));
+          this.knxS.current.scrollIntoView();
+          break;
+        case 'js':
+          this.jakastrS.current.scrollIntoView();
+          break;
+        case 'ss':
+          this.slabastrS.current.scrollIntoView();
+          break;
+        case 'dijagnoza':
+          this.ispitivanje.current.scrollIntoView();
+          break;
+        case 'sigurnost':
+          this.sigurnostS.current.scrollIntoView();
+          break;
+        case 'planiranje':
+          this.planiranjeS.current.scrollIntoView();
+          break;
+      }
+    }
     const dropDown = this.navRef.current.clientHeight;
     this.mobileDropdownUlRef.current.style.transform = 'translateY(10rem)';
     this.mobileDropdownUlRef.current.style.opacity = '0';
@@ -147,11 +176,13 @@ class Usluge extends Component {
   }
   findPos = (obj) => {
     var curtop = 0;
-    if (obj.offsetParent) {
-      do {
-        curtop += obj.offsetTop;
-      } while ((obj = obj.offsetParent));
-      return [curtop];
+    if (obj) {
+      if (obj.offsetParent) {
+        do {
+          curtop += obj.offsetTop;
+        } while ((obj = obj.offsetParent));
+        return [curtop];
+      }
     }
   };
   // loop = undefined;
@@ -358,10 +389,29 @@ class Usluge extends Component {
     window.scroll(0, this.findPos(node));
   };
 
+  handleClickCards = (e) => {
+    console.log(this.cardsBody.current.children);
+    for (let i = 0; i < this.cardsBody.current.children.length; i++) {
+      if (this.cardsBody.current.children[i].contains(e.target)) {
+        console.log(
+          this.cardsBody.current.parentElement.parentElement.children[
+            i + 1
+          ].scrollIntoView()
+        );
+      }
+    }
+  };
+
   render() {
     return (
       <>
-        <header id={styles.headeru}>
+        <header
+          id={styles.headeru}
+          style={{
+            background: `url(${require('../../assets/img/showcaseclassic.jpg')}) no-repeat center center/cover`,
+            height: '470px',
+          }}
+        >
           <nav id={styles.nav} ref={this.navRef}>
             <a id={styles.homelink} href="index.html">
               <Link to={'/'}>
@@ -604,20 +654,37 @@ class Usluge extends Component {
               </div>
               <div id={styles.ourServicesHeaderText}>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Necessitatibus deleniti dignissimos debitis modi soluta illum
-                  inventore eius, magni ipsam est!
+                  Sve vrste elektroinstalacionih radova jake i slabe
+                  struje(alarmi, video, mreža, interfonija, rasvjeta...).
                 </p>
               </div>
             </div>
-            <div id={styles.ourServicesBody}>
+            <div
+              id={styles.ourServicesBody}
+              onClick={(e) => this.handleClickCards(e)}
+              ref={this.cardsBody}
+            >
               <div className={styles.ourServicesCards}>
                 <img src={require('../../assets/img/shtransp1.png')} />
                 <h2>Pametna Kuća</h2>
                 <p>Kontrolišite vaš dom pomoću interneta</p>
               </div>
               <div className={styles.ourServicesCards}>
-                <i class="fas fa-house-damage fa-6x"></i>
+                <i
+                  class={
+                    window.innerWidth <= 300
+                      ? 'fas fa-house-damage fa-2x'
+                      : window.innerWidth <= 400
+                      ? 'fas fa-house-damage fa-3x'
+                      : window.innerWidth <= 500
+                      ? 'fas fa-house-damage fa-4x'
+                      : window.innerWidth <= 800
+                      ? 'fas fa-house-damage fa-4x'
+                      : window.innerWidth <= 1024
+                      ? 'fas fa-house-damage fa-5x'
+                      : 'fas fa-house-damage fa-6x'
+                  }
+                ></i>
                 <h2>Instalacija Jake Struje</h2>
                 <p>
                   Planiramo, implementiramo i održavamo različite vrste
@@ -678,7 +745,7 @@ class Usluge extends Component {
               </div>
             </div>
           </div>
-          <div id={styles.sh}>
+          <div id={styles.sh} ref={this.knxS}>
             {/* <div id={styles.shBack}>
               <div id={styles.shBackOne}></div>
               <div id={styles.shBackTwo}></div>
@@ -898,7 +965,7 @@ class Usluge extends Component {
               </div>
             </div>
           </div>
-          <div id={styles.ourServicesStrongCur}>
+          <div id={styles.ourServicesStrongCur} ref={this.jakastrS}>
             <h2>Instalacija Jake Struje</h2>
             <p>
               Planiramo, implementiramo i održavamo različite vrste instalacija
@@ -922,7 +989,7 @@ class Usluge extends Component {
               <li>Gromobran</li>
             </ul>
           </div>
-          <div id={styles.ourServicesWeakCur}>
+          <div id={styles.ourServicesWeakCur} ref={this.slabastrS}>
             <h2>Instalacija Slabe Struje</h2>
             <p>
               Planiramo, implementiramo i održavamo različite vrste instalacija
@@ -940,7 +1007,7 @@ class Usluge extends Component {
               <li>Telefonske instalacije</li>
             </ul>
           </div>
-          <div id={styles.ourServicesSecurity}>
+          <div id={styles.ourServicesSecurity} ref={this.sigurnostS}>
             <h2>Instalacija Tehničke Zaštite</h2>
             <p>
               U svrhu zaštite imovine i osoba, pružamo kompletnu uslugu tehničke
@@ -961,7 +1028,25 @@ class Usluge extends Component {
               <li>Alarmne centrale</li>
             </ul>
           </div>
-          <div id={styles.ourServicesSolar}>
+          <div id={styles.ourServicesGrom} ref={this.gromobran}>
+            <h2>Gromobranska Instalacija</h2>
+            <p>
+              Gromobran je električna instalacija izvedena tako da mogućnost
+              udara groma u zaštićeni objekat bude svedena na minimum. Ta
+              instalacija je sastavljena od: hvataljki, odvoda, uzemljivača,
+              dopunskog pribora (prema potrebi).
+            </p>
+            <p>
+              Uzemljenje omogućuje brzo pražnjenje naboja u okolno tlo. Uglavnom
+              se primjenjuju duboko zabijene čelične ili bakrene šipke ili
+              ploče, a oko kuće se postavlja prsten od debljih šipki ili traka
+              na koje se priključuju svi vertikalni krovni odvodi. Bitno je da
+              je spoj metalne površine i tla potpuno provodljiv, pa
+              konstrukciju, dimenzije, način postavljanja i izbor materijala
+              treba odrediti stručnjak.
+            </p>
+          </div>
+          <div id={styles.ourServicesSolar} ref={this.solarniP}>
             <h2>Solarni Paneli</h2>
             <p>
               Vršimo projektovanje i izgradnju solarnih elektrana sa mogučnošću
@@ -1028,25 +1113,7 @@ class Usluge extends Component {
               </div>
             </div>
           </div>
-          <div id={styles.ourServicesGrom}>
-            <h2>Gromobranska Instalacija</h2>
-            <p>
-              Gromobran je električna instalacija izvedena tako da mogućnost
-              udara groma u zaštićeni objekat bude svedena na minimum. Ta
-              instalacija je sastavljena od: hvataljki, odvoda, uzemljivača,
-              dopunskog pribora (prema potrebi).
-            </p>
-            <p>
-              Uzemljenje omogućuje brzo pražnjenje naboja u okolno tlo. Uglavnom
-              se primjenjuju duboko zabijene čelične ili bakrene šipke ili
-              ploče, a oko kuće se postavlja prsten od debljih šipki ili traka
-              na koje se priključuju svi vertikalni krovni odvodi. Bitno je da
-              je spoj metalne površine i tla potpuno provodljiv, pa
-              konstrukciju, dimenzije, način postavljanja i izbor materijala
-              treba odrediti stručnjak.
-            </p>
-          </div>
-          <div id={styles.ourServicesTest}>
+          <div id={styles.ourServicesTest} ref={this.ispitivanje}>
             <h2>Ispitivanje Električnih Instalacija</h2>
             <p>
               Defektni uređaji ili instalacije prouzrokuju mnogo štete. Česti
@@ -1092,7 +1159,7 @@ class Usluge extends Component {
               <li>Ispitivanje neprekidnosti zaštitnog vodiča</li>
             </ul>
           </div>
-          <div id={styles.ourServicesPlan}>
+          <div id={styles.ourServicesPlan} ref={this.planiranjeS}>
             <h2>Planiranje i Projektovanje</h2>
             <p>
               U projektnoj dokumentaciji obrađujemo sljedeće električne

@@ -308,7 +308,7 @@ class Onama extends Component {
             satisfakciju mušterije stavljaju na prvo mjesto.
           </p>
 
-          <h3>KNX Partner</h3>
+          {/* <h3>KNX Partner</h3>
 
           <p>
             Kao certificirani KNX partner smo dio jednog velikog umreženog
@@ -317,7 +317,7 @@ class Onama extends Component {
           <p>
             Naši radnici su prošli obuku KNX asocijacije i raspolažu sa velikim
             praktičnim iskustvom kod instalacija koji se baziraju na KNX
-            tehnologji. Dozvolite sebi da vas posavjetujemo.
+            tehnologiji. Dozvolite sebi da vas posavjetujemo.
           </p>
           <p>
             Pomoću KNX tehnologije su različite funkcije u objektu ujedinjene u
@@ -329,6 +329,34 @@ class Onama extends Component {
             proizvode KNX produkte, koji su svi međusobno kompatibilni. To daje
             izvanrednu fleksibilnost i varijabilnost u zajedničkom planiranju.
             Tako vam možemo garantovati optimalnu instalaciju po vašim željama.
+          </p> */}
+          <p>
+            Nudimo kompletnu uslugu u svim razvojnim fazama vašeg objekta što
+            uključuje projektiranje, proizvodnju, izvođenje, programiranje,
+            ispitivanja, puštanje u rad svih vrsta elektroinstalacija.
+          </p>
+          <p>
+            Osnovna djelatnost firme je izvođenje kompletnih
+            elektroinstalaterskih radova uključivo s dobavom, ugradnjom,
+            spajanjem zajedno sa svim potrebnim mjerenjem i ispitivanjem,
+            programiranjem te puštanje u rad, kao i održavanje instalacija i
+            opreme. Uz to nudimo rekonstrukciju i adaptaciju postojećih
+            objekata.
+          </p>
+          <p>
+            Pored kompletnih radova na električnim instalacijama izvodimo radove
+            i na instalacijama slabe struje što uključuje antenske, mrežne,
+            telefonske instalacije, interfon, video nadzor i ostalo. Nudimo
+            ugradnju, spajanje, ispitivanje, programiranje i puštanje u rad
+            instalacija za vatrodojavne i plinodojavne sisteme, SOS, kontrolu
+            pristupa.
+          </p>
+          <p>
+            Uz sve to, također nudimo usluge izvođenja pametnih kuća,
+            obnovljivih izvora energije, izrade projektne dokumentacije u
+            građevinarstvu, industriji i energetici, stručni nadzor građenja,
+            odabir tehničkih rješenja, te ostale djelatnosti potrebne za
+            cjelovito izvođenje radova na Vašem objektu.
           </p>
         </section>
         <section id={styles.workdone}>

@@ -26,6 +26,7 @@ class header2 extends Component {
   mobileDropdownRef = createRef();
   dropdownClick = createRef();
   navRef = createRef();
+  preImg = require('../../../assets/img/usluge/output-onlinepngtools2.webp');
 
   goRight = () => {
     if (this.state.clickable) {
@@ -150,11 +151,13 @@ class header2 extends Component {
   }
   findPos = (obj) => {
     var curtop = 0;
-    if (obj.offsetParent) {
-      do {
-        curtop += obj.offsetTop;
-      } while ((obj = obj.offsetParent));
-      return [curtop];
+    if (obj) {
+      if (obj.offsetParent) {
+        do {
+          curtop += obj.offsetTop;
+        } while ((obj = obj.offsetParent));
+        return [curtop];
+      }
     }
   };
   loop = undefined;
@@ -173,7 +176,9 @@ class header2 extends Component {
             setTimeout(() => {
               this.setState({ clickable: false });
               if (this.state.count === 8) {
-                this.sliderux.current.style.transition = 'none';
+                if (this.sliderux.current) {
+                  this.sliderux.current.style.transition = 'none';
+                }
               }
               this.identify();
             }, 1000);
@@ -468,15 +473,24 @@ class header2 extends Component {
             <div className={styles.sld}>
               <div className={styles.sldtxt}>
                 <img
-                  src={require('../../../assets/img/usluge/output-onlinepngtools.png')}
-                  alt=""
+                  style={{ width: '20rem', zIndex: '1' }}
+                  src={this.preImg}
+                  alt="knx"
                 />
                 <h2>Kućna Automatizacija</h2>
                 <i
                   className={`${styles.fas} ${styles.fachevrondown}
                  fas fa-chevron-down fa-3x`}
                 ></i>
-                <Link onClick={() => this.scrollZaVise(this.knxS.current)}>
+                <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'sh',
+                    },
+                  }}
+                  onClick={() => this.scrollZaVise(this.knxS.current)}
+                >
                   Klikni za više
                 </Link>
               </div>
@@ -488,7 +502,14 @@ class header2 extends Component {
                   className={`${styles.fas} ${styles.fachevrondown}
                  fas fa-chevron-down fa-3x`}
                 ></i>
-                <Link onClick={() => this.jakastrS.current.scrollIntoView()}>
+                <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'js',
+                    },
+                  }}
+                >
                   Klikni za više
                 </Link>
               </div>
@@ -500,7 +521,15 @@ class header2 extends Component {
                   className={`${styles.fas} ${styles.fachevrondown}
                  fas fa-chevron-down fa-3x`}
                 ></i>
-                <Link onClick={() => this.scrollZaVise(this.slabastrS.current)}>
+                <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'ss',
+                    },
+                  }}
+                  onClick={() => this.scrollZaVise(this.slabastrS.current)}
+                >
                   Klikni za više
                 </Link>
               </div>
@@ -512,7 +541,15 @@ class header2 extends Component {
                   className={`${styles.fas} ${styles.fachevrondown}
                  fas fa-chevron-down fa-3x`}
                 ></i>
-                <Link onClick={() => this.scrollZaVise(this.rasvjetaS.current)}>
+                <Link
+                  to={{
+                    pathname: 'radovi',
+                    state: {
+                      infoId: 'rasvjeta',
+                    },
+                  }}
+                  onClick={() => this.scrollZaVise(this.rasvjetaS.current)}
+                >
                   Klikni za više
                 </Link>
               </div>
@@ -527,6 +564,12 @@ class header2 extends Component {
                  fas fa-chevron-down fa-3x`}
                 ></i>
                 <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'dijagnoza',
+                    },
+                  }}
                   onClick={() => this.scrollZaVise(this.dijagnozaS.current)}
                 >
                   Klikni za više
@@ -541,6 +584,12 @@ class header2 extends Component {
                  fas fa-chevron-down fa-3x`}
                 ></i>
                 <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'sigurnost',
+                    },
+                  }}
                   onClick={() => this.scrollZaVise(this.sigurnostS.current)}
                 >
                   Klikni za više
@@ -557,6 +606,12 @@ class header2 extends Component {
                  fas fa-chevron-down fa-3x`}
                 ></i>
                 <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'planiranje',
+                    },
+                  }}
                   onClick={() => this.scrollZaVise(this.planiranjeS.current)}
                 >
                   Klikni za više
@@ -566,15 +621,24 @@ class header2 extends Component {
             <div className={styles.sld}>
               <div className={styles.sldtxt}>
                 <img
-                  src={require('../../../assets/img/usluge/output-onlinepngtools.png')}
-                  alt=""
+                  style={{ width: '20rem', zIndex: '1' }}
+                  src={this.preImg}
+                  alt="knx"
                 />
                 <h2>Kućna Automatizacija</h2>
                 <i
                   className={`${styles.fas} ${styles.fachevrondown}
                  fas fa-chevron-down fa-3x`}
                 ></i>
-                <Link onClick={() => this.scrollZaVise(this.knxS.current)}>
+                <Link
+                  to={{
+                    pathname: 'usluge',
+                    state: {
+                      infoId: 'sh',
+                    },
+                  }}
+                  onClick={() => this.scrollZaVise(this.knxS.current)}
+                >
                   Klikni za više
                 </Link>
               </div>

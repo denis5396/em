@@ -69,7 +69,10 @@ class Body extends Component {
   };
   handleBackwards = () => {
     this.setState({ forward: false, backwards: true });
-    if (this.state.unlock) {
+    if (
+      this.state.unlock &&
+      this.projectSlider.current.children.length === this.state.lng
+    ) {
       this.popSlide();
     }
   };
@@ -77,13 +80,19 @@ class Body extends Component {
     if (e.propertyName === 'transform') {
       if (this.state.forward) {
         this.shiftSlide();
-      } else if (this.state.backwards && this.state.lessThan) {
+      } else if (
+        this.state.backwards &&
+        this.state.lessThan &&
+        !this.state.unlock
+      ) {
+        console.log('transitionend');
         this.shiftSlideBack();
       }
     }
   };
 
   popSlide = () => {
+    console.log('test');
     this.setState(
       (state) => ({ ...state, unlock: false }),
       () => {
@@ -102,6 +111,8 @@ class Body extends Component {
               this.fixaj();
             }, 1);
           } else {
+            console.log('test2');
+
             let boxWidth = this.slides[0].clientWidth;
             this.setState({ unlock: false });
             this.projectSlider.current.style.transition = 'none';
@@ -122,11 +133,19 @@ class Body extends Component {
               boxWidth + 10
             }px)`;
             this.btnAnimation('prev');
-            setTimeout(() => {
-              this.projectSlider.current.style.transition =
-                'transform .5s ease';
-              this.projectSlider.current.style.transform = 'translateX(0)';
-            }, 0.1);
+            if (navigator.userAgent.indexOf('Firefox') != -1) {
+              setTimeout(() => {
+                this.projectSlider.current.style.transition =
+                  'transform .5s ease';
+                this.projectSlider.current.style.transform = 'translateX(0)';
+              }, 100);
+            } else {
+              setTimeout(() => {
+                this.projectSlider.current.style.transition =
+                  'transform .5s ease';
+                this.projectSlider.current.style.transform = 'translateX(0)';
+              }, 0.1);
+            }
             // setTimeout(() => {
             //   this.setState({ unlock: true });
             // }, 500);
@@ -184,21 +203,24 @@ class Body extends Component {
       (state) => ({
         ...state,
         projs: [...cpyState],
+        unlock: true,
       }),
       () => {
         console.log(this.state);
       }
     );
-    this.setState({ unlock: true });
+    // this.setState({ unlock: true });
   };
 
   btnAnimation = (nextx) => {
+    console.log(nextx);
     if (nextx === 'prev') {
+      console.log('prev');
       this.prevx.current.animate(
         [
-          { transform: 'rotateY(0)' },
-          { transform: 'rotateY(-45deg)' },
-          { transform: 'rotateY(0deg)' },
+          { transform: 'rotateY(0) translateY(50%)' },
+          { transform: 'rotateY(-45deg) translateY(50%)' },
+          { transform: 'rotateY(0deg) translateY(50%)' },
         ],
         {
           duration: 400,
@@ -211,9 +233,9 @@ class Body extends Component {
     } else if (nextx === 'next') {
       this.nextx.current.animate(
         [
-          { transform: 'rotateY(0)' },
-          { transform: 'rotateY(45deg)' },
-          { transform: 'rotateY(0deg)' },
+          { transform: 'rotateY(0) translateY(50%)' },
+          { transform: 'rotateY(45deg) translateY(50%)' },
+          { transform: 'rotateY(0deg) translateY(50%)' },
         ],
         {
           duration: 400,
@@ -296,11 +318,35 @@ class Body extends Component {
     this.footerBtnA.current.style.animation =
       'fillbtnrev 0.5s ease-in forwards';
   };
+  // fakeRequest = () => {
+  //   return new Promise((resolve) => setTimeout(() => resolve(), 12500));
+  // };
 
   componentDidMount() {
-    document.addEventListener('DOMContentLoaded', function (event) {
-      alert('loaded');
-    });
+    // document.addEventListener('DOMContentLoaded', function (event) {
+    //   alert('loaded');
+    // });
+    // this.fakeRequest().then(() => alert('done'));
+    // if (
+    //   (navigator.userAgent.indexOf('Opera') !== -1 ||
+    //     navigator.userAgent.indexOf('OPR')) != -1
+    // ) {
+    //   alert('Opera');
+    // } else if (navigator.userAgent.indexOf('Chrome') != -1) {
+    //   alert('Chrome');
+    // } else if (navigator.userAgent.indexOf('Safari') != -1) {
+    //   alert('Safari');
+    // } else if (navigator.userAgent.indexOf('Firefox') != -1) {
+    //   alert('Firefox');
+    // } else if (
+    //   navigator.userAgent.indexOf('MSIE') != -1 ||
+    //   !!document.documentMode == true
+    // ) {
+    //   //IF IE > 10
+    //   alert('IE');
+    // } else {
+    //   alert('unknown');
+    // }
     if (this.state.projs.length <= 3) {
       this.setState({ lessThan: true });
     }
@@ -358,14 +404,14 @@ class Body extends Component {
   //   alert('yes');
   // }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    console.log(nextState);
-    let bool = true;
-    if (nextState.projs === this.state.projs) {
-      bool = false;
-    }
-    return bool;
-  };
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   console.log(nextState);
+  //   let bool = true;
+  //   if (nextState.projs === this.state.projs) {
+  //     bool = false;
+  //   }
+  //   return bool;
+  // };
 
   render() {
     this.slides = undefined;
@@ -647,6 +693,7 @@ class Body extends Component {
           <div className="linec"></div>
         </section>
         <section id="projects">
+          <div id="box1"></div>
           <div id="prev" ref={this.prevx} onClick={this.handleBackwards}>
             <i className="fas fa-chevron-left fa-3x"></i>
           </div>
@@ -878,12 +925,14 @@ class Body extends Component {
                   <img
                     id="resizeGmail"
                     src={require('../../../assets/img/Gmail_Icon.png')}
+                    alt="elektromonting email"
                   />
                   &nbsp;E-mail: elektromontingemail@gmail.com
                 </li>
                 <li>
                   <a
                     style={{ textDecoration: 'none', color: 'wheat' }}
+                    rel="noopener"
                     href="https://www.facebook.com/elektro.monting"
                     target="_blank"
                   >

@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 #headeru {
-  height: 470px;
-  background: url(../../assets/img/showcaseclassic.jpg) no-repeat center
-    center/cover;
+  /* height: 470px; */
+  height: 100vh;
+  /* background: url(../../assets/img/showcaseclassic.jpg) no-repeat center
+    center/cover; */
   width: 100vw;
   /* background-color: red; */
   display: grid;
@@ -256,7 +257,9 @@
 #slideru {
   height: 100vh;
   width: 100%;
+  /* width: 100vw; */
   background-color: red;
+  overflow: hidden;
 }
 #sliderux {
   height: 100%;
@@ -468,15 +471,19 @@ nav ul li a {
 }
 .faangleright {
   position: absolute;
-  top: 68%;
+  /* top: 68%; */
+  top: 50%;
   right: 2%;
-  transform: translateY(-55%);
+  /* transform: translateY(-55%); */
+  transform: translateY(-50%);
 }
 .faangleleft {
   position: absolute;
-  top: 68%;
+  /* top: 68%; */
+  top: 50%;
   left: 1%;
-  transform: translateY(-55%);
+  /* transform: translateY(-55%); */
+  transform: translateY(-50%);
 }
 .fas:hover {
   color: #1b6ca8;
@@ -546,10 +553,10 @@ nav ul li a {
   z-index: 1;
   animation: changeClr 1.5s ease infinite;
 }
-#sliderux .sld img {
+/* #sliderux .sld img {
   width: 20rem;
   z-index: 1;
-}
+} */
 .sldtxt {
   background-color: rgba(0, 0, 0, 0.4);
   /* width: 53vw; */
@@ -2497,6 +2504,67 @@ za kasnije
 
 /* MEDIA QUERY MOBILE */
 @media only screen and (max-width: 500px) {
+  #ourServicesBody {
+    grid-template-columns: repeat(2, 48.5%);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  #ourServicesHeader {
+    flex-direction: column;
+  }
+  #shCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(11, fit-content);
+    width: 100%;
+  }
+  .shCard {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem;
+  }
+  .shCard img {
+    justify-self: center;
+    /* display: none; */
+    width: 30%;
+    height: 4rem;
+    align-self: center;
+    margin: 1rem 0;
+  }
+  .shCardTxt {
+    padding-left: 0;
+    height: 100%;
+  }
+  .shCardTxt p {
+    font-size: 1.3rem;
+  }
+
+  #solarItems {
+    display: grid;
+    grid-template-columns: repeat(2, 49%);
+    grid-template-rows: repeat(3, fit-content);
+  }
+
+  .solarItem {
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+  .solarItem img {
+    width: 30%;
+    height: 4rem;
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+
   #logo {
     flex-direction: row-reverse;
     padding: 0;
@@ -2506,6 +2574,10 @@ za kasnije
     align-items: center;
     justify-content: center;
     grid-template-columns: 1fr auto;
+  }
+  #slideru {
+    width: 100vw;
+    overflow: hidden;
   }
   .box:hover {
     height: 45rem;
@@ -2707,11 +2779,11 @@ za kasnije
     grid-template-columns: 1fr;
   }
   .sld:nth-of-type(6) {
-    background: url(../../assets/img/usluge/mobileresize/instruments2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/instruments3.webp)
       no-repeat right center/cover;
   }
   .sld:nth-of-type(7) {
-    background: url(../../assets/img/usluge/mobileresize/security-technology2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/security-technology3.webp)
       no-repeat center center/cover;
   }
   /* .sld:nth-of-type(4) {
@@ -2720,20 +2792,20 @@ za kasnije
   } */
   .sld:nth-of-type(8),
   .sld:nth-of-type(1) {
-    background: url(../../assets/img/usluge/mobileresize/ibemibackground2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/ibemibackground3.webp)
       no-repeat center center/cover;
   }
   .sld:nth-of-type(2) {
-    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background4.webp)
       no-repeat center center/cover;
   }
   .sld:nth-of-type(3) {
-    background: url(../../assets/img/usluge/mobileresize/ormar2.jpg) no-repeat
+    background: url(../../assets/img/usluge/mobileresize/ormar3.webp) no-repeat
       left center/cover;
     background-size: cover;
   }
   .sld:nth-of-type(4) {
-    background: url(../../assets/img/usluge/mobileresize/slabastrshowc12.jpg)
+    background: url(../../assets/img/usluge/mobileresize/slabastrshowc13.webp)
       no-repeat left center/cover;
     background-size: cover;
     display: flex;
@@ -2741,12 +2813,12 @@ za kasnije
   }
 
   .sld:nth-of-type(5) {
-    background: url(../../assets/img/usluge/mobileresize/Luxury-apartment-living-room-wallpaper-1920x12002.jpg)
+    background: url(../../assets/img/usluge/mobileresize/Luxury-apartment-living-room-wallpaper-1920x12003.webp)
       no-repeat left center/cover;
     background-size: cover;
   }
   .sld:nth-of-type(9) {
-    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background2.jpg)
+    background: url(../../assets/img/usluge/mobileresize/Dark-Smart-Home-Background4.webp)
       no-repeat center center/cover;
     background-size: cover;
   }
@@ -3992,5 +4064,182 @@ html {
 @media only screen and (max-width: 700px) and (max-height: 400px) {
   #tagcnt {
     width: 60%;
+  }
+}
+@media only screen and (max-width: 300px) {
+  #ones {
+    font-size: 1.5rem;
+  }
+  .sld:nth-of-type(2) .sldtxt h2 {
+    font-size: 2rem !important;
+  }
+  .sld:nth-of-type(2) .sldtxt img {
+    width: 80% !important;
+  }
+}
+@media only screen and (max-width: 400px) {
+  #ones {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #ourServicesBody {
+    grid-template-columns: repeat(2, 48.5%);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  #ourServicesHeader {
+    flex-direction: column;
+  }
+  #shCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(11, fit-content);
+    width: 100%;
+  }
+  .shCard {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem;
+  }
+  .shCard img {
+    justify-self: center;
+    /* display: none; */
+    width: 30%;
+    height: 4rem;
+    align-self: center;
+    margin: 1rem 0;
+  }
+  .shCardTxt {
+    padding-left: 0;
+    height: 100%;
+  }
+  .shCardTxt p {
+    font-size: 1.3rem;
+  }
+
+  #solarItems {
+    display: grid;
+    grid-template-columns: repeat(2, 49%);
+    grid-template-rows: repeat(3, fit-content);
+  }
+
+  .solarItem {
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+  .solarItem img {
+    width: 30%;
+    height: 4rem;
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+}
+@media only screen and (max-width: 700px) and (min-width: 600px) {
+  .shCard img {
+    width: 20%;
+  }
+}
+@media only screen and (max-width: 1040px) and (min-width: 701px) {
+  .solarTxt {
+    height: fit-content;
+  }
+  .solarItem img {
+    height: 5rem;
+  }
+  .solarItem {
+    height: fit-content;
+    margin-bottom: 3rem;
+  }
+  .shCard {
+    height: fit-content;
+    margin-bottom: 3rem;
+  }
+  .shCard img {
+    height: 5rem;
+  }
+}
+@media only screen and (max-width: 800px) and (min-width: 701px) {
+  #ourServicesBody {
+    gap: 1rem;
+    grid-template-columns: repeat(4, 23.7%);
+  }
+}
+@media only screen and (max-width: 1000px) and (min-width: 701px) {
+  .solarItem {
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 900px) and (max-height: 500px) {
+  .sldtxt {
+    width: 50vw;
+    height: 50vh;
+    padding: 0;
+  }
+  .sldtxt h2 {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .sldtxt img {
+    width: 20% !important;
+  }
+  .sldtxt i {
+    font-size: 2rem;
+  }
+  .sld:nth-of-type(5) .sldtxt h2 {
+    margin-bottom: 1rem !important;
+  }
+  @keyframes jump {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1rem);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  nav {
+    display: flex !important;
+    justify-content: space-between;
+  }
+  nav ul li a a {
+    font-size: 1rem !important;
+  }
+  #logo {
+    padding-top: 0.5rem;
+  }
+  #logo span {
+    font-size: 2rem;
+  }
+  #logoimg {
+    padding-top: 1rem;
+  }
+  .sld:nth-of-type(3)::before,
+  .sld:nth-of-type(4)::before,
+  .sld:nth-of-type(7)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+}
+@media only screen and (max-width: 500px) and (max-height: 500px) {
+  nav {
+    display: grid !important;
+    justify-content: center !important;
   }
 }

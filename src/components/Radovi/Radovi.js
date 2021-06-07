@@ -22,6 +22,7 @@ class Radovi extends Component {
   slikeConimg = createRef();
   chevL = createRef();
   chevR = createRef();
+  rasvj = createRef();
 
   imgArray1 = undefined;
   imgArray2 = undefined;
@@ -110,6 +111,19 @@ class Radovi extends Component {
 
   componentWillUnmount() {
     document.querySelector('html').style.scrollBehavior = 'smooth';
+  }
+
+  componentDidUpdate() {
+    if (this.props.location.state) {
+      switch (this.props.location.state.infoId) {
+        case 'rasvjeta':
+          // window.scroll(0, this.findPos(this.knxS.current));
+          if (this.rasvj.current) {
+            this.rasvj.current.scrollIntoView();
+            break;
+          }
+      }
+    }
   }
 
   trimStr = (str) => {
@@ -291,7 +305,7 @@ class Radovi extends Component {
                     <img src={proj.imageUrl[0]} alt="" />
                     <div class={styles.portfcoltxt}>
                       <h3>{proj.title}</h3>
-                      <p>Rezidencijalni Objekt</p>
+                      {/* <p>Rezidencijalni Objekt</p> */}
                     </div>
                   </div>
                 ))
@@ -306,6 +320,7 @@ class Radovi extends Component {
                     ? styles.rasvjetab
                     : styles.solarb
                 }
+                ref={category.title === 'rasvjeta' ? this.rasvj : null}
                 onClick={(e) => this.handleClick(e)}
               >
                 {category.imageUrl.map((piece) => (
