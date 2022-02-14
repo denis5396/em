@@ -38,7 +38,10 @@ const Kontakt = () => {
       From: `elektromonting.01@gmail.com`,
       Subject: `Pitanje od: ${values[1]}, email: ${values[2]}`,
       Body: `${values[0]}`,
-    }).then(() => alert("Poslano"));
+    }).then(() => {
+      target.reset();
+      alert("Poslano");
+    });
     // emailjs
     //   .sendForm(
     //     "service_s3saejc",
