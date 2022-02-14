@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c39b962c3c058042b83da1d647806b41",
+    "revision": "ba691b459502bb85040931441f21ac47",
     "url": "/em/index.html"
   },
   {
-    "revision": "fcbd19955b3645050a11",
-    "url": "/em/static/css/main.30d880c3.chunk.css"
+    "revision": "a18c6dd126d790b4e0be",
+    "url": "/em/static/css/main.81a1d4c6.chunk.css"
   },
   {
-    "revision": "a94275d0b75bc2e83e2b",
-    "url": "/em/static/js/2.99dd9032.chunk.js"
+    "revision": "f26b4d098edd312047c4",
+    "url": "/em/static/js/2.f6ac5e41.chunk.js"
   },
   {
     "revision": "b1bf1055f6cd7b60b5166120c10db796",
-    "url": "/em/static/js/2.99dd9032.chunk.js.LICENSE.txt"
+    "url": "/em/static/js/2.f6ac5e41.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fcbd19955b3645050a11",
-    "url": "/em/static/js/main.29f93c8a.chunk.js"
+    "revision": "a18c6dd126d790b4e0be",
+    "url": "/em/static/js/main.72259cda.chunk.js"
   },
   {
     "revision": "340a55f6fe6bdcfbebc5",
@@ -56,10 +56,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/Luxury-apartment-living-room-wallpaper-1920x12003.986653b7.webp"
   },
   {
-    "revision": "0984e644810bd8c88759e1280e3d2e0b",
-    "url": "/em/static/media/aboutuscover.0984e644.jpg"
-  },
-  {
     "revision": "09b43361b37b1f59f040e8a372cc1ed7",
     "url": "/em/static/media/bulb1.09b43361.jpg"
   },
@@ -70,6 +66,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "65d63bd1ccf2cd7329b810e0c9a89f98",
     "url": "/em/static/media/contactshowc.65d63bd1.jpg"
+  },
+  {
+    "revision": "dee617d126b52be35131c899b662fb12",
+    "url": "/em/static/media/davidim2.dee617d1.svg"
   },
   {
     "revision": "aac7f7617feca1dac9d693aca70b1bad",
@@ -132,10 +132,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/em/static/media/instruments3.c2865e38.webp"
   },
   {
-    "revision": "6033c3d8d58f84d3982e76754cf93207",
-    "url": "/em/static/media/jakastruja.6033c3d8.jpg"
-  },
-  {
     "revision": "01ed30ae3c6089a8e9ee08f4aba15bed",
     "url": "/em/static/media/knxtablet.01ed30ae.jpg"
   },
@@ -166,10 +162,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "54d97570161f33903eb3c9ab4574a274",
     "url": "/em/static/media/najntehn3.54d97570.webp"
-  },
-  {
-    "revision": "548531b583a6e887acaebf6398186f83",
-    "url": "/em/static/media/onamabackg.548531b5.jpg"
   },
   {
     "revision": "115b8e02f496421185cfc078a571d802",
@@ -342,10 +334,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "447da6291f043875d2721d52e932f02d",
     "url": "/em/static/media/strucnitim2.447da629.png"
-  },
-  {
-    "revision": "31f7849412a8c0eb6406e0193f113738",
-    "url": "/em/static/media/strucnitim3.31f78494.webp"
   },
   {
     "revision": "da8a42cdaa48b95897a2db1aa7d56759",
