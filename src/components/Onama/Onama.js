@@ -1,8 +1,8 @@
-import React, { Component, createRef } from 'react';
-import { db } from '../../firebase';
-import { v1 as uuid } from 'uuid';
-import Snav from './Snav';
-import styles from './Onama.module.css';
+import React, { Component, createRef } from "react";
+import { db } from "../../firebase";
+import { v1 as uuid } from "uuid";
+import Snav from "./Snav";
+import styles from "./Onama.module.css";
 
 class Onama extends Component {
   state = {
@@ -20,7 +20,7 @@ class Onama extends Component {
   sliderWidtho = createRef();
   slides = createRef();
   setTX = 30;
-  exp = '';
+  exp = "";
   yearExp = createRef();
 
   componentDidMount() {
@@ -42,81 +42,81 @@ class Onama extends Component {
     //   this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
     // }
     window.scrollTo(0, 0);
-    document.title = 'ELEKTROMONTING | O Nama';
+    document.title = "ELEKTROMONTING | O Nama";
 
-    const dbRef = db.ref('/content');
-    // dbRef.set({ username: 'hello' });
-    dbRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      const copyObj = [];
-      let cnt = 0;
-      const copyObj2 = [];
-      let cnt2 = 0;
-      let arrKeys = [];
-      let keyNums = [];
-      let finalKeys = [];
-      let workerArr = [];
-      for (let key in data) {
-        if (data[key].title === 'uposlenici') {
-          copyObj[cnt] = data[key];
-          cnt++;
-        }
-      }
-      arrKeys = Object.keys(copyObj[0]);
-      for (let i = 0; i < arrKeys.length; i++) {
-        if (arrKeys[i].match(/\d+/)) {
-          keyNums.push(arrKeys[i].match(/\d+/g));
-        }
-      }
-      keyNums.forEach((key) => {
-        finalKeys.push(key[0]);
-      });
-      finalKeys.forEach((key) => {
-        workerArr.push(copyObj[0][key]);
-      });
+    // const dbRef = db.ref("/content");
+    // // dbRef.set({ username: 'hello' });
+    // dbRef.on("value", (snapshot) => {
+    //   const data = snapshot.val();
+    //   console.log(data);
+    //   const copyObj = [];
+    //   let cnt = 0;
+    //   const copyObj2 = [];
+    //   let cnt2 = 0;
+    //   let arrKeys = [];
+    //   let keyNums = [];
+    //   let finalKeys = [];
+    //   let workerArr = [];
+    //   for (let key in data) {
+    //     if (data[key].title === "uposlenici") {
+    //       copyObj[cnt] = data[key];
+    //       cnt++;
+    //     }
+    //   }
+    //   arrKeys = Object.keys(copyObj[0]);
+    //   for (let i = 0; i < arrKeys.length; i++) {
+    //     if (arrKeys[i].match(/\d+/)) {
+    //       keyNums.push(arrKeys[i].match(/\d+/g));
+    //     }
+    //   }
+    //   keyNums.forEach((key) => {
+    //     finalKeys.push(key[0]);
+    //   });
+    //   finalKeys.forEach((key) => {
+    //     workerArr.push(copyObj[0][key]);
+    //   });
 
-      this.setState(
-        (state) => ({
-          ...state,
-          imageUrl: [...copyObj[0].imageUrl],
-          workers: [...workerArr],
-        }),
-        () => {
-          console.log(this.state);
-          console.log(this.slides.length);
-          if (this.slides[0]) {
-            let boxWidth = this.slides[0].clientWidth;
-            this.slides.forEach((slide) => {
-              slide.style.width = `${boxWidth}px`;
-              slide.style.width = `${30}vw`;
-            });
-            // this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
-          }
-          if (this.state.imageUrl.length === 2 && this.parento.current) {
-            this.parento.current.children[0].style.width = '45vw';
-            this.parento.current.children[1].style.width = '45vw';
-            this.setTX = 45;
-          } else if (this.state.imageUrl.length === 1 && this.parento.current) {
-            this.parento.current.children[0].style.width = '50vw';
-            this.setTX = 50;
-            this.sliderWidtho.current.style.width = '50%';
-          }
-        }
-      );
-      console.log(workerArr);
-      console.log(finalKeys);
-      console.log(keyNums);
-      console.log(copyObj);
-    });
+    //   this.setState(
+    //     (state) => ({
+    //       ...state,
+    //       imageUrl: [...copyObj[0].imageUrl],
+    //       workers: [...workerArr],
+    //     }),
+    //     () => {
+    //       console.log(this.state);
+    //       console.log(this.slides.length);
+    //       if (this.slides[0]) {
+    //         let boxWidth = this.slides[0].clientWidth;
+    //         this.slides.forEach((slide) => {
+    //           slide.style.width = `${boxWidth}px`;
+    //           slide.style.width = `${30}vw`;
+    //         });
+    //         // this.sliderWidtho.current.style.width = `${boxWidth * 3 + 12}px`;
+    //       }
+    //       if (this.state.imageUrl.length === 2 && this.parento.current) {
+    //         this.parento.current.children[0].style.width = "45vw";
+    //         this.parento.current.children[1].style.width = "45vw";
+    //         this.setTX = 45;
+    //       } else if (this.state.imageUrl.length === 1 && this.parento.current) {
+    //         this.parento.current.children[0].style.width = "50vw";
+    //         this.setTX = 50;
+    //         this.sliderWidtho.current.style.width = "50%";
+    //       }
+    //     }
+    //   );
+    // console.log(workerArr);
+    // console.log(finalKeys);
+    // console.log(keyNums);
+    // console.log(copyObj);
+    // });
   }
   componentWillUnmount() {
-    document.querySelector('html').style.scrollBehavior = 'smooth';
+    document.querySelector("html").style.scrollBehavior = "smooth";
   }
   bacaj = async () => {
     let boxWidth = await this.slides[0].clientWidth;
     this.setState({ unlock: false });
-    this.parento.current.style.transition = 'transform .5s ease';
+    this.parento.current.style.transition = "transform .5s ease";
     if (this.state.imageUrl.length <= 3) {
       let izbrisi = this.slides[0];
       const sliderParent = izbrisi.parentElement;
@@ -168,8 +168,8 @@ class Onama extends Component {
 
   handleTransition = (e) => {
     if (
-      e.propertyName === 'transform' &&
-      e.target.id.indexOf('slidetranslate') !== -1
+      e.propertyName === "transform" &&
+      e.target.id.indexOf("slidetranslate") !== -1
     ) {
       if (this.state.forward) {
         this.shiftSlide();
@@ -199,7 +199,7 @@ class Onama extends Component {
           console.log(this.state);
         }
       );
-      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transition = "none";
       this.parento.current.style.transform = `translateX(-${this.setTX}vw)`;
       setTimeout(() => {
         this.fixaj();
@@ -211,7 +211,7 @@ class Onama extends Component {
       let izbrisii = sliderParent.children[this.slides.length - 1];
       sliderParent.children[this.slides.length - 1].remove();
       sliderParent.prepend(izbrisii);
-      this.parento.current.style.transition = 'none';
+      this.parento.current.style.transition = "none";
       this.parento.current.style.transform = `translateX(-${this.setTX}vw)`;
       setTimeout(() => {
         this.fixaj();
@@ -219,7 +219,7 @@ class Onama extends Component {
     }
   };
   fixaj = () => {
-    this.parento.current.style.transition = 'transform 0.5s ease';
+    this.parento.current.style.transition = "transform 0.5s ease";
     this.parento.current.style.transform = `translateX(0vw)`;
 
     if (this.state.imageUrl.length <= 3) {
@@ -250,8 +250,8 @@ class Onama extends Component {
     if (this.state.imageUrl.length <= 3) {
       let cpyState = [...this.state.workers];
       cpyState.splice(0, 1);
-      this.parento.current.style.transition = 'none';
-      this.parento.current.style.transform = 'translateX(0)';
+      this.parento.current.style.transition = "none";
+      this.parento.current.style.transform = "translateX(0)";
       this.setState(
         (state) => ({
           ...state,
@@ -266,8 +266,8 @@ class Onama extends Component {
       const sliderParent = izbrisi.parentElement;
       let izbrisii = sliderParent.children[0];
       sliderParent.children[0].remove();
-      this.parento.current.style.transition = 'none';
-      this.parento.current.style.transform = 'translateX(0)';
+      this.parento.current.style.transition = "none";
+      this.parento.current.style.transform = "translateX(0)";
       sliderParent.appendChild(izbrisii);
     }
   };
@@ -281,7 +281,7 @@ class Onama extends Component {
     }
     return (
       <>
-        <Snav cur={'onama'} />
+        <Snav cur={"onama"} />
         <section id={styles.onamahead}>
           <h1>ELEKTROMONTING</h1>
           <h2>O nama</h2>
@@ -389,7 +389,7 @@ class Onama extends Component {
             </div>
           </div>
         </section>
-        <section id={styles.ourteam}>
+        {/* <section id={styles.ourteam}>
           <h2>Naš Tim</h2>
           <div id={styles.slidecontainbtns}>
             <div
@@ -443,9 +443,9 @@ class Onama extends Component {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
 
-                {/* <div
+        {/* <div
                   class={styles.item}
                   id={styles.oneo}
                   ref={(slide) => {
@@ -609,10 +609,10 @@ class Onama extends Component {
                     </div>
                   </div>
                 </div> */}
-              </div>
+        {/* </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </>
     );
   }

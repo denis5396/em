@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 nav ul li a {
   text-decoration: none;
@@ -41,6 +41,38 @@ nav ul li a {
   grid-auto-flow: dense;
   width: 100%;
   margin: 5rem auto;
+}
+
+#projs2Cnt {
+  width: 80vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#projs2Cnt h3 {
+  text-align: center;
+  font-size: 3rem;
+  color: #144972;
+  margin-bottom: 5rem;
+}
+
+#rasvjetab2 {
+  /* display: grid; */
+  gap: 0.5rem;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  /* grid-template-columns: repeat(2, 1fr); */
+  /* grid-auto-rows: 255px;
+  grid-auto-flow: dense; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  width: 80vw;
+}
+#rasvjetab2 .portfcol img {
+  width: 100%;
+  height: 100%;
 }
 
 #solarb,
@@ -107,12 +139,12 @@ nav ul li a {
   text-align: center;
   margin-bottom: 5rem;
   font-size: 5rem;
-  font-family: 'Roboto', 'sans-serif';
+  font-family: "Roboto", "sans-serif";
   font-weight: lighter;
   color: #144972;
 }
 #portftxt {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   width: 80%;
   text-align: center;
   margin: 50px auto 70px;
@@ -120,7 +152,7 @@ nav ul li a {
 #portftxt h1 {
   color: #144972;
   font-size: 5rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 2rem;
 }
 #portftxt p {
@@ -133,14 +165,26 @@ nav ul li a {
   height: 100%;
   transition: background-color;
   overflow: hidden;
+  cursor: pointer;
 }
+#rasvjetab2 .portfcol {
+  flex-grow: 1;
+  flex-basis: 30rem;
+  max-width: 36rem;
+  height: 25.5rem;
+}
+.portfcol img,
+.portfcoltxt h3 {
+  user-select: none;
+}
+
 #portfb .portfcol img {
   width: 100%;
   height: 100% !important;
 }
 #portfb .portfcol::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   transition: background-color 0.5s ease;
@@ -151,7 +195,7 @@ nav ul li a {
 }
 .portfcoltxt {
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   left: 0;
   top: 0;
@@ -161,7 +205,7 @@ nav ul li a {
   align-items: center;
   color: #fff;
   flex-direction: column;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 .portfcoltxt h3 {
   text-transform: uppercase;
@@ -169,6 +213,7 @@ nav ul li a {
   line-height: 5rem;
   font-weight: 500;
   letter-spacing: 0.15em;
+  text-align: center;
 }
 .portfcoltxt p {
   font-size: 1.5rem;
@@ -200,7 +245,7 @@ nav ul li a {
 }
 .radovi::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
 
@@ -232,7 +277,7 @@ nav ul li a {
 #port6 h1,
 #port7b h1 {
   font-size: 3rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   line-height: 5rem;
   margin: 5rem auto;
   color: #333;
@@ -273,7 +318,7 @@ nav ul li a {
 .port1bimg::before {
   position: absolute;
   pointer-events: none;
-  content: '+';
+  content: "+";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -353,14 +398,16 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  width: 80%;
   height: 100%;
   z-index: -1;
   opacity: 0;
 }
 .slikaCon img {
-  max-width: 100%;
+  max-width: 80%;
 }
 #rasvjetab .portfcol:hover::before,
+#rasvjetab2 .portfcol:hover::before,
 #solarb .portfcol:hover::before,
 #mrezeitelb .portfcol:hover::before,
 #pamkucb .portfcol:hover::before,
@@ -375,6 +422,7 @@ body {
   cursor: pointer;
 }
 #rasvjetab .portfcol::before,
+#rasvjetab2 .portfcol::before,
 #solarb .portfcol::before,
 #mrezeitelb .portfcol::before,
 #pamkucb .portfcol::before,
@@ -387,7 +435,7 @@ body {
   align-items: center;
   font-size: 5rem;
   color: #fff;
-  content: '+';
+  content: "+";
   position: absolute;
   width: 100%;
   height: 100%;
@@ -546,16 +594,20 @@ body {
     grid-auto-flow: dense;
     width: 100% !important;
   }
+  #rasvjetab2 {
+    width: 80vw;
+    grid-template-columns: 1fr;
+  }
   .radovi {
     height: 470px;
     width: 100%;
-    background: url('../../assets/img/usluge/Dark-Smart-Home-Background.jpeg')
+    background: url("../../assets/img/usluge/Dark-Smart-Home-Background.jpeg")
       no-repeat 20% center/cover;
     position: relative;
   }
   .portfcoltxt {
     position: absolute;
-    content: '';
+    content: "";
     width: 100%;
     left: 0;
     top: 0;
@@ -565,7 +617,7 @@ body {
     align-items: center;
     color: #fff;
     flex-direction: column;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
   }
   .portfcoltxt h3 {
     text-transform: uppercase;
@@ -573,6 +625,7 @@ body {
     line-height: 5rem;
     font-weight: 500;
     letter-spacing: 0.15em;
+    text-align: center;
   }
   .portfcoltxt p {
     font-size: 1.5rem;
@@ -597,9 +650,19 @@ body {
     width: 80vw !important;
     grid-template-columns: 1fr;
   }
+}
+@media only screen and (max-width: 600px) {
   .slikaCon img {
     max-width: 85%;
     min-height: 60vh;
+  }
+  .slikaCon {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  #portfb {
+    grid-auto-rows: 25rem;
   }
 }
 @media only screen and (max-width: 1079px) and (min-width: 620px) {
@@ -624,6 +687,7 @@ body {
     line-height: 5rem;
     font-weight: 500;
     letter-spacing: 0.15em;
+    text-align: center;
   }
   .portfcoltxt p {
     font-size: 1.2rem;
@@ -636,6 +700,7 @@ body {
     line-height: 5rem;
     font-weight: 500;
     letter-spacing: 0.15em;
+    text-align: center;
   }
   .portfcoltxt p {
     font-size: 1.2rem;
@@ -648,6 +713,7 @@ body {
     line-height: 5rem;
     font-weight: 500;
     letter-spacing: 0.15em;
+    text-align: center;
   }
   .portfcoltxt p {
     font-size: 1.2rem;

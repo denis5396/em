@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import Snav from '../Onama/Snav';
-import styles from './Kontakt.module.css';
-import emailjs from 'emailjs-com';
+import React, { useEffect } from "react";
+import Snav from "../Onama/Snav";
+import styles from "./Kontakt.module.css";
+import emailjs from "emailjs-com";
 
 const Kontakt = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'ELEKTROMONTING | Kontakt';
+    document.title = "ELEKTROMONTING | Kontakt";
     return () => {
-      document.querySelector('html').style.scrollBehavior = 'smooth';
+      document.querySelector("html").style.scrollBehavior = "smooth";
     };
   }, []);
 
@@ -16,46 +16,60 @@ const Kontakt = () => {
     e.preventDefault();
     const { target } = e;
     console.log(e.target.children);
-    let bool = true;
+    const values = [];
     for (let i = 0; i < e.target.children.length; i++) {
-      if (e.target.children[i].value === '') {
-        bool = false;
-        break;
+      if (e.target.children[i].value !== "") {
+        if (e.target.children[i].id.includes("poruka")) {
+          values.push(e.target.children[i].value);
+        } else if (e.target.children[i].id.includes("name")) {
+          values.push(e.target.children[i].value);
+        } else if (e.target.children[i].id.includes("email")) {
+          values.push(e.target.children[i].value);
+        }
       }
     }
-    if (bool) {
-      emailjs
-        .sendForm(
-          'service_s3saejc',
-          'template_n6mm66e',
-          e.target,
-          'user_Uq8OtVIvwDn5AORyhXR0D'
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-            alert('success');
-            target.reset();
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
+    console.log(values);
+    if (values.length < 2) {
+      return;
     }
+    window.Email.send({
+      SecureToken: "cc4305ca-b0a7-4155-99b2-dd36be13eec0",
+      To: `elektromonting.01@gmail.com`,
+      From: `elektromonting.01@gmail.com`,
+      Subject: `Pitanje od: ${values[1]}, email: ${values[2]}`,
+      Body: `${values[0]}`,
+    }).then(() => alert("Poslano"));
+    // emailjs
+    //   .sendForm(
+    //     "service_s3saejc",
+    //     "template_n6mm66e",
+    //     e.target,
+    //     "user_Uq8OtVIvwDn5AORyhXR0D"
+    //   )
+    //   .then(
+    //     (result) => {
+    //       console.log(result.text);
+    //       alert("success");
+    //       target.reset();
+    //     },
+    //     (error) => {
+    //       console.log(error.text);
+    //     }
+    //   );
   };
 
   const onMouseOverSubmit = (e) => {
-    e.target.style.backgroundColor = 'rgba(3, 169, 244, 0.8)';
+    e.target.style.backgroundColor = "rgba(3, 169, 244, 0.8)";
   };
 
   const onMouseOutSubmit = (e) => {
-    e.target.style.backgroundColor = 'rgb(3, 169, 244)';
+    e.target.style.backgroundColor = "rgb(3, 169, 244)";
   };
 
   return (
     <>
       <section id={styles.contactshowcase}>
-        <Snav cur={'kontakt'} />
+        <Snav cur={"kontakt"} />
       </section>
       <section id={styles.contact}>
         <div id={styles.contactb}>
@@ -76,21 +90,21 @@ const Kontakt = () => {
               <div class={styles.contactcol}>
                 <i class="fas fa-envelope-open-text fa-3x"></i>
                 <h3>E-mail</h3>
-                <p>elektromontingemail@gmail.com</p>
+                <p>elektromonting.01@gmail.com</p>
               </div>
-              <div class={styles.contactcol} style={{ textAlign: 'center' }}>
+              <div class={styles.contactcol} style={{ textAlign: "center" }}>
                 <i class="fas fa-business-time fa-3x"></i>
                 <h3>Radno vrijeme</h3>
                 <p>pon-pet: 08:00 - 17:00 / sub: 08:00 - 15:00</p>
               </div>
-              <div class={styles.contactcol} style={{ textAlign: 'center' }}>
+              <div class={styles.contactcol} style={{ textAlign: "center" }}>
                 <i class="fab fa-facebook fa-3x"></i>
                 <h3>Facebook</h3>
                 <a
                   style={{
-                    textDecoration: 'none',
-                    fontSize: '1.4rem',
-                    color: 'blue',
+                    textDecoration: "none",
+                    fontSize: "1.4rem",
+                    color: "blue",
                   }}
                   href="https://www.facebook.com/elektro.monting"
                   target="_blank"
@@ -147,7 +161,7 @@ const Kontakt = () => {
           <label for="email">Email</label>
           <input type="email" name="email" id="email" />
           <input
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             type="submit"
             value="Pošaljite"
             onMouseOver={(e) => onMouseOverSubmit(e)}

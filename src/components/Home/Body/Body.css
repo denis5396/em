@@ -33,7 +33,7 @@ main {
 #bx1 {
   width: 100%;
   height: 100%;
-  background: url('../../../assets/img/kvservis.jpg') 50% 100% / contain;
+  background: url("../../../assets/img/kvservis.jpg") 50% 100% / contain;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   position: relative;
   box-shadow: 0px 3px 6px rgba(149, 157, 165, 0.3);
@@ -45,24 +45,30 @@ main {
   text-transform: capitalize;
   transform: translate(-50%, -50%);
   color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
 }
 #bx1::before,
 #bx2::before,
-#bx3::before,
-#bx4::before {
+#bx3::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+#bx4::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
 #bx2 {
   width: 100%;
   height: 100%;
-  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
-  background: url('../../../assets/img/electric-eng.jpg') center / cover
+  background: url("../../../assets/img/uticnicasmall.jpg") center / cover;
+  background: url("../../../assets/img/electric-eng.jpg") center / cover
     no-repeat;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   position: relative;
@@ -76,7 +82,7 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
   text-align: center;
 }
@@ -84,8 +90,8 @@ main {
 #bx3 {
   width: 100%;
   height: 100%;
-  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
-  background: url('../../../assets/img/najntehn2.png') center / cover no-repeat;
+  background: url("../../../assets/img/uticnicasmall.jpg") center / cover;
+  background: url("../../../assets/img/najntehn2.png") center / cover no-repeat;
   /* clip-path: circle(47.5% at 50% 50%); */
   border-radius: 50%;
   width: 90%;
@@ -99,9 +105,12 @@ main {
 #bx4 {
   width: 100%;
   height: 100%;
-  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
-  background: url('../../../assets/img/strucnitim2.png') center right / cover
+  background: url("../../../assets/img/uticnicasmall.jpg") center / cover;
+  background: url("../../../assets/img/strucnitim2.png") center right / cover
     no-repeat;
+  background: url("../../../assets/img/davidim2.svg") center center / contain
+    no-repeat;
+  background-color: #6b7c93;
   clip-path: polygon(
     30% 0%,
     70% 0%,
@@ -145,7 +154,7 @@ main span {
 }
 
 main span::after {
-  content: '';
+  content: "";
   top: 0;
   right: 5px;
   width: 20px;
@@ -220,20 +229,20 @@ main span::after {
 }
 
 .box:first-child > .imgBx {
-  background: url('../../../assets/img/uticnicasmall.jpg') center / cover;
+  background: url("../../../assets/img/uticnicasmall.jpg") center / cover;
   border-radius: 4px;
 }
 .box:nth-child(2) > .imgBx {
-  background: url('../../../assets/img/thumb1.png') center / cover;
+  background: url("../../../assets/img/thumb1.png") center / cover;
   background-color: #1b6ca8;
   border-radius: 4px;
 }
 .box:nth-child(3) > .imgBx {
-  background: url('../../../assets/img/smallthumb.jpg') center / cover;
+  background: url("../../../assets/img/smallthumb.jpg") center / cover;
   border-radius: 4px;
 }
 .box:nth-child(4) > .imgBx {
-  background: url('../../../assets/img/strucantim.jpg') center / cover;
+  background: url("../../../assets/img/strucantim.jpg") center / cover;
   border-radius: 4px;
 }
 
@@ -294,7 +303,7 @@ main span::after {
 }
 
 #uppertext h2 {
-  font-family: 'Josefin Sans';
+  font-family: "Josefin Sans";
   font-size: 3rem;
   text-transform: uppercase;
   color: lightslategrey;
@@ -507,7 +516,7 @@ i {
 }
 
 #fix::after {
-  content: '';
+  content: "";
   display: none;
 }
 
@@ -754,7 +763,7 @@ i {
 
 #usluge header h2 {
   font-size: 3rem;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   text-transform: uppercase;
   color: lightslategray;
   letter-spacing: 0.1rem;
@@ -766,7 +775,7 @@ i {
   font-size: 1.8rem;
   margin-top: 0.5rem;
   color: #666;
-  font-family: 'Playfair Display', Arial, Helvetica, sans-serif;
+  font-family: "Playfair Display", Arial, Helvetica, sans-serif;
   position: relative;
 }
 
@@ -802,7 +811,7 @@ i {
   position: relative;
 }
 #usluge header h2 {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: lighter;
 }
 #uslugebody .usluge .imgwrapper {
@@ -819,7 +828,7 @@ i {
 }
 
 #uslugebody .usluge .imgwrapper::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 120%;
   height: 120%;
@@ -834,13 +843,13 @@ i {
   font-size: 2.5rem;
   color: #333;
   color: #555;
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
   position: relative;
 }
 
 #uslugebody .usluge h3::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 2.5rem;
   height: 0.2rem;
   bottom: -1rem;
@@ -852,7 +861,7 @@ i {
   margin-top: 2rem;
   font-size: 1.3rem;
   line-height: 2.6rem;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   color: #333;
   text-align: left;
 }
@@ -899,11 +908,11 @@ i {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  background: url('../../../assets/img/installationsidebar.jpg') center/cover;
+  background: url("../../../assets/img/installationsidebar.jpg") center/cover;
 }
 
 #lookaroundimg {
-  background: url('/img/installationsidebar.jpg') no-repeat / cover;
+  background: url("/img/installationsidebar.jpg") no-repeat / cover;
 }
 
 #lookaroundtxt {
@@ -946,18 +955,18 @@ i {
 }
 
 #projects::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../../../assets/img/showcaseknx1.jpg') no-repeat top center /
+  background: url("../../../assets/img/showcaseknx1.jpg") no-repeat top center /
     cover;
   z-index: -1;
 }
 #projects::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -10%;
   left: 0;
@@ -1063,9 +1072,19 @@ i {
 #projects #project #projectslider #one {
   width: 25vw;
   height: 90%;
-  background: url('../../../assets/img/jakastruja.jpg') no-repeat center/cover;
+  /* background: url("../../../assets/img/jakastruja.jpg") no-repeat center/cover; */
   position: relative;
   border-top: 5px solid #536dfe;
+  left: 0;
+}
+.project {
+  /* height: 90%;
+  background-color: red;
+  width: 25vw;
+  position: relative;
+  border-top: 5px solid #536dfe; */
+}
+#one {
   left: 0;
 }
 .project h3 {
@@ -1078,10 +1097,11 @@ i {
   text-transform: uppercase;
 }
 #projects #project #one::before,
-#projects #project #item2::before {
+#projects #project #item2::before,
+#projects #project #item3::before {
   transition: background-color 0.5s ease;
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1098,7 +1118,7 @@ i {
 #projects #project #two::before {
   transition: background-color 0.5s ease;
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1109,7 +1129,7 @@ i {
 #projects #project #six::before {
   transition: background-color 0.5s ease;
   position: absolute;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1120,7 +1140,7 @@ i {
   height: 90%;
   margin-left: 0;
   background-color: red;
-  background: url('../../../assets/img/showcaseknx1.jpg') no-repeat center/cover;
+  background: url("../../../assets/img/showcaseknx1.jpg") no-repeat center/cover;
   border-top: 5px solid #536dfe;
 }
 
@@ -1129,7 +1149,7 @@ i {
   width: 24vw;
   height: 90%;
   background-color: red;
-  background: url('../../../assets/img/installationsidebar.jpg') no-repeat
+  background: url("../../../assets/img/installationsidebar.jpg") no-repeat
     center/cover;
   border-top: 5px solid #536dfe;
 }
@@ -1138,7 +1158,7 @@ i {
   width: 25vw;
   height: 90%;
   background-color: red;
-  background: url('../../../assets/img/probaj2.jpg') no-repeat center/cover;
+  background: url("../../../assets/img/probaj2.jpg") no-repeat center/cover;
   border-top: 5px solid #536dfe;
 }
 #projects #project #projectslider #five {
@@ -1146,7 +1166,7 @@ i {
   width: 25vw;
   height: 90%;
   background-color: red;
-  background: url('../../../assets/img/probaj.jpg') no-repeat center/cover;
+  background: url("../../../assets/img/probaj.jpg") no-repeat center/cover;
   border-top: 5px solid #536dfe;
 }
 #projects #project #projectslider #six {
@@ -1154,7 +1174,7 @@ i {
   width: 25vw;
   height: 90%;
   background-color: red;
-  background: url('../../../assets/img/probaj1.jpg') no-repeat center/cover;
+  background: url("../../../assets/img/probaj1.jpg") no-repeat center/cover;
   border-top: 5px solid #536dfe;
 }
 
@@ -1177,12 +1197,12 @@ i {
   margin: auto;
   color: #333;
   color: #555;
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
   border-bottom: 2px solid #536dfe;
   margin-bottom: 1rem;
 }
 #projectsheader h2::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -50%;
   left: 50%;
@@ -1304,7 +1324,7 @@ i {
 
   #mobilemenuin::before {
     transition: transform 0.5s ease;
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 0.2rem;
@@ -1313,7 +1333,7 @@ i {
     transition: all 1s ease;
   }
   #mobilemenuin::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 0.2rem;
@@ -1436,13 +1456,13 @@ i {
   }
 
   label .text p::before {
-    content: '';
+    content: "";
     display: none;
   }
   label a {
     border-radius: 4px;
     position: absolute;
-    font-family: 'Roboto Mono';
+    font-family: "Roboto Mono";
     bottom: -3%;
     right: 0%;
     text-decoration: none;
@@ -1782,7 +1802,7 @@ i {
     font-size: 2vw;
   }
   label .text p::before {
-    content: '';
+    content: "";
     display: none;
   }
   .hide {
@@ -1791,7 +1811,7 @@ i {
   label a {
     border-radius: 4px;
     position: absolute;
-    font-family: 'Roboto Mono';
+    font-family: "Roboto Mono";
     bottom: -3%;
     right: 0%;
     text-decoration: none;
@@ -1979,6 +1999,10 @@ i {
   .project {
     width: 38vw !important;
   }
+
+  #item3 {
+    width: 60vw !important;
+  }
 }
 
 /* USLUGE */
@@ -2011,63 +2035,63 @@ i {
   height: 100%;
 }
 .sld:first-of-type {
-  background: url('/img/usluge/plan.jpeg') no-repeat center center/cover;
+  background: url("/img/usluge/plan.jpeg") no-repeat center center/cover;
 }
 .sld:nth-of-type(2) {
-  background: url('/img/usluge/ormar.jpg') no-repeat center center/cover;
+  background: url("/img/usluge/ormar.jpg") no-repeat center center/cover;
 }
 .sld:nth-of-type(3) {
-  background: url('/img/usluge/slabastrshowc1.jpg') no-repeat left center/cover;
+  background: url("/img/usluge/slabastrshowc1.jpg") no-repeat left center/cover;
   background-size: cover;
 }
 .sld:nth-of-type(4) {
-  background: url('/img/usluge/Dark-Smart-Home-Background.jpeg') no-repeat left
+  background: url("/img/usluge/Dark-Smart-Home-Background.jpeg") no-repeat left
     center/cover;
   background-size: cover;
   display: flex;
   flex-direction: column;
 }
 .sld:nth-of-type(5) {
-  background: url('/img/usluge/Luxury-apartment-living-room-wallpaper-1920x1200.jpg')
+  background: url("/img/usluge/Luxury-apartment-living-room-wallpaper-1920x1200.jpg")
     no-repeat left center/cover;
   background-size: cover;
 }
 .sld:nth-of-type(6) {
-  background: url('/img/usluge/instruments.jpg') no-repeat left center/cover;
+  background: url("/img/usluge/instruments.jpg") no-repeat left center/cover;
   background-size: cover;
 }
 .sld:nth-of-type(7) {
-  background: url('/img/usluge/security-technology.jpg') no-repeat left center /
+  background: url("/img/usluge/security-technology.jpg") no-repeat left center /
     cover;
   background-size: cover;
 }
 .sld:nth-of-type(8) {
-  background: url('/img/usluge/plan.jpeg') no-repeat center center/cover;
+  background: url("/img/usluge/plan.jpeg") no-repeat center center/cover;
   background-size: cover;
   /* 50% 0 on tablet mobile */
 }
 .sld:nth-of-type(9) {
-  background: url('/img/usluge/ormar.jpg') no-repeat center center/cover;
+  background: url("/img/usluge/ormar.jpg") no-repeat center center/cover;
   background-size: cover;
 }
 @media only screen and (max-width: 500px) {
   #bx1 {
-    background: url('../../../assets/img/kvservis2.webp') 50% 100% / contain;
+    background: url("../../../assets/img/kvservis2.webp") 50% 100% / contain;
   }
   #bx2 {
-    background: url('../../../assets/img/electric-eng2.webp') center / cover
+    background: url("../../../assets/img/electric-eng2.webp") center / cover
       no-repeat;
   }
   #bx3 {
-    background: url('../../../assets/img/najntehn3.webp') center / cover
+    background: url("../../../assets/img/najntehn3.webp") center / cover
       no-repeat;
   }
   #bx4 {
-    background: url('../../../assets/img/strucnitim3.webp') center right / cover
+    background: url("../../../assets/img/davidim2.svg") center center / cover
       no-repeat;
   }
   #projects::after {
-    background: url('../../../assets/img/showcaseknx3.webp') no-repeat top
+    background: url("../../../assets/img/showcaseknx3.webp") no-repeat top
       center / cover;
   }
   .slider label {
@@ -2111,7 +2135,7 @@ i {
     background-color: rgba(0, 0, 0, 0.5);
   }
   #showcase {
-    background: url('../../../assets/img/LED_Lightings.jpg') no-repeat center
+    background: url("../../../assets/img/LED_Lightings.jpg") no-repeat center
       top/cover;
   }
   #footersct3 {
@@ -2119,6 +2143,9 @@ i {
   }
   #footersct1 {
     margin-left: 5rem !important;
+  }
+  #item3 {
+    width: 77vw !important;
   }
 }
 @media only screen and (max-width: 800px) and (max-height: 500px) {
@@ -2160,7 +2187,9 @@ i {
     overflow: hidden;
     /* background-color: red; */
   }
-
+  #item3 {
+    width: 60vw !important;
+  }
   /* html,
   body {
     overflow-x: hidden;
@@ -2221,6 +2250,7 @@ i {
     top: 100vh !important;
   }
   #whatwedo {
-    height: 350vh;
+    height: 220vh;
+    /* height: 100vh; */
   }
 }

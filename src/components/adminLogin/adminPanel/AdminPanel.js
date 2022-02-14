@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
-import { auth, storage, db } from '../../../firebase';
-import Snav from '../../Onama/Snav';
-import s from './AdminPanel.module.css';
-import { v1 as uuid } from 'uuid';
+import React, { useRef, useEffect, useState, useContext } from "react";
+import { auth, storage, db } from "../../../firebase";
+import Snav from "../../Onama/Snav";
+import s from "./AdminPanel.module.css";
+import { v1 as uuid } from "uuid";
 
 const AdminLogin = () => {
   const form = useRef();
@@ -22,7 +22,7 @@ const AdminLogin = () => {
   const addWorkerForm = useRef();
 
   const [userState, setUserState] = useState(false);
-  const [accessToken, setAcessToken] = useState('');
+  const [accessToken, setAcessToken] = useState("");
 
   let labels = useRef();
   let inputs = useRef();
@@ -33,8 +33,8 @@ const AdminLogin = () => {
   const [imageUrl, setImageUrl] = useState([]);
   const [urlHere, setUrlHere] = useState(false);
   const [article, setArticle] = useState({
-    title: '',
-    favorite: 'false',
+    title: "",
+    favorite: "false",
     imageUrl: [],
   });
   const [ready, setReady] = useState(false);
@@ -56,8 +56,8 @@ const AdminLogin = () => {
   // innerArticle
   const [innerArticle, setInnerArticle] = useState([
     {
-      title: '',
-      favorite: 'false',
+      title: "",
+      favorite: "false",
       imageUrl: [],
     },
   ]);
@@ -82,8 +82,8 @@ const AdminLogin = () => {
 
   useEffect(() => {
     if (loading) {
-      articleSpinner.current.style.opacity = '1';
-      articleSpinner.current.style.display = 'block';
+      articleSpinner.current.style.opacity = "1";
+      articleSpinner.current.style.display = "block";
     }
   }, [loading]);
 
@@ -93,7 +93,7 @@ const AdminLogin = () => {
     }
   }, [articleRemoved]);
   useEffect(() => {
-    document.title = 'ElektroMonting | Admin Panel';
+    document.title = "ElektroMonting | Admin Panel";
     // getArticles();
 
     // auth
@@ -128,7 +128,7 @@ const AdminLogin = () => {
         });
         setUserState(true);
       } else {
-        alert('logged out');
+        alert("logged out");
       }
     });
     return () => {
@@ -223,11 +223,11 @@ const AdminLogin = () => {
             //   });
 
             fetch(
-              `https://elektro-plus-ca75d-default-rtdb.europe-west1.firebasedatabase.app/content.json?auth=${accessToken}`,
+              `https://elektromonting-dce15-default-rtdb.europe-west1.firebasedatabase.app/content.json?auth=${accessToken}`,
               {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify(article),
               }
@@ -236,148 +236,147 @@ const AdminLogin = () => {
                 response.json();
                 console.log(response);
 
-                if (response.statusText !== 'Unauthorized') {
+                if (response.statusText !== "Unauthorized") {
                   setLoading(false);
-                  articleUploadText.current.style.display = 'block';
-                  spinnerParent.current.style.zIndex = '212';
+                  articleUploadText.current.style.display = "block";
+                  spinnerParent.current.style.zIndex = "212";
                   setTimeout(() => {
-                    articleUploadText.current.style.opacity = '0';
+                    articleUploadText.current.style.opacity = "0";
                   }, 1500);
                   setTimeout(() => {
-                    spinnerParent.current.style.zIndex = '-1';
+                    spinnerParent.current.style.zIndex = "-1";
                   }, 1600);
                   setFreeToGet(true);
                 }
               })
               .then((article) => {
-                console.log('Success:', article);
+                console.log("Success:", article);
               })
               .catch((error) => {
-                console.error('Error:', error);
+                console.error("Error:", error);
               });
           } else if (openInner) {
             console.log(copyUrls);
             const dbRef = db.ref(`content/${innerId}`);
 
-            if (innT.current.value === 'uposlenici') {
-              console.log(innerArticle);
-              console.log(imageUrl.length);
-              if (imageUrl.length === 1) {
-                innerArticle.push({
-                  title: 'uposlenici',
-                  favorite: 'false',
-                  imageUrl: `${imageUrl[0]}`,
-                });
-              } else if (imageUrl.length > 1) {
-                for (let i = 0; i < imageUrl.length; i++) {
-                  innerArticle.push({
-                    title: 'uposlenici',
-                    favorite: 'false',
-                    imageUrl: `${imageUrl[i]}`,
-                  });
-                }
-              }
+            // if (innT.current.value === "uposlenici") {
+            //   console.log(innerArticle);
+            //   console.log(imageUrl.length);
+            //   if (imageUrl.length === 1) {
+            //     innerArticle.push({
+            //       title: "uposlenici",
+            //       favorite: "false",
+            //       imageUrl: `${imageUrl[0]}`,
+            //     });
+            //   } else if (imageUrl.length > 1) {
+            //     for (let i = 0; i < imageUrl.length; i++) {
+            //       innerArticle.push({
+            //         title: "uposlenici",
+            //         favorite: "false",
+            //         imageUrl: `${imageUrl[i]}`,
+            //       });
+            //     }
+            //   }
 
-              dbRef
-                .update({
-                  title: `uposlenici`,
-                  ...innerArticle,
-                  imageUrl: [...copyUrls],
-                })
-                .then((res) => {
-                  var ref = db.ref(`content/${innerId}`);
-                  ref.once('value').then(function (snapshot) {
-                    var key = snapshot.key; // "ada"
-                    const arr = snapshot.child(`favorite`).val();
-                    console.log(arr);
-                    setLoading(false);
-                    articleUploadText.current.style.display = 'block';
-                    spinnerParent.current.style.zIndex = '212';
-                    setTimeout(() => {
-                      articleUploadText.current.style.opacity = '0';
-                    }, 1500);
-                    setTimeout(() => {
-                      spinnerParent.current.style.zIndex = '-1';
-                    }, 1600);
-                    let cpy = [];
-                    cpy = [...innerArticle];
-                    let cpy2 = [];
-                    let cpy3 = [];
-                    let titles = [];
-                    for (let i = 0; i < innerArticle.length; i++) {
-                      cpy3[i] = innerArticle[i].name;
-                      titles[i] = innerArticle[i].title;
-                    }
-                    for (let i = 0; i < copyUrls.length; i++) {
-                      cpy2[i] = {
-                        title: titles[i],
-                        favorite: 'false',
-                        imageUrl: copyUrls[i],
-                      };
-                      if (innerArticle[i].name) {
-                        cpy2[i].name = innerArticle[i].name;
-                      }
-                    }
-                    innT.current.value = inputs[0].value;
-                    console.log(cpy2);
-                    console.log(innerArticle);
-                    setInnerArticle([...cpy2]);
-                    setArticleRemoved(true);
-                    setFreeToGet(true);
-                  });
+            //   dbRef
+            //     .update({
+            //       title: `uposlenici`,
+            //       ...innerArticle,
+            //       imageUrl: [...copyUrls],
+            //     })
+            //     .then((res) => {
+            //       var ref = db.ref(`content/${innerId}`);
+            //       ref.once("value").then(function (snapshot) {
+            //         var key = snapshot.key; // "ada"
+            //         const arr = snapshot.child(`favorite`).val();
+            //         console.log(arr);
+            //         setLoading(false);
+            //         articleUploadText.current.style.display = "block";
+            //         spinnerParent.current.style.zIndex = "212";
+            //         setTimeout(() => {
+            //           articleUploadText.current.style.opacity = "0";
+            //         }, 1500);
+            //         setTimeout(() => {
+            //           spinnerParent.current.style.zIndex = "-1";
+            //         }, 1600);
+            //         let cpy = [];
+            //         cpy = [...innerArticle];
+            //         let cpy2 = [];
+            //         let cpy3 = [];
+            //         let titles = [];
+            //         for (let i = 0; i < innerArticle.length; i++) {
+            //           cpy3[i] = innerArticle[i].name;
+            //           titles[i] = innerArticle[i].title;
+            //         }
+            //         for (let i = 0; i < copyUrls.length; i++) {
+            //           cpy2[i] = {
+            //             title: titles[i],
+            //             favorite: "false",
+            //             imageUrl: copyUrls[i],
+            //           };
+            //           if (innerArticle[i].name) {
+            //             cpy2[i].name = innerArticle[i].name;
+            //           }
+            //         }
+            //         innT.current.value = inputs[0].value;
+            //         console.log(cpy2);
+            //         console.log(innerArticle);
+            //         setInnerArticle([...cpy2]);
+            //         setArticleRemoved(true);
+            //         setFreeToGet(true);
+            //       });
+            //     });
+            // }
+            dbRef
+              .update({
+                title: `${inputs[0].value}`,
+                imageUrl: [...copyUrls],
+              })
+              .then((res) => {
+                var ref = db.ref(`content/${innerId}`);
+                ref.once("value").then(function (snapshot) {
+                  var key = snapshot.key; // "ada"
+                  const arr = snapshot.child(`favorite`).val();
+                  console.log(arr);
+                  setLoading(false);
+                  articleUploadText.current.style.display = "block";
+                  spinnerParent.current.style.zIndex = "212";
+                  setTimeout(() => {
+                    articleUploadText.current.style.opacity = "0";
+                  }, 1500);
+                  setTimeout(() => {
+                    spinnerParent.current.style.zIndex = "-1";
+                  }, 1600);
+                  let cpy = [];
+                  cpy = [...innerArticle];
+                  let cpy2 = [];
+                  let cpy3 = [];
+                  for (let i = 0; i < innerArticle.length; i++) {
+                    cpy3[i] = innerArticle[i].name;
+                  }
+                  for (let i = 0; i < copyUrls.length; i++) {
+                    cpy2[i] = {
+                      title:
+                        inputs[0].value !== innT.current.value
+                          ? inputs[0].value
+                          : innT.current.value,
+                      favorite: "false",
+                      imageUrl: copyUrls[i],
+                    };
+                    // if (
+                    //   innT.current.value === "uposlenici" &&
+                    //   innerArticle[i].name
+                    // ) {
+                    //   cpy2[i].name = innerArticle[i].name;
+                    // }
+                  }
+                  innT.current.value = inputs[0].value;
+                  console.log(cpy2);
+                  setInnerArticle([...cpy2]);
+                  setArticleRemoved(true);
+                  setFreeToGet(true);
                 });
-            } else {
-              dbRef
-                .update({
-                  title: `${inputs[0].value}`,
-                  imageUrl: [...copyUrls],
-                })
-                .then((res) => {
-                  var ref = db.ref(`content/${innerId}`);
-                  ref.once('value').then(function (snapshot) {
-                    var key = snapshot.key; // "ada"
-                    const arr = snapshot.child(`favorite`).val();
-                    console.log(arr);
-                    setLoading(false);
-                    articleUploadText.current.style.display = 'block';
-                    spinnerParent.current.style.zIndex = '212';
-                    setTimeout(() => {
-                      articleUploadText.current.style.opacity = '0';
-                    }, 1500);
-                    setTimeout(() => {
-                      spinnerParent.current.style.zIndex = '-1';
-                    }, 1600);
-                    let cpy = [];
-                    cpy = [...innerArticle];
-                    let cpy2 = [];
-                    let cpy3 = [];
-                    for (let i = 0; i < innerArticle.length; i++) {
-                      cpy3[i] = innerArticle[i].name;
-                    }
-                    for (let i = 0; i < copyUrls.length; i++) {
-                      cpy2[i] = {
-                        title:
-                          inputs[0].value !== innT.current.value
-                            ? inputs[0].value
-                            : innT.current.value,
-                        favorite: 'false',
-                        imageUrl: copyUrls[i],
-                      };
-                      if (
-                        innT.current.value === 'uposlenici' &&
-                        innerArticle[i].name
-                      ) {
-                        cpy2[i].name = innerArticle[i].name;
-                      }
-                    }
-                    innT.current.value = inputs[0].value;
-                    console.log(cpy2);
-                    setInnerArticle([...cpy2]);
-                    setArticleRemoved(true);
-                    setFreeToGet(true);
-                  });
-                });
-            }
+              });
           }
         }
       }
@@ -397,7 +396,7 @@ const AdminLogin = () => {
   const getArticles = () => {
     if (userState) {
       fetch(
-        'https://elektro-plus-ca75d-default-rtdb.europe-west1.firebasedatabase.app/content.json'
+        "https://elektromonting-dce15-default-rtdb.europe-west1.firebasedatabase.app/content.json"
       )
         .then((response) => response.json())
         .then((data) => {
@@ -484,29 +483,29 @@ const AdminLogin = () => {
 
   const handleFocus = (name) => {
     labels.forEach((label, idx) => {
-      if (name === 'title' && idx === 0) {
-        label.style.marginBottom = '0rem';
+      if (name === "title" && idx === 0) {
+        label.style.marginBottom = "0rem";
         handleFalseInputs(inputs[0]);
-        inputs[0].style.borderBottom = '.1rem solid #4353a0';
+        inputs[0].style.borderBottom = ".1rem solid #4353a0";
       }
     });
-    if (name === 'textarea') {
-      inputs[3].style.border = '.1rem solid #4353a0';
+    if (name === "textarea") {
+      inputs[3].style.border = ".1rem solid #4353a0";
     }
   };
   const handleBlur = (e, name) => {
     labels.forEach((label, idx) => {
-      if (!e.target.value && idx === 0 && name === 'title') {
-        label.style.marginBottom = '-3rem';
-        inputs[0].style.borderBottom = '.1rem solid #ccc';
+      if (!e.target.value && idx === 0 && name === "title") {
+        label.style.marginBottom = "-3rem";
+        inputs[0].style.borderBottom = ".1rem solid #ccc";
       }
     });
   };
 
   const handleFalseInputs = (node) => {
-    if (node.value === 'Unesi naziv projekta!') {
-      node.value = '';
-      node.style.color = 'initial';
+    if (node.value === "Unesi naziv projekta!") {
+      node.value = "";
+      node.style.color = "initial";
     }
   };
 
@@ -518,26 +517,26 @@ const AdminLogin = () => {
         console.log(input.value);
       }
       if (
-        (input.value === '' && idx !== 1) ||
-        input.style.borderBottom === '0.1rem solid red'
+        (input.value === "" && idx !== 1) ||
+        input.style.borderBottom === "0.1rem solid red"
       ) {
-        input.value = 'Unesi naziv projekta!';
-        input.style.color = 'red';
-        input.style.borderBottom = '.1rem solid red';
-        labels[0].style.marginBottom = '0rem';
+        input.value = "Unesi naziv projekta!";
+        input.style.color = "red";
+        input.style.borderBottom = ".1rem solid red";
+        labels[0].style.marginBottom = "0rem";
         bool = false;
-      } else if (input.value === '' && idx === 1) {
-        alertNoImg.current.style.display = 'inline-block';
+      } else if (input.value === "" && idx === 1) {
+        alertNoImg.current.style.display = "inline-block";
         bool = false;
       }
     });
     if (bool) {
-      spinnerParent.current.style.display = 'block';
-      spinnerParent.current.style.zIndex = '212';
+      spinnerParent.current.style.display = "block";
+      spinnerParent.current.style.zIndex = "212";
       if (!openInner) {
         setArticle({
-          favorite: 'false',
-          title: inputs[0].value.toLowerCase(),
+          favorite: "false",
+          title: inputs[0].value,
           imageUrl: [],
         });
       }
@@ -554,14 +553,14 @@ const AdminLogin = () => {
         image.forEach((img) => {
           const uploadTask = storage.ref(`images/${img.name}`).put(img);
           uploadTask.on(
-            'state_changed',
+            "state_changed",
             (snapshot) => {},
             (error) => {
               console.log(error);
             },
             () => {
               storage
-                .ref('images')
+                .ref("images")
                 .child(img.name)
                 .getDownloadURL()
                 .then((url) => {
@@ -576,14 +575,14 @@ const AdminLogin = () => {
       } else {
         const uploadTask = storage.ref(`images/${image[0].name}`).put(image[0]);
         uploadTask.on(
-          'state_changed',
+          "state_changed",
           (snapshot) => {},
           (error) => {
             console.log(error);
           },
           () => {
             storage
-              .ref('images')
+              .ref("images")
               .child(image[0].name)
               .getDownloadURL()
               .then((url) => {
@@ -599,31 +598,31 @@ const AdminLogin = () => {
   const resetFields = () => {
     inputs.forEach((input, idx) => {
       if (idx !== 1) {
-        if (innT.current.value !== 'uposlenici') {
-          input.value = '';
-          input.style.color = 'initial';
-          input.style.borderBottom = '.1rem solid #ccc';
-          labels[0].style.marginBottom = '-3rem';
+        if (innT.current.value !== "uposlenici") {
+          input.value = "";
+          input.style.color = "initial";
+          input.style.borderBottom = ".1rem solid #ccc";
+          labels[0].style.marginBottom = "-3rem";
         }
       } else if (idx === 1) {
-        input.value = '';
-        alertNoImg.current.style.display = 'none';
+        input.value = "";
+        alertNoImg.current.style.display = "none";
       }
     });
   };
 
   const handleAddArticle = (e) => {
     if (!openInner) {
-      document.querySelector('html').style.scrollBehavior = 'smooth';
+      document.querySelector("html").style.scrollBehavior = "smooth";
       // bgParent.current.style.overflowY = 'hidden'
 
       disableScroll();
       // bgParent.current.style.overflowY = 'hidden'
-      articleForm.current.style.transform = 'translate(-50%, -90%)';
-      articleForm.current.style.opacity = '1';
-      articleForm.current.style.zIndex = '211';
-      overlay.current.style.zIndex = '210';
-      overlay.current.style.display = 'block';
+      articleForm.current.style.transform = "translate(-50%, -90%)";
+      articleForm.current.style.opacity = "1";
+      articleForm.current.style.zIndex = "211";
+      overlay.current.style.zIndex = "210";
+      overlay.current.style.display = "block";
       if (removeMode) {
         handleRemoveMode();
       }
@@ -631,23 +630,23 @@ const AdminLogin = () => {
         handleFavoriteMode();
       }
     }
-    if (openInner && !e.target.className.includes('innerPlus')) {
+    if (openInner && !e.target.className.includes("innerPlus")) {
       setOpenInner(false); //clicking plus in openInner and going backwards and removing title
-      innT.current.value = '';
-      articleForm.current.children[2].style.cursor = 'auto';
-    } else if (openInner && e.target.className.includes('innerPlus')) {
-      articleForm.current.style.transform = 'translate(-50%, -90%)';
-      articleForm.current.style.opacity = '1';
-      articleForm.current.style.zIndex = '211';
-      overlay.current.style.display = 'block';
-      overlay.current.style.zIndex = '210';
+      innT.current.value = "";
+      articleForm.current.children[2].style.cursor = "auto";
+    } else if (openInner && e.target.className.includes("innerPlus")) {
+      articleForm.current.style.transform = "translate(-50%, -90%)";
+      articleForm.current.style.opacity = "1";
+      articleForm.current.style.zIndex = "211";
+      overlay.current.style.display = "block";
+      overlay.current.style.zIndex = "210";
 
       inputs[0].value = innerArticle[0].title;
-      if (innT.current && innT.current.value === 'uposlenici') {
-        inputs[0].value = 'uposlenici';
-        articleForm.current.children[1].style.marginBottom = '0rem';
-        articleForm.current.children[2].style.cursor = 'not-allowed';
-      }
+      // if (innT.current && innT.current.value === "uposlenici") {
+      //   inputs[0].value = "uposlenici";
+      //   articleForm.current.children[1].style.marginBottom = "0rem";
+      //   articleForm.current.children[2].style.cursor = "not-allowed";
+      // }
       inputs[0].focus();
       if (removeMode) {
         handleRemoveMode();
@@ -656,7 +655,7 @@ const AdminLogin = () => {
         handleFavoriteMode();
       }
     }
-    if (openInner && e.target.className.includes('fa-long-arrow-alt-left')) {
+    if (openInner && e.target.className.includes("fa-long-arrow-alt-left")) {
       if (removeMode) {
         handleRemoveMode();
       }
@@ -671,22 +670,22 @@ const AdminLogin = () => {
       enableScroll();
       inputs.forEach((input, idx) => {
         if (idx !== 1) {
-          if (innT.current.value === 'uposlenici') {
-            input.value = '';
-            input.style.color = 'initial';
-            input.style.borderBottom = '.1rem solid #ccc';
-            labels[0].style.marginBottom = '-3rem';
-          }
+          // if (innT.current.value === "uposlenici") {
+          //   input.value = "";
+          //   input.style.color = "initial";
+          //   input.style.borderBottom = ".1rem solid #ccc";
+          //   labels[0].style.marginBottom = "-3rem";
+          // }
         } else if (idx === 1) {
-          input.value = '';
-          alertNoImg.current.style.display = 'none';
+          input.value = "";
+          alertNoImg.current.style.display = "none";
         }
       });
       articleForm.current.style.opacity = 0;
-      articleForm.current.style.transform = 'translate(-50%, -100%)';
+      articleForm.current.style.transform = "translate(-50%, -100%)";
       articleForm.current.style.zIndex = -1;
-      overlay.current.style.display = 'none';
-      spinnerParent.current.style.display = 'none';
+      overlay.current.style.display = "none";
+      spinnerParent.current.style.display = "none";
       resetFields();
     }
   };
@@ -694,7 +693,7 @@ const AdminLogin = () => {
   // firebase img upload
   const handleChange = (e) => {
     if (!openInner) {
-      alertNoImg.current.style.display = 'none';
+      alertNoImg.current.style.display = "none";
     }
     let { files } = e.target;
     console.log(files);
@@ -723,7 +722,7 @@ const AdminLogin = () => {
       let myFileList = list.files;
       inputs[1].files = myFileList;
       if (openInner && inputs[1].files.length !== 0) {
-        alertNoImg.current.style.display = 'none';
+        alertNoImg.current.style.display = "none";
       }
       // if (files) {
       //   for (let file in files) {
@@ -756,8 +755,8 @@ const AdminLogin = () => {
               if (img.indexOf(fileList[i].name) !== -1) {
                 const indPos = img.indexOf(fileList[i].name);
                 if (
-                  img[indPos - 1] === 'F' &&
-                  img[indPos + fileList[i].name.length] === '?'
+                  img[indPos - 1] === "F" &&
+                  img[indPos + fileList[i].name.length] === "?"
                 ) {
                   fileList.splice(i, 1);
                 }
@@ -787,7 +786,7 @@ const AdminLogin = () => {
           files = myFileList;
           inputs[1].files = myFileList;
           if (openInner && inputs[1].files.length !== 0) {
-            alertNoImg.current.style.display = 'none';
+            alertNoImg.current.style.display = "none";
           }
           console.log(files);
           if (files) {
@@ -827,12 +826,12 @@ const AdminLogin = () => {
     }
 
     if (removeMode) {
-      removeBtn.current.style.background = '#dee5e5';
-      removeBtn.current.children[0].style.color = 'teal';
+      removeBtn.current.style.background = "#dee5e5";
+      removeBtn.current.children[0].style.color = "teal";
       setRemoveMode(false);
     } else {
-      removeBtn.current.style.background = 'teal';
-      removeBtn.current.children[0].style.color = '#293042';
+      removeBtn.current.style.background = "teal";
+      removeBtn.current.children[0].style.color = "#293042";
       setRemoveMode(true);
     }
   };
@@ -844,12 +843,12 @@ const AdminLogin = () => {
       }
 
       if (favoriteMode) {
-        favoriteBtn.current.style.background = '#dee5e5';
-        favoriteBtn.current.children[0].style.color = 'teal';
+        favoriteBtn.current.style.background = "#dee5e5";
+        favoriteBtn.current.children[0].style.color = "teal";
         setFavoriteMode(false);
       } else {
-        favoriteBtn.current.style.background = 'teal';
-        favoriteBtn.current.children[0].style.color = 'gold';
+        favoriteBtn.current.style.background = "teal";
+        favoriteBtn.current.children[0].style.color = "gold";
         setFavoriteMode(true);
       }
     }
@@ -857,29 +856,29 @@ const AdminLogin = () => {
 
   const handleRemoveModeME = () => {
     if (!removeMode) {
-      removeBtn.current.style.background = 'teal';
-      removeBtn.current.children[0].style.color = '#293042';
+      removeBtn.current.style.background = "teal";
+      removeBtn.current.children[0].style.color = "#293042";
     }
   };
   const handleRemoveModeML = () => {
     if (!removeMode) {
-      removeBtn.current.style.background = '#dee5e5';
-      removeBtn.current.children[0].style.color = 'teal';
+      removeBtn.current.style.background = "#dee5e5";
+      removeBtn.current.children[0].style.color = "teal";
     }
   };
   const handleFavoriteModeME = () => {
     if (!openInner) {
       if (!favoriteMode) {
-        favoriteBtn.current.style.background = 'teal';
-        favoriteBtn.current.children[0].style.color = 'gold';
+        favoriteBtn.current.style.background = "teal";
+        favoriteBtn.current.children[0].style.color = "gold";
       }
     }
   };
   const handleFavoriteModeML = () => {
     if (!openInner) {
       if (!favoriteMode) {
-        favoriteBtn.current.style.background = '#dee5e5';
-        favoriteBtn.current.children[0].style.color = 'teal';
+        favoriteBtn.current.style.background = "#dee5e5";
+        favoriteBtn.current.children[0].style.color = "teal";
       }
     }
   };
@@ -891,150 +890,150 @@ const AdminLogin = () => {
     const strVal = e.target.id;
     console.log(strVal);
     if (removeMode) {
-      if (strVal.includes('hexOverlay')) {
+      if (strVal.includes("hexOverlay")) {
         if (
-          e.target.style.backgroundColor === 'transparent' ||
-          e.target.style.backgroundColor === ''
+          e.target.style.backgroundColor === "transparent" ||
+          e.target.style.backgroundColor === ""
         ) {
-          e.target.style.backgroundColor = 'rgba(255, 0, 0, 0.6)';
-          e.target.children[0].style.display = 'block';
-          e.target.nextSibling.style.display = 'none';
+          e.target.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
+          e.target.children[0].style.display = "block";
+          e.target.nextSibling.style.display = "none";
           if (e.target.nextSibling.nextSibling) {
-            e.target.nextSibling.nextSibling.style.display = 'none';
+            e.target.nextSibling.nextSibling.style.display = "none";
           }
         } else {
-          e.target.style.backgroundColor = 'transparent';
-          e.target.children[0].style.display = 'none';
-          e.target.nextSibling.style.display = 'block';
+          e.target.style.backgroundColor = "transparent";
+          e.target.children[0].style.display = "none";
+          e.target.nextSibling.style.display = "block";
           if (e.target.nextSibling.nextSibling) {
-            e.target.nextSibling.nextSibling.style.display = 'block';
+            e.target.nextSibling.nextSibling.style.display = "block";
           }
         }
       }
-      if (strValCl.includes('fa-trash')) {
+      if (strValCl.includes("fa-trash")) {
         if (
-          e.target.parentElement.style.backgroundColor === 'transparent' ||
-          e.target.parentElement.style.backgroundColor === ''
+          e.target.parentElement.style.backgroundColor === "transparent" ||
+          e.target.parentElement.style.backgroundColor === ""
         ) {
-          e.target.parentElement.style.backgroundColor = 'rgba(255, 0, 0, 0.6)';
-          e.target.parentElement.children[0].style.display = 'block';
-          e.target.parentElement.nextSibling.style.display = 'none';
+          e.target.parentElement.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
+          e.target.parentElement.children[0].style.display = "block";
+          e.target.parentElement.nextSibling.style.display = "none";
           if (e.target.parentElement.nextSibling.nextSibling) {
             e.target.parentElement.nextSibling.nextSibling.style.display =
-              'none';
+              "none";
           }
         } else {
-          e.target.parentElement.style.backgroundColor = 'transparent';
-          e.target.parentElement.children[0].style.display = 'none';
-          e.target.parentElement.nextSibling.style.display = 'block';
+          e.target.parentElement.style.backgroundColor = "transparent";
+          e.target.parentElement.children[0].style.display = "none";
+          e.target.parentElement.nextSibling.style.display = "block";
           if (e.target.parentElement.nextSibling.nextSibling) {
             e.target.parentElement.nextSibling.nextSibling.style.display =
-              'block';
+              "block";
           }
         }
       }
-      if (strValCl.includes('hexCellTitle')) {
+      if (strValCl.includes("hexCellTitle")) {
         if (
-          e.target.previousSibling.style.backgroundColor === 'transparent' ||
-          e.target.previousSibling.style.backgroundColor === ''
+          e.target.previousSibling.style.backgroundColor === "transparent" ||
+          e.target.previousSibling.style.backgroundColor === ""
         ) {
           e.target.previousSibling.style.backgroundColor =
-            'rgba(255, 0, 0, 0.6)';
-          e.target.previousSibling.children[0].style.display = 'block';
-          e.target.previousSibling.nextSibling.style.display = 'none';
+            "rgba(255, 0, 0, 0.6)";
+          e.target.previousSibling.children[0].style.display = "block";
+          e.target.previousSibling.nextSibling.style.display = "none";
           if (e.target.previousSibling.nextSibling.nextSibling) {
             e.target.previousSibling.nextSibling.nextSibling.style.display =
-              'none';
+              "none";
           }
         } else {
-          e.target.previousSibling.style.backgroundColor = 'transparent';
-          e.target.previousSibling.children[0].style.display = 'none';
-          e.target.previousSibling.nextSibling.style.display = 'block';
+          e.target.previousSibling.style.backgroundColor = "transparent";
+          e.target.previousSibling.children[0].style.display = "none";
+          e.target.previousSibling.nextSibling.style.display = "block";
           if (e.target.previousSibling.nextSibling.nextSibling) {
             e.target.previousSibling.nextSibling.nextSibling.style.display =
-              'block';
+              "block";
           }
         }
       }
-      if (
-        strValCl.includes('hexCellName') &&
-        innT.current.value === 'uposlenici'
-      ) {
-        if (
-          e.target.previousSibling.previousSibling.style.backgroundColor ===
-            'transparent' ||
-          e.target.previousSibling.previousSibling.style.backgroundColor === ''
-        ) {
-          e.target.previousSibling.previousSibling.style.backgroundColor =
-            'rgba(255, 0, 0, 0.6)';
-          e.target.previousSibling.previousSibling.children[0].style.display =
-            'block';
-          e.target.previousSibling.previousSibling.nextSibling.style.display =
-            'none';
-          if (
-            e.target.previousSibling.previousSibling.nextSibling.nextSibling
-          ) {
-            e.target.previousSibling.previousSibling.nextSibling.nextSibling.style.display =
-              'none';
-          }
-        } else {
-          e.target.previousSibling.previousSibling.style.backgroundColor =
-            'transparent';
-          e.target.previousSibling.previousSibling.children[0].style.display =
-            'none';
-          e.target.previousSibling.previousSibling.nextSibling.style.display =
-            'block';
-          if (
-            e.target.previousSibling.previousSibling.nextSibling.nextSibling
-          ) {
-            e.target.previousSibling.previousSibling.nextSibling.nextSibling.style.display =
-              'block';
-          }
-        }
-      }
+      // if (
+      //   strValCl.includes("hexCellName") &&
+      //   innT.current.value === "uposlenici"
+      // ) {
+      //   if (
+      //     e.target.previousSibling.previousSibling.style.backgroundColor ===
+      //       "transparent" ||
+      //     e.target.previousSibling.previousSibling.style.backgroundColor === ""
+      //   ) {
+      //     e.target.previousSibling.previousSibling.style.backgroundColor =
+      //       "rgba(255, 0, 0, 0.6)";
+      //     e.target.previousSibling.previousSibling.children[0].style.display =
+      //       "block";
+      //     e.target.previousSibling.previousSibling.nextSibling.style.display =
+      //       "none";
+      //     if (
+      //       e.target.previousSibling.previousSibling.nextSibling.nextSibling
+      //     ) {
+      //       e.target.previousSibling.previousSibling.nextSibling.nextSibling.style.display =
+      //         "none";
+      //     }
+      //   } else {
+      //     e.target.previousSibling.previousSibling.style.backgroundColor =
+      //       "transparent";
+      //     e.target.previousSibling.previousSibling.children[0].style.display =
+      //       "none";
+      //     e.target.previousSibling.previousSibling.nextSibling.style.display =
+      //       "block";
+      //     if (
+      //       e.target.previousSibling.previousSibling.nextSibling.nextSibling
+      //     ) {
+      //       e.target.previousSibling.previousSibling.nextSibling.nextSibling.style.display =
+      //         "block";
+      //     }
+      //   }
+      // }
     } else if (favoriteMode) {
-      if (strVal.includes('hexOverlay')) {
+      if (strVal.includes("hexOverlay")) {
         if (
-          e.target.style.backgroundColor === 'transparent' ||
-          e.target.style.backgroundColor === ''
+          e.target.style.backgroundColor === "transparent" ||
+          e.target.style.backgroundColor === ""
         ) {
-          e.target.style.backgroundColor = 'rgba(0, 128, 128, 0.6)';
-          e.target.children[0].style.display = 'block';
-          e.target.nextSibling.style.display = 'none';
+          e.target.style.backgroundColor = "rgba(0, 128, 128, 0.6)";
+          e.target.children[0].style.display = "block";
+          e.target.nextSibling.style.display = "none";
         } else {
-          e.target.style.backgroundColor = 'transparent';
-          e.target.children[0].style.display = 'none';
-          e.target.nextSibling.style.display = 'block';
+          e.target.style.backgroundColor = "transparent";
+          e.target.children[0].style.display = "none";
+          e.target.nextSibling.style.display = "block";
         }
       }
-      if (strValCl.includes('fa-star')) {
+      if (strValCl.includes("fa-star")) {
         if (
-          e.target.parentElement.style.backgroundColor === 'transparent' ||
-          e.target.parentElement.style.backgroundColor === ''
+          e.target.parentElement.style.backgroundColor === "transparent" ||
+          e.target.parentElement.style.backgroundColor === ""
         ) {
           e.target.parentElement.style.backgroundColor =
-            'rgba(0, 128, 128, 0.6)';
-          e.target.parentElement.children[0].style.display = 'block';
-          e.target.parentElement.nextSibling.style.display = 'none';
+            "rgba(0, 128, 128, 0.6)";
+          e.target.parentElement.children[0].style.display = "block";
+          e.target.parentElement.nextSibling.style.display = "none";
         } else {
-          e.target.parentElement.style.backgroundColor = 'transparent';
-          e.target.parentElement.children[0].style.display = 'none';
-          e.target.parentElement.nextSibling.style.display = 'block';
+          e.target.parentElement.style.backgroundColor = "transparent";
+          e.target.parentElement.children[0].style.display = "none";
+          e.target.parentElement.nextSibling.style.display = "block";
         }
       }
-      if (strValCl.includes('hexCellTitle')) {
+      if (strValCl.includes("hexCellTitle")) {
         if (
-          e.target.previousSibling.style.backgroundColor === 'transparent' ||
-          e.target.previousSibling.style.backgroundColor === ''
+          e.target.previousSibling.style.backgroundColor === "transparent" ||
+          e.target.previousSibling.style.backgroundColor === ""
         ) {
           e.target.previousSibling.style.backgroundColor =
-            'rgba(0, 128, 128, 0.6)';
-          e.target.previousSibling.children[0].style.display = 'block';
-          e.target.previousSibling.nextSibling.style.display = 'none';
+            "rgba(0, 128, 128, 0.6)";
+          e.target.previousSibling.children[0].style.display = "block";
+          e.target.previousSibling.nextSibling.style.display = "none";
         } else {
-          e.target.previousSibling.style.backgroundColor = 'transparent';
-          e.target.previousSibling.children[0].style.display = 'none';
-          e.target.previousSibling.nextSibling.style.display = 'block';
+          e.target.previousSibling.style.backgroundColor = "transparent";
+          e.target.previousSibling.children[0].style.display = "none";
+          e.target.previousSibling.nextSibling.style.display = "block";
         }
       }
     }
@@ -1072,10 +1071,10 @@ const AdminLogin = () => {
       console.log(arrSwapContent);
       console.log(arrSwap);
       console.log(endResult);
-      const dbRef = db.ref('content');
+      const dbRef = db.ref("content");
       dbRef.update({ ...endResult }).then((res) => {
-        var ref = db.ref('content');
-        ref.once('value').then((snapshot) => {
+        var ref = db.ref("content");
+        ref.once("value").then((snapshot) => {
           setArticleRemoved(true);
           setDrag(false);
         });
@@ -1086,7 +1085,7 @@ const AdminLogin = () => {
       const dbRef = db.ref(`content/${innerId}`);
       dbRef.update({ ...innerArticle }).then((res) => {
         var ref = db.ref(`content/${innerId}`);
-        ref.once('value').then((snapshot) => {
+        ref.once("value").then((snapshot) => {
           setArticleRemoved(true);
           setDrag(false);
         });
@@ -1100,7 +1099,7 @@ const AdminLogin = () => {
     dbRef.update({ title: tit }).then((res) => {
       var ref = db.ref(`content/${innerId}`);
       console.log(ref);
-      ref.once('value').then(function (snapshot) {
+      ref.once("value").then(function (snapshot) {
         var key = snapshot.key; // "ada"
         const arr = snapshot.child(`title`).val();
         console.log(arr);
@@ -1112,7 +1111,7 @@ const AdminLogin = () => {
         for (let i = 0; i < ids2.length; i++) {
           cpy2[i] = {
             title: tit,
-            favorite: 'false',
+            favorite: "false",
             imageUrl: ids2[i],
           };
         }
@@ -1130,11 +1129,11 @@ const AdminLogin = () => {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1].style
-            .backgroundColor !== 'transparent'
+            .backgroundColor !== "transparent"
         ) {
           if (
             hexUl.current.children[i].children[0].children[0].children[2]
-              .textContent !== 'uposlenici'
+              .textContent !== "uposlenici"
           ) {
             ids.push(hexUl.current.children[i].id);
           }
@@ -1162,7 +1161,7 @@ const AdminLogin = () => {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1].style
-            .backgroundColor !== 'transparent'
+            .backgroundColor !== "transparent"
         ) {
           // hexUl.current.children[i].children[0].style.display = 'none';
           //get articles that are going to be deleted(marked by red bg and trash icon)
@@ -1183,8 +1182,8 @@ const AdminLogin = () => {
       }
       let ids2 = [];
       newIds.forEach((id, i) => {
-        console.log(id.replace('url(', ''));
-        ids2[i] = id.replace('url("', '').replace('")', '');
+        console.log(id.replace("url(", ""));
+        ids2[i] = id.replace('url("', "").replace('")', "");
         console.log(ids2[i][ids2[i].length - 1]);
         // ids2[i][ids2[i].length - 1] = '';
       });
@@ -1208,88 +1207,85 @@ const AdminLogin = () => {
       // }
       if (newIds.length !== 0) {
         const dbRef = db.ref(`content/${innerId}`);
-        if (innT.current.value === 'uposlenici') {
-          dbRef
-            .set({
-              imageUrl: [...ids2],
-              ...innerArticle,
-              favorite: 'false',
-              title: 'uposlenici',
-              uId: innerId,
-            })
-            .then((res) => {
-              var ref = db.ref(`content/${innerId}/imageUrl`);
-              console.log(ref);
-              ref.once('value').then(function (snapshot) {
-                var key = snapshot.key; // "ada"
-                const arr = snapshot.child(`favorite`).val();
-                console.log(arr);
-                let cpy2 = [];
-                for (let i = 0; i < ids2.length; i++) {
-                  cpy2[i] = {
-                    title: innerArticle[i].title,
-                    favorite: 'false',
-                    imageUrl: ids2[i],
-                  };
-                  if (
-                    innT.current.value === 'uposlenici' &&
-                    innerArticle[i].name
-                  ) {
-                    cpy2[i].name = innerArticle[i].name;
-                  }
-                }
-                setInnerArticle([...cpy2]);
-                setArticleRemoved(true);
-              });
-            });
-        } else {
-          dbRef.update({ imageUrl: [...ids2] }).then((res) => {
-            var ref = db.ref(`content/${innerId}/imageUrl`);
-            console.log(ref);
-            ref.once('value').then(function (snapshot) {
-              var key = snapshot.key; // "ada"
-              const arr = snapshot.child(`favorite`).val();
-              console.log(arr);
-              let cpy2 = [];
-              for (let i = 0; i < ids2.length; i++) {
-                cpy2[i] = {
-                  title: innerArticle[i].title,
-                  favorite: 'false',
-                  imageUrl: ids2[i],
-                };
-                if (
-                  innT.current.value === 'uposlenici' &&
-                  innerArticle[i].name
-                ) {
-                  cpy2[i].name = innerArticle[i].name;
-                }
+        // if (innT.current.value === "uposlenici") {
+        //   dbRef
+        //     .set({
+        //       imageUrl: [...ids2],
+        //       ...innerArticle,
+        //       favorite: "false",
+        //       title: "uposlenici",
+        //       uId: innerId,
+        //     })
+        //     .then((res) => {
+        //       var ref = db.ref(`content/${innerId}/imageUrl`);
+        //       console.log(ref);
+        //       ref.once("value").then(function (snapshot) {
+        //         var key = snapshot.key; // "ada"
+        //         const arr = snapshot.child(`favorite`).val();
+        //         console.log(arr);
+        //         let cpy2 = [];
+        //         for (let i = 0; i < ids2.length; i++) {
+        //           cpy2[i] = {
+        //             title: innerArticle[i].title,
+        //             favorite: "false",
+        //             imageUrl: ids2[i],
+        //           };
+        //           if (
+        //             innT.current.value === "uposlenici" &&
+        //             innerArticle[i].name
+        //           ) {
+        //             cpy2[i].name = innerArticle[i].name;
+        //           }
+        //         }
+        //         setInnerArticle([...cpy2]);
+        //         setArticleRemoved(true);
+        //       });
+        //     });
+        // }
+
+        dbRef.update({ imageUrl: [...ids2] }).then((res) => {
+          var ref = db.ref(`content/${innerId}/imageUrl`);
+          console.log(ref);
+          ref.once("value").then(function (snapshot) {
+            var key = snapshot.key; // "ada"
+            const arr = snapshot.child(`favorite`).val();
+            console.log(arr);
+            let cpy2 = [];
+            for (let i = 0; i < ids2.length; i++) {
+              cpy2[i] = {
+                title: innerArticle[i].title,
+                favorite: "false",
+                imageUrl: ids2[i],
+              };
+              if (innT.current.value === "uposlenici" && innerArticle[i].name) {
+                cpy2[i].name = innerArticle[i].name;
               }
-              setInnerArticle([...cpy2]);
-              setArticleRemoved(true);
-            });
+            }
+            setInnerArticle([...cpy2]);
+            setArticleRemoved(true);
           });
-        }
+        });
       } else if (newIds.length === 0) {
         const projectRef = db.ref(`/content/${innerId}`);
         console.log(projectRef);
-        if (innT.current.value === 'uposlenici') {
-          alert('Ne mozes sve radnike odjednom izbrisati.');
-        } else {
-          projectRef.once('value').then(function (snapshot) {
-            var key = snapshot.key; // "ada"
-            const arr = snapshot.val();
+        // if (innT.current.value === "uposlenici") {
+        //   alert("Ne mozes sve radnike odjednom izbrisati.");
+        // }
 
-            projectRef.remove().then((res) => {
-              // setArticleIds([...newIds]);
-              setArticleRemoved(true);
-              innT.current.value = '';
-              removeBtn.current.style.backgroundColor = '#dee5e5';
-              removeBtn.current.children[0].style.color = 'teal';
-              setRemoveMode(false);
-              setOpenInner(false);
-            });
+        projectRef.once("value").then(function (snapshot) {
+          var key = snapshot.key; // "ada"
+          const arr = snapshot.val();
+
+          projectRef.remove().then((res) => {
+            // setArticleIds([...newIds]);
+            setArticleRemoved(true);
+            innT.current.value = "";
+            removeBtn.current.style.backgroundColor = "#dee5e5";
+            removeBtn.current.children[0].style.color = "teal";
+            setRemoveMode(false);
+            setOpenInner(false);
           });
-        }
+        });
       }
     }
   };
@@ -1301,14 +1297,14 @@ const AdminLogin = () => {
     for (let i = 0; i < hexUl.current.children.length; i++) {
       if (
         hexUl.current.children[i].children[0].children[0].children[1].style
-          .backgroundColor !== 'transparent'
+          .backgroundColor !== "transparent"
       ) {
         ids.push(hexUl.current.children[i].id);
         const dbRef = db.ref(`content/${hexUl.current.children[i].id}`);
-        dbRef.update({ favorite: 'true' }).then((res) => {
+        dbRef.update({ favorite: "true" }).then((res) => {
           var ref = db.ref(`content/${hexUl.current.children[i].id}`);
           console.log(ref);
-          ref.once('value').then(function (snapshot) {
+          ref.once("value").then(function (snapshot) {
             var key = snapshot.key; // "ada"
             let comL = 0;
             console.log(key);
@@ -1325,10 +1321,10 @@ const AdminLogin = () => {
         newIds.push(hexUl.current.children[i].id);
         oldIds.push(hexUl.current.children[i].id);
         const dbRef = db.ref(`content/${hexUl.current.children[i].id}`);
-        dbRef.update({ favorite: 'false' }).then((res) => {
+        dbRef.update({ favorite: "false" }).then((res) => {
           var ref = db.ref(`content/${hexUl.current.children[i].id}`);
           console.log(ref);
-          ref.once('value').then(function (snapshot) {
+          ref.once("value").then(function (snapshot) {
             var key = snapshot.key; // "ada"
             let comL = 0;
             console.log(key);
@@ -1359,7 +1355,7 @@ const AdminLogin = () => {
           newArr[i] = innerArticle[i].imageUrl;
           if (
             hexUl.current.children[i].children[0].children[0].children[1]
-              .children[0].style.color === 'gold'
+              .children[0].style.color === "gold"
           ) {
             // e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[
             //   i
@@ -1373,7 +1369,7 @@ const AdminLogin = () => {
         dbRef.update([...newArr]).then((res) => {
           var ref = db.ref(`content/${innerId}/imageUrl`);
           console.log(ref);
-          ref.once('value').then(function (snapshot) {
+          ref.once("value").then(function (snapshot) {
             var key = snapshot.key; // "ada"
             const arr = snapshot.child(`favorite`).val();
             console.log(arr);
@@ -1381,7 +1377,7 @@ const AdminLogin = () => {
             for (let i = 0; i < newArr.length; i++) {
               cpy2[i] = {
                 title: innerArticle[i].title,
-                favorite: 'false',
+                favorite: "false",
                 imageUrl: newArr[i],
               };
               if (innerArticle[i].name) {
@@ -1400,7 +1396,7 @@ const AdminLogin = () => {
           newArr[i] = innerArticle[i].imageUrl;
           if (
             hexUl.current.children[i].children[0].children[0].children[1]
-              .children[0].style.color === 'gold'
+              .children[0].style.color === "gold"
           ) {
             // e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[
             //   i
@@ -1415,7 +1411,7 @@ const AdminLogin = () => {
         dbRef.update({ title: tit, imageUrl: [...newArr] }).then((res) => {
           var ref = db.ref(`content/${innerId}`);
           console.log(ref);
-          ref.once('value').then(function (snapshot) {
+          ref.once("value").then(function (snapshot) {
             var key = snapshot.key; // "ada"
             const arr = snapshot.child(`title`).val();
             console.log(arr);
@@ -1430,8 +1426,8 @@ const AdminLogin = () => {
             }
             for (let i = 0; i < newArr.length; i++) {
               cpy2[i] = {
-                title: tit === 'uposlenici' ? titles[i] : tit,
-                favorite: 'false',
+                title: tit,
+                favorite: "false",
                 imageUrl: newArr[i],
               };
               if (innerArticle[i].name) {
@@ -1449,69 +1445,69 @@ const AdminLogin = () => {
   const removeInnerClick = (node) => {
     setTimeout(() => {
       console.log(node);
-      node.children[0].style.transform = 'translateY(-10px)';
-      node.children[1].style.transform = 'translateY(10px)';
-      node.children[0].style.opacity = '0';
-      node.children[1].style.opacity = '0';
+      node.children[0].style.transform = "translateY(-10px)";
+      node.children[1].style.transform = "translateY(10px)";
+      node.children[0].style.opacity = "0";
+      node.children[1].style.opacity = "0";
     }, 100);
     setTimeout(() => {
-      node.style.display = 'flex';
-      node.style.backgroundColor = 'transparent';
-      node.children[0].style.display = 'none';
-      node.children[1].style.display = 'none';
-      node.nextSibling.style.display = 'block';
+      node.style.display = "flex";
+      node.style.backgroundColor = "transparent";
+      node.children[0].style.display = "none";
+      node.children[1].style.display = "none";
+      node.nextSibling.style.display = "block";
       if (node.nextSibling.nextSibling) {
-        node.nextSibling.nextSibling.style.display = 'block';
+        node.nextSibling.nextSibling.style.display = "block";
       }
     }, 300);
   };
 
   const handleWorker = (mode) => {
-    if (mode === 'add') {
-      addWorkerForm.current.style.opacity = '1';
-      addWorkerForm.current.style.transform = 'translateY(0)';
-      addWorkerForm.current.parentElement.style.zIndex = '300';
+    if (mode === "add") {
+      addWorkerForm.current.style.opacity = "1";
+      addWorkerForm.current.style.transform = "translateY(0)";
+      addWorkerForm.current.parentElement.style.zIndex = "300";
       addWorkerForm.current.children[1].focus();
-    } else if (mode === 'close') {
-      addWorkerForm.current.style.opacity = '0';
-      addWorkerForm.current.style.transform = 'translateY(-100vh)';
-      addWorkerForm.current.parentElement.style.zIndex = '-1';
-      addWorkerForm.current.children[1].value = '';
-      addWorkerForm.current.children[3].value = '';
+    } else if (mode === "close") {
+      addWorkerForm.current.style.opacity = "0";
+      addWorkerForm.current.style.transform = "translateY(-100vh)";
+      addWorkerForm.current.parentElement.style.zIndex = "-1";
+      addWorkerForm.current.children[1].value = "";
+      addWorkerForm.current.children[3].value = "";
       if (hexUl.current) {
         for (let i = 0; i < hexUl.current.children.length; i++) {
           if (
             hexUl.current.children[i].children[0].children[0].children[1].style
-              .backgroundColor !== 'transparent'
+              .backgroundColor !== "transparent"
           ) {
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].style.backgroundColor =
-              'transparent';
+              "transparent";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[0].style.display =
-              'none';
+              "none";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[1].style.display =
-              'none';
+              "none";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[0].style.opacity =
-              '0';
+              "0";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[1].style.opacity =
-              '0';
+              "0";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[0].style.transform =
-              'translateY(-10px)';
+              "translateY(-10px)";
             hexUl.current.children[
               i
             ].children[0].children[0].children[1].children[1].style.transform =
-              'translateY(10px)';
+              "translateY(10px)";
           }
         }
       }
@@ -1528,7 +1524,7 @@ const AdminLogin = () => {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1]
-            .children[0].style.display !== 'none'
+            .children[0].style.display !== "none"
         ) {
           console.log(i);
           console.log(e.target.children[1].value);
@@ -1541,7 +1537,7 @@ const AdminLogin = () => {
           dbRef.update({ title: tit, name: name }).then((res) => {
             var ref = db.ref(`content/${innerId}/${i}`);
             console.log(ref);
-            ref.once('value').then(function (snapshot) {
+            ref.once("value").then(function (snapshot) {
               var key = snapshot.key; // "ada"
               const arr = snapshot.child(`title`).val();
               console.log(arr);
@@ -1557,7 +1553,7 @@ const AdminLogin = () => {
                   newArr[i] = {
                     title: tit,
                     name: name,
-                    favorite: 'false',
+                    favorite: "false",
                     imageUrl: newArr[i].imageUrl,
                   };
                 }
@@ -1565,9 +1561,9 @@ const AdminLogin = () => {
               console.log(newArr);
               setInnerArticle([...newArr]);
               setArticleRemoved(true);
-              handleWorker('close');
-              addWorkerForm.current.children[1].value = '';
-              addWorkerForm.current.children[3].value = '';
+              handleWorker("close");
+              addWorkerForm.current.children[1].value = "";
+              addWorkerForm.current.children[3].value = "";
             });
           });
         }
@@ -1580,7 +1576,7 @@ const AdminLogin = () => {
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.id.includes('hexOverlay')
+      e.target.id.includes("hexOverlay")
     ) {
       //open up thumbnails when clicking on a hex cell
       // e.target.children[0].children[0].children[1].children[0].style.display =
@@ -1588,12 +1584,12 @@ const AdminLogin = () => {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1].style
-            .backgroundColor !== 'transparent'
+            .backgroundColor !== "transparent"
         ) {
           e.target.parentElement.parentElement.parentElement.parentElement.children[
             i
           ].children[0].children[0].children[1].style.backgroundColor =
-            'transparent';
+            "transparent";
 
           removeInnerClick(
             e.target.parentElement.parentElement.parentElement.parentElement
@@ -1603,50 +1599,50 @@ const AdminLogin = () => {
       }
       console.log(e.target);
       console.log(e.target.children[0]);
-      e.target.children[0].style.display = 'block';
-      e.target.children[0].style.backgroundColor = 'rgba(21, 170, 191, 0.7)';
-      e.target.children[0].style.width = '50%';
-      e.target.children[0].style.height = '100%';
+      e.target.children[0].style.display = "block";
+      e.target.children[0].style.backgroundColor = "rgba(21, 170, 191, 0.7)";
+      e.target.children[0].style.width = "50%";
+      e.target.children[0].style.height = "100%";
       const { target } = e; //save because event gets lost in async calls like setTimeout
       setTimeout(() => {
         console.log(target);
-        target.children[0].style.transform = 'translateY(0)';
-        target.children[1].style.transform = 'translateY(0)';
-        target.children[0].style.opacity = '1';
-        target.children[1].style.opacity = '1';
+        target.children[0].style.transform = "translateY(0)";
+        target.children[1].style.transform = "translateY(0)";
+        target.children[0].style.opacity = "1";
+        target.children[1].style.opacity = "1";
       }, 100);
-      e.target.style.display = 'grid';
-      e.target.style.gridTemplateColumns = '1fr 1fr';
-      e.target.children[0].style.display = 'flex';
-      e.target.children[0].style.alignItems = 'center';
-      e.target.children[0].style.justifyContent = 'center';
-      e.target.children[1].style.display = 'flex';
-      e.target.children[1].style.gridColumn = '2/3';
-      e.target.children[1].style.alignItems = 'center';
-      e.target.children[1].style.justifyContent = 'center';
-      e.target.children[1].style.width = '100%';
-      e.target.children[1].style.height = '100%';
+      e.target.style.display = "grid";
+      e.target.style.gridTemplateColumns = "1fr 1fr";
+      e.target.children[0].style.display = "flex";
+      e.target.children[0].style.alignItems = "center";
+      e.target.children[0].style.justifyContent = "center";
+      e.target.children[1].style.display = "flex";
+      e.target.children[1].style.gridColumn = "2/3";
+      e.target.children[1].style.alignItems = "center";
+      e.target.children[1].style.justifyContent = "center";
+      e.target.children[1].style.width = "100%";
+      e.target.children[1].style.height = "100%";
 
-      e.target.nextSibling.style.display = 'none';
+      e.target.nextSibling.style.display = "none";
       if (e.target.nextSibling.nextSibling) {
-        e.target.nextSibling.nextSibling.style.display = 'none';
+        e.target.nextSibling.nextSibling.style.display = "none";
       }
-      e.target.style.backgroundColor = 'rgba(21, 170, 191, 0.5)';
+      e.target.style.backgroundColor = "rgba(21, 170, 191, 0.5)";
     } else if (
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.tagName === 'H1'
+      e.target.tagName === "H1"
     ) {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1].style
-            .backgroundColor !== 'transparent'
+            .backgroundColor !== "transparent"
         ) {
           e.target.parentElement.parentElement.parentElement.parentElement.children[
             i
           ].children[0].children[0].children[1].style.backgroundColor =
-            'transparent';
+            "transparent";
 
           removeInnerClick(
             e.target.parentElement.parentElement.parentElement.parentElement
@@ -1654,51 +1650,51 @@ const AdminLogin = () => {
           );
         }
       }
-      e.target.previousSibling.children[0].style.display = 'block';
+      e.target.previousSibling.children[0].style.display = "block";
       e.target.previousSibling.children[0].style.backgroundColor =
-        'rgba(21, 170, 191, 0.7)';
-      e.target.previousSibling.children[0].style.width = '50%';
-      e.target.previousSibling.children[0].style.height = '100%';
+        "rgba(21, 170, 191, 0.7)";
+      e.target.previousSibling.children[0].style.width = "50%";
+      e.target.previousSibling.children[0].style.height = "100%";
       const { target } = e; //save because event gets lost in async calls like setTimeout
       setTimeout(() => {
-        target.previousSibling.children[0].style.transform = 'translateY(0)';
-        target.previousSibling.children[1].style.transform = 'translateY(0)';
-        target.previousSibling.children[0].style.opacity = '1';
-        target.previousSibling.children[1].style.opacity = '1';
+        target.previousSibling.children[0].style.transform = "translateY(0)";
+        target.previousSibling.children[1].style.transform = "translateY(0)";
+        target.previousSibling.children[0].style.opacity = "1";
+        target.previousSibling.children[1].style.opacity = "1";
       }, 100);
-      e.target.previousSibling.style.display = 'grid';
-      e.target.previousSibling.style.gridTemplateColumns = '1fr 1fr';
-      e.target.previousSibling.children[0].style.display = 'flex';
-      e.target.previousSibling.children[0].style.alignItems = 'center';
-      e.target.previousSibling.children[0].style.justifyContent = 'center';
-      e.target.previousSibling.children[1].style.display = 'flex';
-      e.target.previousSibling.children[1].style.gridColumn = '2/3';
-      e.target.previousSibling.children[1].style.alignItems = 'center';
-      e.target.previousSibling.children[1].style.justifyContent = 'center';
-      e.target.previousSibling.children[1].style.width = '100%';
-      e.target.previousSibling.children[1].style.height = '100%';
+      e.target.previousSibling.style.display = "grid";
+      e.target.previousSibling.style.gridTemplateColumns = "1fr 1fr";
+      e.target.previousSibling.children[0].style.display = "flex";
+      e.target.previousSibling.children[0].style.alignItems = "center";
+      e.target.previousSibling.children[0].style.justifyContent = "center";
+      e.target.previousSibling.children[1].style.display = "flex";
+      e.target.previousSibling.children[1].style.gridColumn = "2/3";
+      e.target.previousSibling.children[1].style.alignItems = "center";
+      e.target.previousSibling.children[1].style.justifyContent = "center";
+      e.target.previousSibling.children[1].style.width = "100%";
+      e.target.previousSibling.children[1].style.height = "100%";
 
-      e.target.previousSibling.nextSibling.style.display = 'none';
+      e.target.previousSibling.nextSibling.style.display = "none";
       if (e.target.previousSibling.nextSibling.nextSibling) {
-        e.target.previousSibling.nextSibling.nextSibling.style.display = 'none';
+        e.target.previousSibling.nextSibling.nextSibling.style.display = "none";
       }
       e.target.previousSibling.style.backgroundColor =
-        'rgba(21, 170, 191, 0.5)';
+        "rgba(21, 170, 191, 0.5)";
     } else if (
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.tagName === 'H2'
+      e.target.tagName === "H2"
     ) {
       for (let i = 0; i < hexUl.current.children.length; i++) {
         if (
           hexUl.current.children[i].children[0].children[0].children[1].style
-            .backgroundColor !== 'transparent'
+            .backgroundColor !== "transparent"
         ) {
           e.target.parentElement.parentElement.parentElement.parentElement.children[
             i
           ].children[0].children[0].children[1].style.backgroundColor =
-            'transparent';
+            "transparent";
 
           removeInnerClick(
             e.target.parentElement.parentElement.parentElement.parentElement
@@ -1707,95 +1703,95 @@ const AdminLogin = () => {
         }
       }
       e.target.previousSibling.previousSibling.children[0].style.display =
-        'block';
+        "block";
       e.target.previousSibling.previousSibling.children[0].style.backgroundColor =
-        'rgba(21, 170, 191, 0.7)';
-      e.target.previousSibling.previousSibling.children[0].style.width = '50%';
+        "rgba(21, 170, 191, 0.7)";
+      e.target.previousSibling.previousSibling.children[0].style.width = "50%";
       e.target.previousSibling.previousSibling.children[0].style.height =
-        '100%';
+        "100%";
       const { target } = e; //save because event gets lost in async calls like setTimeout
       setTimeout(() => {
         target.previousSibling.previousSibling.children[0].style.transform =
-          'translateY(0)';
+          "translateY(0)";
         target.previousSibling.previousSibling.children[1].style.transform =
-          'translateY(0)';
-        target.previousSibling.previousSibling.children[0].style.opacity = '1';
-        target.previousSibling.previousSibling.children[1].style.opacity = '1';
+          "translateY(0)";
+        target.previousSibling.previousSibling.children[0].style.opacity = "1";
+        target.previousSibling.previousSibling.children[1].style.opacity = "1";
       }, 100);
-      e.target.previousSibling.previousSibling.style.display = 'grid';
+      e.target.previousSibling.previousSibling.style.display = "grid";
       e.target.previousSibling.previousSibling.style.gridTemplateColumns =
-        '1fr 1fr';
+        "1fr 1fr";
       e.target.previousSibling.previousSibling.children[0].style.display =
-        'flex';
+        "flex";
       e.target.previousSibling.previousSibling.children[0].style.alignItems =
-        'center';
+        "center";
       e.target.previousSibling.previousSibling.children[0].style.justifyContent =
-        'center';
+        "center";
       e.target.previousSibling.previousSibling.children[1].style.display =
-        'flex';
+        "flex";
       e.target.previousSibling.previousSibling.children[1].style.gridColumn =
-        '2/3';
+        "2/3";
       e.target.previousSibling.previousSibling.children[1].style.alignItems =
-        'center';
+        "center";
       e.target.previousSibling.previousSibling.children[1].style.justifyContent =
-        'center';
-      e.target.previousSibling.previousSibling.children[1].style.width = '100%';
+        "center";
+      e.target.previousSibling.previousSibling.children[1].style.width = "100%";
       e.target.previousSibling.previousSibling.children[1].style.height =
-        '100%';
+        "100%";
 
       e.target.previousSibling.previousSibling.nextSibling.style.display =
-        'none';
+        "none";
       if (e.target.previousSibling.previousSibling.nextSibling.nextSibling) {
         e.target.previousSibling.previousSibling.nextSibling.nextSibling.style.display =
-          'none';
+          "none";
       }
       e.target.previousSibling.previousSibling.style.backgroundColor =
-        'rgba(21, 170, 191, 0.5)';
+        "rgba(21, 170, 191, 0.5)";
     } else if (
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.className.includes('fa-crown')
+      e.target.className.includes("fa-crown")
     ) {
       const { target } = e;
-      if (e.target.style.color === 'rgb(28, 36, 49)') {
+      if (e.target.style.color === "rgb(28, 36, 49)") {
         // e.target.parentElement.parentElement.parentElement.parentElement.parentElement
         for (let i = 0; i < hexUl.current.children.length; i++) {
           if (
             hexUl.current.children[i].children[0].children[0].children[1]
-              .children[0].style.color === 'gold'
+              .children[0].style.color === "gold"
           ) {
             e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[
               i
             ].children[0].children[0].children[1].children[0].style.color =
-              '#1c2431';
+              "#1c2431";
           }
         }
-        e.target.style.color = 'gold';
+        e.target.style.color = "gold";
       } else {
         setTimeout(() => {
           console.log(target);
-          target.style.transform = 'translateY(-10px)';
-          target.nextSibling.style.transform = 'translateY(10px)';
-          target.style.opacity = '0';
-          target.nextSibling.style.opacity = '0';
+          target.style.transform = "translateY(-10px)";
+          target.nextSibling.style.transform = "translateY(10px)";
+          target.style.opacity = "0";
+          target.nextSibling.style.opacity = "0";
         }, 100);
         setTimeout(() => {
-          target.parentElement.style.display = 'flex';
-          target.parentElement.style.backgroundColor = 'transparent';
-          target.style.display = 'none';
-          target.nextSibling.style.display = 'none';
-          target.parentElement.nextSibling.style.display = 'block';
+          target.parentElement.style.display = "flex";
+          target.parentElement.style.backgroundColor = "transparent";
+          target.style.display = "none";
+          target.nextSibling.style.display = "none";
+          target.parentElement.nextSibling.style.display = "block";
         }, 300);
       }
     } else if (
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.className.includes('fa-user-edit')
+      e.target.className.includes("fa-user-edit")
     ) {
       const { target } = e;
-      handleWorker('add');
+      handleWorker("add");
       // setTimeout(() => {
       //   console.log(target);
       //   target.style.transform = 'translateY(-10px)';
@@ -1812,42 +1808,42 @@ const AdminLogin = () => {
       //   target.parentElement.nextSibling.nextSibling.style.display = 'block';
       // }, 300);
       setTimeout(() => {
-        target.parentElement.nextSibling.style.display = 'block';
-        target.parentElement.nextSibling.nextSibling.style.display = 'block';
+        target.parentElement.nextSibling.style.display = "block";
+        target.parentElement.nextSibling.nextSibling.style.display = "block";
       }, 300);
     } else if (
       openInner &&
       !favoriteMode &&
       !removeMode &&
-      e.target.className.includes('fa-eye')
+      e.target.className.includes("fa-eye")
     ) {
       const { target } = e;
       setTimeout(() => {
         console.log(target);
-        target.style.transform = 'translateY(-10px)';
-        target.previousSibling.style.transform = 'translateY(10px)';
-        target.style.opacity = '0';
-        target.previousSibling.style.opacity = '0';
+        target.style.transform = "translateY(-10px)";
+        target.previousSibling.style.transform = "translateY(10px)";
+        target.style.opacity = "0";
+        target.previousSibling.style.opacity = "0";
       }, 100);
       setTimeout(() => {
-        target.parentElement.style.display = 'flex';
-        target.parentElement.style.backgroundColor = 'transparent';
-        target.style.display = 'none';
-        target.previousSibling.style.display = 'none';
-        target.parentElement.nextSibling.style.display = 'block';
+        target.parentElement.style.display = "flex";
+        target.parentElement.style.backgroundColor = "transparent";
+        target.style.display = "none";
+        target.previousSibling.style.display = "none";
+        target.parentElement.nextSibling.style.display = "block";
         if (target.parentElement.nextSibling.nextSibling) {
-          target.parentElement.nextSibling.nextSibling.style.display = 'block';
+          target.parentElement.nextSibling.nextSibling.style.display = "block";
         }
       }, 300);
-      overlay.current.nextSibling.style.display = 'block';
+      overlay.current.nextSibling.style.display = "block";
       let transfImg =
         target.parentElement.previousSibling.style.backgroundImage;
-      transfImg = transfImg.replace('url("', '').replace('")', '');
+      transfImg = transfImg.replace('url("', "").replace('")', "");
       overlay.current.nextSibling.children[0].src = transfImg;
     }
     const idVal = e.target.id;
     if (
-      idVal.includes('hexOverlay') &&
+      idVal.includes("hexOverlay") &&
       !favoriteMode &&
       !removeMode &&
       !openInner
@@ -1859,7 +1855,7 @@ const AdminLogin = () => {
       !favoriteMode &&
       !removeMode &&
       !openInner &&
-      e.target.className.includes('hexCellTitle')
+      e.target.className.includes("hexCellTitle")
     ) {
       const innId = e.target.parentElement.parentElement.parentElement.id;
       setInnerId([innId]);
@@ -1870,7 +1866,7 @@ const AdminLogin = () => {
     if (innerId.length !== 0) {
       console.log(innerId);
       fetch(
-        `https://elektro-plus-ca75d-default-rtdb.europe-west1.firebasedatabase.app/content/${innerId[0]}.json`
+        `https://elektromonting-dce15-default-rtdb.europe-west1.firebasedatabase.app/content/${innerId[0]}.json`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -1895,13 +1891,13 @@ const AdminLogin = () => {
             for (let i = 0; i < data.imageUrl.length; i++) {
               newArr[i] = {
                 // title: data.title,
-                title: data.title === 'uposlenici' ? data[i].title : data.title,
+                title: data.title,
                 favorite: data.favorite,
                 imageUrl: data.imageUrl[i],
               };
-              if (data.title === 'uposlenici' && data[i].name) {
-                newArr[i].name = data[i].name;
-              }
+              // if (data.title === "uposlenici" && data[i].name) {
+              //   newArr[i].name = data[i].name;
+              // }
             }
             innT.current.value = data.title;
             setInnerArticle([...newArr]);
@@ -1917,43 +1913,43 @@ const AdminLogin = () => {
 
   const handleBackME = (e) => {
     if (openInner) {
-      e.target.style.backgroundColor = 'teal';
-      e.target.style.color = '#1c2431';
+      e.target.style.backgroundColor = "teal";
+      e.target.style.color = "#1c2431";
     }
   };
 
   const handleBackML = (e) => {
     console.log(e.target.className);
     if (openInner) {
-      e.target.style.backgroundColor = '#dee5e5';
-      e.target.style.color = 'teal';
+      e.target.style.backgroundColor = "#dee5e5";
+      e.target.style.color = "teal";
     }
   };
 
   const handleBackPlusME = (e) => {
     if (openInner) {
-      e.target.style.backgroundColor = 'teal';
-      e.target.style.color = '#dee5e5';
+      e.target.style.backgroundColor = "teal";
+      e.target.style.color = "#dee5e5";
     }
   };
 
   const handleBackPlusML = (e) => {
     if (openInner) {
-      e.target.style.backgroundColor = '#dee5e5';
-      e.target.style.color = 'teal';
+      e.target.style.backgroundColor = "#dee5e5";
+      e.target.style.color = "teal";
     }
   };
 
   const handleAddMOver = (e) => {
     if (!openInner) {
-      e.target.style.backgroundColor = 'teal';
-      e.target.style.color = '#dee5e5';
+      e.target.style.backgroundColor = "teal";
+      e.target.style.color = "#dee5e5";
     }
   };
   const handleAddMOut = (e) => {
     if (!openInner) {
-      e.target.style.backgroundColor = '#dee5e5';
-      e.target.style.color = 'teal';
+      e.target.style.backgroundColor = "#dee5e5";
+      e.target.style.color = "teal";
     }
   };
 
@@ -1969,11 +1965,11 @@ const AdminLogin = () => {
             ) {
               if (
                 hexUl.current.children[i].children[0].children[0].children[1]
-                  .children[0].style.color !== 'gold' &&
-                innT.current.value !== 'uposlenici'
+                  .children[0].style.color !== "gold" &&
+                innT.current.value !== "uposlenici"
               ) {
                 hexUl.current.children[0].children[0].children[0].children[1].children[0].style.color =
-                  'gold';
+                  "gold";
               }
             }
           } else return;
@@ -2006,7 +2002,7 @@ const AdminLogin = () => {
 
   const handleLefRight = (direction) => {
     for (let i = 0; i < innerArticle.length; i++) {
-      if (direction === 'left') {
+      if (direction === "left") {
         if (
           innerArticle[i].imageUrl ===
           overlay.current.nextSibling.children[0].src
@@ -2022,7 +2018,7 @@ const AdminLogin = () => {
           }
           break;
         }
-      } else if (direction === 'right') {
+      } else if (direction === "right") {
         if (
           innerArticle[i].imageUrl ===
           overlay.current.nextSibling.children[0].src
@@ -2044,13 +2040,13 @@ const AdminLogin = () => {
 
   const closeOverlaySlider = (e) => {
     // overlay.current.nextSibling.style.display = 'none';
-    if (e.target.className.includes('fa-caret-right')) {
-      handleLefRight('right');
-    } else if (e.target.className.includes('fa-caret-left')) {
-      handleLefRight('left');
+    if (e.target.className.includes("fa-caret-right")) {
+      handleLefRight("right");
+    } else if (e.target.className.includes("fa-caret-left")) {
+      handleLefRight("left");
     }
-    if (e.target.id.includes('overlaySlider')) {
-      overlay.current.nextSibling.style.display = 'none';
+    if (e.target.id.includes("overlaySlider")) {
+      overlay.current.nextSibling.style.display = "none";
     }
   };
 
@@ -2064,7 +2060,7 @@ const AdminLogin = () => {
   const dragStart = (e) => {
     console.log(e.target.id);
     console.log(e.target);
-    e.dataTransfer.setData('text', e.target.id);
+    e.dataTransfer.setData("text", e.target.id);
     if (openInner) {
       console.log(
         e.target.children[0].children[0].children[0].style.backgroundImage
@@ -2074,21 +2070,22 @@ const AdminLogin = () => {
         e.target.children[0].children[0].children[2].textContent;
       let imgName =
         e.target.children[0].children[0].children[0].style.backgroundImage;
-      imgName = imgName.replace('url("', '').replace('")', '');
+      imgName = imgName.replace('url("', "").replace('")', "");
 
-      if (innT.current.value === 'uposlenici') {
-        console.log(e.target.children[0].children[0].children[3].textContent);
-        const workerTitle =
-          e.target.children[0].children[0].children[3].textContent;
-        const xferObj = {
-          img: imgName,
-          name: workerName,
-          title: workerTitle,
-        };
-        e.dataTransfer.setData('text', JSON.stringify(xferObj));
-      } else {
-        e.dataTransfer.setData('text', imgName);
-      }
+      // if (innT.current.value === "uposlenici") {
+      //   console.log(e.target.children[0].children[0].children[3].textContent);
+      //   const workerTitle =
+      //     e.target.children[0].children[0].children[3].textContent;
+      //   const xferObj = {
+      //     img: imgName,
+      //     name: workerName,
+      //     title: workerTitle,
+      //   };
+      //   e.dataTransfer.setData("text", JSON.stringify(xferObj));
+      // }
+
+      e.dataTransfer.setData("text", imgName);
+
       console.log(imgName);
     }
   };
@@ -2109,7 +2106,7 @@ const AdminLogin = () => {
       setClone(
         e.target.parentElement.parentElement.parentElement.cloneNode(true)
       );
-      let data = e.dataTransfer.getData('text');
+      let data = e.dataTransfer.getData("text");
       let nodeList = hexUl.current.childNodes;
       let drgIdx = 0;
       let replacedIdx = 0;
@@ -2151,14 +2148,14 @@ const AdminLogin = () => {
       // hexUl.current.insertBefore(clone, nodeList[dragIndex]);
       setDrag(true);
     } else if (openInner) {
-      let data = e.dataTransfer.getData('text');
+      let data = e.dataTransfer.getData("text");
       let workerTitle = undefined;
-      if (innT.current.value === 'uposlenici') {
-        data = JSON.parse(data);
-        workerTitle =
-          e.target.parentElement.parentElement.parentElement.children[0]
-            .children[0].children[3].textContent;
-      }
+      // if (innT.current.value === "uposlenici") {
+      //   data = JSON.parse(data);
+      //   workerTitle =
+      //     e.target.parentElement.parentElement.parentElement.children[0]
+      //       .children[0].children[3].textContent;
+      // }
       console.log(data);
       // console.log(
       //   e.target.parentElement.parentElement.parentElement.children[0]
@@ -2170,11 +2167,11 @@ const AdminLogin = () => {
       const workerName =
         e.target.parentElement.parentElement.parentElement.children[0]
           .children[0].children[2].textContent;
-      imgName = imgName.replace('url("', '').replace('")', '');
+      imgName = imgName.replace('url("', "").replace('")', "");
       console.log(imgName);
       console.log(workerName);
       console.log(workerTitle);
-      if (innT.current.value !== 'uposlenici') {
+      if (innT.current.value !== "uposlenici") {
         if (imgName === data) return;
       } else {
         if (imgName === data.img) return;
@@ -2183,7 +2180,7 @@ const AdminLogin = () => {
       let drgIdx = 0;
       let replacedIdx = 0;
       console.log(data);
-      if (innT.current.value !== 'uposlenici') {
+      if (innT.current.value !== "uposlenici") {
         for (let i = 0; i < innerArticle.length; i++) {
           if (innerArticle[i].imageUrl === data) {
             setDragIndex(i);
@@ -2211,29 +2208,29 @@ const AdminLogin = () => {
       const idkt2 = innerArticle[drgIdx].title;
       innerArticle[replacedIdx].imageUrl = innerArticle[drgIdx].imageUrl;
       innerArticle[drgIdx].imageUrl = idk;
-      if (innT.current.value === 'uposlenici') {
-        let nameDrag = '';
-        let nameReplaced = '';
-        if (innerArticle[drgIdx].name) {
-          nameDrag = innerArticle[drgIdx].name;
-        }
-        if (innerArticle[replacedIdx].name) {
-          nameReplaced = innerArticle[replacedIdx].name;
-        }
-        innerArticle[drgIdx].title = idkt;
-        innerArticle[replacedIdx].title = idkt2;
-        if (nameDrag) {
-          innerArticle[replacedIdx].name = nameDrag;
-        } else if (!nameDrag) {
-          innerArticle[replacedIdx].name = '';
-        }
-        if (nameReplaced) {
-          innerArticle[drgIdx].name = nameReplaced;
-        } else if (!nameReplaced) {
-          innerArticle[drgIdx].name = '';
-        }
-        // innerArticle[replacedIdx].title = innerArticle[drgIdx].title;
-      }
+      // if (innT.current.value === "uposlenici") {
+      //   let nameDrag = "";
+      //   let nameReplaced = "";
+      //   if (innerArticle[drgIdx].name) {
+      //     nameDrag = innerArticle[drgIdx].name;
+      //   }
+      //   if (innerArticle[replacedIdx].name) {
+      //     nameReplaced = innerArticle[replacedIdx].name;
+      //   }
+      //   innerArticle[drgIdx].title = idkt;
+      //   innerArticle[replacedIdx].title = idkt2;
+      //   if (nameDrag) {
+      //     innerArticle[replacedIdx].name = nameDrag;
+      //   } else if (!nameDrag) {
+      //     innerArticle[replacedIdx].name = "";
+      //   }
+      //   if (nameReplaced) {
+      //     innerArticle[drgIdx].name = nameReplaced;
+      //   } else if (!nameReplaced) {
+      //     innerArticle[drgIdx].name = "";
+      //   }
+      //   // innerArticle[replacedIdx].title = innerArticle[drgIdx].title;
+      // }
       console.log(innerArticle);
 
       setDrag(true);
@@ -2246,14 +2243,14 @@ const AdminLogin = () => {
     <div id={s.bgClr}>
       <div id={s.overlay} ref={overlay} onClick={closeEverything} />
       <div id={s.overlaySlider} onClick={(e) => closeOverlaySlider(e)}>
-        <img src={require('../../../assets/img/admin/bulb1.jpg')} />
+        <img src={require("../../../assets/img/admin/bulb1.jpg")} />
         <i id={s.imgOL} class="fas fa-caret-left"></i>
         <i id={s.imgOR} class="fas fa-caret-right"></i>
       </div>
       <div
         id={s.addWorkerOverlay}
         onClick={(e) =>
-          e.target.id.includes('addWorker') ? handleWorker('close') : null
+          e.target.id.includes("addWorker") ? handleWorker("close") : null
         }
       >
         <form
@@ -2278,14 +2275,14 @@ const AdminLogin = () => {
         )}
       </div>
       <section id={s.adminPanelShowcase}>
-        <Snav cur={'adminP'} />
+        <Snav cur={"adminP"} />
       </section>
       <form
         id={s.createArticle}
         onSubmit={(e) => handleSubmit(e)}
         ref={articleForm}
       >
-        <h2>{openInner ? 'Edituj projekat' : 'Postavi projekat'}</h2>
+        <h2>{openInner ? "Edituj projekat" : "Postavi projekat"}</h2>
         <label
           ref={(label) => {
             if (labels.length < 2 && label && init) {
@@ -2295,15 +2292,11 @@ const AdminLogin = () => {
           class={s.nl}
           htmlFor="title"
           style={{
-            marginBottom: !innT.current
-              ? null
-              : innT.current.value === 'uposlenici'
-              ? '0rem'
-              : null,
+            marginBottom: !innT.current && null,
           }}
         >
-          {' '}
-          {openInner ? 'Promijeni naziv projekta' : 'Naziv projekta'}
+          {" "}
+          {openInner ? "Promijeni naziv projekta" : "Naziv projekta"}
         </label>
         <input
           ref={(input) => {
@@ -2313,14 +2306,14 @@ const AdminLogin = () => {
           }}
           autoComplete="off"
           spellCheck={false}
-          onBlur={(e) => handleBlur(e, 'title')}
-          onFocus={() => handleFocus('title')}
+          onBlur={(e) => handleBlur(e, "title")}
+          onFocus={() => handleFocus("title")}
           type="text"
           name="title"
           disabled={
             !innT.current
               ? true
-              : innT.current.value === 'uposlenici'
+              : innT.current.value === "uposlenici"
               ? true
               : loading
               ? true
@@ -2350,7 +2343,7 @@ const AdminLogin = () => {
           type="submit"
           value="Submit"
           disabled={loading ? true : false}
-          style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+          style={{ cursor: loading ? "not-allowed" : "pointer" }}
         />
       </form>
       <div id={s.Bg}>
@@ -2358,11 +2351,11 @@ const AdminLogin = () => {
           <div id={s.innerTitle}>
             <input
               ref={innT}
-              style={{ fontSize: '30px', textTransform: 'capitalize' }}
+              style={{ fontSize: "30px" }}
               type="text"
               spellCheck={false}
               disabled={
-                openInner && innT.current.value === 'uposlenici'
+                openInner && innT.current.value === "uposlenici"
                   ? true
                   : !openInner
                   ? true
@@ -2383,26 +2376,26 @@ const AdminLogin = () => {
               onMouseOut={(e) => handleAddMOut(e)}
             >
               {!openInner ? (
-                '+'
+                "+"
               ) : (
                 <div
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '100%',
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    height: "100%",
                   }}
                 >
                   <i
                     style={{
-                      color: 'teal',
-                      height: '50%',
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      color: "teal",
+                      height: "50%",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                     class="fas fa-long-arrow-alt-left"
                     onMouseEnter={(e) => handleBackME(e)}
@@ -2411,14 +2404,14 @@ const AdminLogin = () => {
                   <span
                     className={s.innerPlus}
                     style={{
-                      width: '100%',
-                      height: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderTop: '5px solid #1c2431',
+                      width: "100%",
+                      height: "50%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderTop: "5px solid #1c2431",
                       transition:
-                        'color 0.3s ease-in-out, background-color 0.3s ease-in-out',
+                        "color 0.3s ease-in-out, background-color 0.3s ease-in-out",
                     }}
                     onMouseEnter={(e) => handleBackPlusME(e)}
                     onMouseLeave={(e) => handleBackPlusML(e)}
@@ -2445,7 +2438,7 @@ const AdminLogin = () => {
               ref={favoriteBtn}
             >
               <i
-                style={{ color: openInner ? 'grey' : 'teal' }}
+                style={{ color: openInner ? "grey" : "teal" }}
                 class="fas fa-star"
               ></i>
             </div>
@@ -2474,7 +2467,7 @@ const AdminLogin = () => {
                               class={s.hexImg}
                               style={{
                                 backgroundImage: `url(${
-                                  art.imageUrl ? art.imageUrl[0] : ''
+                                  art.imageUrl ? art.imageUrl[0] : ""
                                 })`,
                               }}
                             ></div>
@@ -2483,11 +2476,11 @@ const AdminLogin = () => {
                               ref={hexOverlay}
                               style={{
                                 backgroundColor:
-                                  art.favorite === 'true' && favoriteMode
-                                    ? 'rgba(0, 128, 128, 0.6)'
+                                  art.favorite === "true" && favoriteMode
+                                    ? "rgba(0, 128, 128, 0.6)"
                                     : articleRemoved && favoriteMode
-                                    ? 'rgba(0, 128, 128, 0.6)'
-                                    : 'transparent',
+                                    ? "rgba(0, 128, 128, 0.6)"
+                                    : "transparent",
                               }}
                             >
                               {removeMode ? (
@@ -2496,13 +2489,13 @@ const AdminLogin = () => {
                                 <i
                                   class="fas fa-star"
                                   style={{
-                                    color: 'gold',
+                                    color: "gold",
                                     display:
-                                      art.favorite === 'true'
-                                        ? 'block'
+                                      art.favorite === "true"
+                                        ? "block"
                                         : articleRemoved && favoriteMode
-                                        ? 'block'
-                                        : 'none',
+                                        ? "block"
+                                        : "none",
                                   }}
                                 ></i>
                               ) : null}
@@ -2529,7 +2522,7 @@ const AdminLogin = () => {
                               class={s.hexImg}
                               style={{
                                 backgroundImage: `url(${
-                                  inn ? inn.imageUrl : ''
+                                  inn ? inn.imageUrl : ""
                                 })`,
                               }}
                             ></div>
@@ -2538,11 +2531,11 @@ const AdminLogin = () => {
                               ref={hexOverlay}
                               style={{
                                 backgroundColor:
-                                  inn.favorite === 'true' && favoriteMode
-                                    ? 'rgba(0, 128, 128, 0.6)'
+                                  inn.favorite === "true" && favoriteMode
+                                    ? "rgba(0, 128, 128, 0.6)"
                                     : articleRemoved && favoriteMode
-                                    ? 'rgba(0, 128, 128, 0.6)'
-                                    : 'transparent',
+                                    ? "rgba(0, 128, 128, 0.6)"
+                                    : "transparent",
                               }}
                             >
                               {removeMode ? (
@@ -2551,55 +2544,55 @@ const AdminLogin = () => {
                                 <i
                                   class="fas fa-star"
                                   style={{
-                                    color: 'gold',
+                                    color: "gold",
                                     display:
-                                      inn.favorite === 'true'
-                                        ? 'block'
+                                      inn.favorite === "true"
+                                        ? "block"
                                         : articleRemoved && favoriteMode
-                                        ? 'block'
-                                        : 'none',
+                                        ? "block"
+                                        : "none",
                                   }}
                                 ></i>
                               ) : openInner ? (
                                 <>
                                   <i
                                     class={
-                                      innT.current.value === 'uposlenici'
-                                        ? 'fas fa-user-edit'
-                                        : 'fas fa-crown'
+                                      innT.current.value === "uposlenici"
+                                        ? "fas fa-user-edit"
+                                        : "fas fa-crown"
                                     }
                                     style={{
-                                      color: '#1c2431',
-                                      display: 'none',
-                                      fontSize: '30px',
-                                      opacity: '0',
-                                      transform: 'translateY(-10px)',
+                                      color: "#1c2431",
+                                      display: "none",
+                                      fontSize: "30px",
+                                      opacity: "0",
+                                      transform: "translateY(-10px)",
                                       transition:
-                                        'transform 300ms ease-in-out, opacity 300ms ease-in-out',
+                                        "transform 300ms ease-in-out, opacity 300ms ease-in-out",
                                     }}
                                   ></i>
                                   <i
                                     class="fas fa-eye"
                                     style={{
-                                      color: '#1c2431',
-                                      display: 'none',
-                                      fontSize: '30px',
-                                      opacity: '0',
-                                      transform: 'translateY(10px)',
+                                      color: "#1c2431",
+                                      display: "none",
+                                      fontSize: "30px",
+                                      opacity: "0",
+                                      transform: "translateY(10px)",
                                       transition:
-                                        'transform 300ms ease-in-out, opacity 300ms ease-in-out',
+                                        "transform 300ms ease-in-out, opacity 300ms ease-in-out",
                                     }}
                                   ></i>
                                 </>
                               ) : null}
                             </div>
                             <h1 className={s.hexCellTitle}>
-                              {innT.current.value === 'uposlenici'
+                              {innT.current.value === "uposlenici"
                                 ? inn.name
                                 : inn.title}
                             </h1>
                             {!innT.current ? null : innT.current.value ===
-                              'uposlenici' ? (
+                              "uposlenici" ? (
                               <h2 className={s.hexCellName}>{inn.title}</h2>
                             ) : null}
                           </div>

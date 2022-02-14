@@ -1,17 +1,17 @@
-import firebase from 'firebase/app';
-import 'firebase/storage';
-import 'firebase/database';
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/storage";
+import "firebase/database";
+import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDvCP5cX0Vmfm6MFjBfRBmAyq8fMMq8q0s',
-  authDomain: 'elektro-plus-ca75d.firebaseapp.com',
+  apiKey: "AIzaSyBMXcV5HLTyBjkfPBUcHJQrgYCFuS2NwMU",
+  authDomain: "elektromonting-dce15.firebaseapp.com",
   databaseURL:
-    'https://elektro-plus-ca75d-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'elektro-plus-ca75d',
-  storageBucket: 'elektro-plus-ca75d.appspot.com',
-  messagingSenderId: '729453747137',
-  appId: '1:729453747137:web:1618e7235b9281884d6d40',
+    "https://elektromonting-dce15-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "elektromonting-dce15",
+  storageBucket: "elektromonting-dce15.appspot.com",
+  messagingSenderId: "933945519723",
+  appId: "1:933945519723:web:441c8883382b98fd208b2e",
 };
 
 firebase.initializeApp(firebaseConfig);

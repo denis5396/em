@@ -1,9 +1,9 @@
-import React, { Component, createRef } from 'react';
-import { db } from '../../../firebase';
-import { Link } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
-import './Body.css';
-import { getAllByPlaceholderText } from '@testing-library/react';
+import React, { Component, createRef } from "react";
+import { db } from "../../../firebase";
+import { Link } from "react-router-dom";
+import { v1 as uuid } from "uuid";
+import "./Body.css";
+import { getAllByPlaceholderText } from "@testing-library/react";
 class Body extends Component {
   state = {
     forward: false,
@@ -17,6 +17,7 @@ class Body extends Component {
   };
   projectSlider = createRef();
   slides = createRef();
+  slideWidth = createRef();
   sliderWidth = createRef();
   nextx = createRef();
   prevx = createRef();
@@ -31,15 +32,40 @@ class Body extends Component {
   footerBtnAx = createRef();
 
   removeSmooth = () => {
-    document.querySelector('html').style.scrollBehavior = 'auto';
+    document.querySelector("html").style.scrollBehavior = "auto";
   };
 
-  bacaj = async () => {
-    if (this.slides[0]) {
-      let boxWidth = await this.slides[0].clientWidth;
-      this.setState({ unlock: false });
-      this.projectSlider.current.style.transition = 'transform .5s ease';
-      if (this.state.projs.length <= 3) {
+  bacaj = () => {
+    // if (this.slides[0]) {
+    //   let boxWidth = await this.slides[0].clientWidth;
+    //   this.setState({ unlock: false });
+    //   this.projectSlider.current.style.transition = "transform .5s ease";
+    //   if (this.state.projs.length <= 3) {
+    //     let cpyState = [...this.state.projs];
+    //     cpyState.push(cpyState[0]);
+    //     this.setState(
+    //       (state) => ({
+    //         ...state,
+    //         projs: [...cpyState],
+    //       }),
+    //       () => {
+    //         console.log(this.state);
+    //       }
+    //     );
+    //   }
+    //   this.projectSlider.current.style.transform = `translateX(${
+    //     -boxWidth - 10
+    //   }px)`;
+    //   this.btnAnimation("next");
+    // }
+    if (this.projectSlider.current.children[0]) {
+      let boxWidth = window.getComputedStyle(
+        this.projectSlider.current.children[0]
+      ).width;
+      boxWidth = +boxWidth.slice(0, boxWidth.length - 2);
+      this.setState({ unlock: false }, () => {
+        this.projectSlider.current.style.transition = "transform .5s ease";
+        // if (this.state.projs.length <= 3) {
         let cpyState = [...this.state.projs];
         cpyState.push(cpyState[0]);
         this.setState(
@@ -48,114 +74,167 @@ class Body extends Component {
             projs: [...cpyState],
           }),
           () => {
+            this.projectSlider.current.style.transform = `translateX(${
+              -boxWidth - 10
+            }px)`;
+            this.btnAnimation("next");
+            console.log(boxWidth.width);
             console.log(this.state);
           }
         );
-      }
-      this.projectSlider.current.style.transform = `translateX(${
-        -boxWidth - 10
-      }px)`;
-      this.btnAnimation('next');
+        // }
+        // else {
+        //   this.projectSlider.current.style.transform = `translateX(${
+        //     -boxWidth - 10
+        //   }px)`;
+        //   this.btnAnimation("next");
+        //   console.log(boxWidth.width);
+        // }
+      });
     }
   };
   handleForward = () => {
-    this.setState((state) => ({
-      ...state,
-      forward: true,
-    }));
     if (this.state.unlock) {
-      this.bacaj();
+      this.setState(
+        (state) => ({
+          ...state,
+          forward: true,
+          backwards: false,
+        }),
+        () => {
+          this.bacaj();
+        }
+      );
     }
   };
   handleBackwards = () => {
-    this.setState({ forward: false, backwards: true });
-    if (
-      this.state.unlock &&
-      this.projectSlider.current.children.length === this.state.lng
-    ) {
-      this.popSlide();
+    if (this.state.unlock) {
+      this.setState(
+        (state) => ({
+          ...state,
+          forward: false,
+          backwards: true,
+        }),
+        () => {
+          // && this.projectSlider.current.children.length === this.state.lng
+
+          this.popSlide();
+        }
+      );
     }
   };
   handleTransition = (e) => {
-    if (e.propertyName === 'transform') {
+    if (e.propertyName === "transform") {
       if (this.state.forward) {
         this.shiftSlide();
       } else if (
-        this.state.backwards &&
-        this.state.lessThan &&
-        !this.state.unlock
+        this.state.backwards
+        // this.state.lessThan &&
+        // !this.state.unlock
       ) {
-        console.log('transitionend');
+        console.log("transitionend");
         this.shiftSlideBack();
       }
     }
   };
 
   popSlide = () => {
-    console.log('test');
-    this.setState(
-      (state) => ({ ...state, unlock: false }),
-      () => {
-        if (this.slides) {
-          if (!this.state.lessThan) {
-            let izbrisi = this.slides[this.slides.length - 1];
-            const sliderParent = izbrisi.parentElement;
-            let izbrisii = sliderParent.children[this.slides.length - 1];
-            console.log(izbrisii);
-            sliderParent.children[this.slides.length - 1].remove();
-            sliderParent.prepend(izbrisii);
-            this.projectSlider.current.style.transition = 'none';
-            this.projectSlider.current.style.transform = 'translateX(-25vw)';
-            this.btnAnimation('prev');
-            setTimeout(() => {
-              this.fixaj();
-            }, 1);
-          } else {
-            console.log('test2');
+    console.log("test");
+    if (this.projectSlider.current.children[0]) {
+      let boxWidth = window.getComputedStyle(
+        this.projectSlider.current.children[0]
+      ).width;
+      boxWidth = +boxWidth.slice(0, boxWidth.length - 2);
+      this.setState(
+        (state) => ({
+          ...state,
+          unlock: false,
+        }),
+        () => {
+          let cpyState = [...this.state.projs];
+          cpyState.unshift(cpyState[cpyState.length - 1]);
+          this.projectSlider.current.style.transition = "none";
+          this.setState(
+            (state) => ({ ...state, projs: [...cpyState] }),
+            () => {
+              this.projectSlider.current.style.transform = `translateX(${
+                -boxWidth - 10
+              }px)`;
+              this.btnAnimation("prev");
 
-            let boxWidth = this.slides[0].clientWidth;
-            this.setState({ unlock: false });
-            this.projectSlider.current.style.transition = 'none';
-            if (this.state.projs.length <= 3) {
-              let cpyState = [...this.state.projs];
-              cpyState.unshift(cpyState[cpyState.length - 1]);
-              this.setState(
-                (state) => ({
-                  ...state,
-                  projs: [...cpyState],
-                }),
-                () => {
-                  console.log(this.state);
-                }
-              );
-            }
-            this.projectSlider.current.style.transform = `translateX(-${
-              boxWidth + 10
-            }px)`;
-            this.btnAnimation('prev');
-            if (navigator.userAgent.indexOf('Firefox') != -1) {
               setTimeout(() => {
                 this.projectSlider.current.style.transition =
-                  'transform .5s ease';
-                this.projectSlider.current.style.transform = 'translateX(0)';
-              }, 100);
-            } else {
-              setTimeout(() => {
-                this.projectSlider.current.style.transition =
-                  'transform .5s ease';
-                this.projectSlider.current.style.transform = 'translateX(0)';
-              }, 0.1);
+                  "transform 0.5s ease";
+                this.projectSlider.current.style.transform = `translateX(0vw)`;
+              }, 10);
             }
-            // setTimeout(() => {
-            //   this.setState({ unlock: true });
-            // }, 500);
-          }
+          );
         }
-      }
-    );
+      );
+    }
+    // this.setState(
+    //   (state) => ({ ...state, unlock: false }),
+    //   () => {
+    //     if (this.slides) {
+    //       if (!this.state.lessThan) {
+    //         let izbrisi = this.slides[this.slides.length - 1];
+    //         const sliderParent = izbrisi.parentElement;
+    //         let izbrisii = sliderParent.children[this.slides.length - 1];
+    //         console.log(izbrisii);
+    //         sliderParent.children[this.slides.length - 1].remove();
+    //         sliderParent.prepend(izbrisii);
+    //         this.projectSlider.current.style.transition = "none";
+    //         this.projectSlider.current.style.transform = "translateX(-25vw)";
+    //         this.btnAnimation("prev");
+    //         setTimeout(() => {
+    //           this.fixaj();
+    //         }, 1);
+    //       } else {
+    //         console.log("test2");
+
+    //         let boxWidth = this.slides[0].clientWidth;
+    //         this.setState({ unlock: false });
+    //         this.projectSlider.current.style.transition = "none";
+    //         if (this.state.projs.length <= 3) {
+    //           let cpyState = [...this.state.projs];
+    //           cpyState.unshift(cpyState[cpyState.length - 1]);
+    //           this.setState(
+    //             (state) => ({
+    //               ...state,
+    //               projs: [...cpyState],
+    //             }),
+    //             () => {
+    //               console.log(this.state);
+    //             }
+    //           );
+    //         }
+    //         this.projectSlider.current.style.transform = `translateX(-${
+    //           boxWidth + 10
+    //         }px)`;
+    //         this.btnAnimation("prev");
+    //         if (navigator.userAgent.indexOf("Firefox") != -1) {
+    //           setTimeout(() => {
+    //             this.projectSlider.current.style.transition =
+    //               "transform .5s ease";
+    //             this.projectSlider.current.style.transform = "translateX(0)";
+    //           }, 100);
+    //         } else {
+    //           setTimeout(() => {
+    //             this.projectSlider.current.style.transition =
+    //               "transform .5s ease";
+    //             this.projectSlider.current.style.transform = "translateX(0)";
+    //           }, 0.1);
+    //         }
+    //         // setTimeout(() => {
+    //         //   this.setState({ unlock: true });
+    //         // }, 500);
+    //       }
+    //     }
+    //   }
+    // );
   };
   fixaj = () => {
-    this.projectSlider.current.style.transition = 'transform 0.5s ease';
+    this.projectSlider.current.style.transition = "transform 0.5s ease";
     this.projectSlider.current.style.transform = `translateX(0vw)`;
     setTimeout(() => {
       this.setState({ unlock: true });
@@ -163,11 +242,11 @@ class Body extends Component {
   };
 
   shiftSlide = () => {
-    if (this.state.lessThan) {
-      let cpyState = [...this.state.projs];
-      cpyState.splice(0, 1);
-      this.projectSlider.current.style.transition = 'none';
-      this.projectSlider.current.style.transform = 'translateX(0)';
+    let cpyState = [...this.state.projs];
+    cpyState.splice(0, 1);
+    this.projectSlider.current.style.transition = "none";
+    setTimeout(() => {
+      this.projectSlider.current.style.transform = "translateX(0)";
       this.setState(
         (state) => ({
           ...state,
@@ -175,25 +254,10 @@ class Body extends Component {
         }),
         () => {
           console.log(this.state);
+          this.setState((state) => ({ ...state, unlock: true }));
         }
       );
-    } else {
-      let izbrisi = this.slides[0];
-      console.log(this.slides[0]);
-      const sliderParent = izbrisi.parentElement;
-      console.log(sliderParent.children[0]);
-      let izbrisii = sliderParent.children[0];
-      sliderParent.children[0].remove();
-      this.projectSlider.current.style.transition = 'none';
-      this.projectSlider.current.style.transform = 'translateX(0)';
-      const copyObj = [...this.state.projs];
-      const firstInd = { ...copyObj[0] };
-      // this.setState(state => ({
-      //   ...state, projs:
-      // }))
-      sliderParent.appendChild(izbrisii);
-    }
-    this.setState((state) => ({ ...state, unlock: true }));
+    }, 10);
   };
 
   shiftSlideBack = () => {
@@ -209,41 +273,42 @@ class Body extends Component {
         console.log(this.state);
       }
     );
+
     // this.setState({ unlock: true });
   };
 
   btnAnimation = (nextx) => {
     console.log(nextx);
-    if (nextx === 'prev') {
-      console.log('prev');
+    if (nextx === "prev") {
+      console.log("prev");
       this.prevx.current.animate(
         [
-          { transform: 'rotateY(0) translateY(50%)' },
-          { transform: 'rotateY(-45deg) translateY(50%)' },
-          { transform: 'rotateY(0deg) translateY(50%)' },
+          { transform: "rotateY(0) translateY(50%)" },
+          { transform: "rotateY(-45deg) translateY(50%)" },
+          { transform: "rotateY(0deg) translateY(50%)" },
         ],
         {
           duration: 400,
         }
       );
-      this.prevx.current.style.backgroundColor = 'rgba(83, 109, 254, 0.7)';
+      this.prevx.current.style.backgroundColor = "rgba(83, 109, 254, 0.7)";
       setTimeout(() => {
-        this.prevx.current.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        this.prevx.current.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
       }, 400);
-    } else if (nextx === 'next') {
+    } else if (nextx === "next") {
       this.nextx.current.animate(
         [
-          { transform: 'rotateY(0) translateY(50%)' },
-          { transform: 'rotateY(45deg) translateY(50%)' },
-          { transform: 'rotateY(0deg) translateY(50%)' },
+          { transform: "rotateY(0) translateY(50%)" },
+          { transform: "rotateY(45deg) translateY(50%)" },
+          { transform: "rotateY(0deg) translateY(50%)" },
         ],
         {
           duration: 400,
         }
       );
-      this.nextx.current.style.backgroundColor = 'rgba(83, 109, 254, 0.7)';
+      this.nextx.current.style.backgroundColor = "rgba(83, 109, 254, 0.7)";
       setTimeout(() => {
-        this.nextx.current.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        this.nextx.current.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
       }, 400);
     }
   };
@@ -251,22 +316,22 @@ class Body extends Component {
   swapfront = (e) => {
     const front = e.target.children[0];
     const back = e.target.children[1];
-    front.style.transition = 'all 1s ease';
+    front.style.transition = "all 1s ease";
     front.animate(
-      [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(90deg)' }],
+      [{ transform: "rotateY(0deg)" }, { transform: "rotateY(90deg)" }],
       {
         duration: 200,
-        easing: 'ease-in',
-        fill: 'forwards',
+        easing: "ease-in",
+        fill: "forwards",
       }
     );
     back.animate(
-      [{ transform: 'rotateY(90deg)' }, { transform: 'rotateY(0deg)' }],
+      [{ transform: "rotateY(90deg)" }, { transform: "rotateY(0deg)" }],
       {
         duration: 200,
         delay: 200,
-        easing: 'ease-in',
-        fill: 'forwards',
+        easing: "ease-in",
+        fill: "forwards",
       }
     );
   };
@@ -274,49 +339,49 @@ class Body extends Component {
   swapback = (e) => {
     const front = e.target.children[0];
     const back = e.target.children[1];
-    front.style.transition = 'all 1s ease';
+    front.style.transition = "all 1s ease";
     front.animate(
-      [{ transform: 'rotateY(90deg)' }, { transform: 'rotateY(0deg)' }],
+      [{ transform: "rotateY(90deg)" }, { transform: "rotateY(0deg)" }],
       {
         duration: 200,
-        easing: 'ease-in',
-        fill: 'forwards',
+        easing: "ease-in",
+        fill: "forwards",
         delay: 100,
       }
     );
     back.animate(
-      [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(90deg)' }],
+      [{ transform: "rotateY(0deg)" }, { transform: "rotateY(90deg)" }],
       {
         duration: 200,
-        easing: 'ease-in',
-        fill: 'forwards',
+        easing: "ease-in",
+        fill: "forwards",
       }
     );
   };
 
   hovanim2e = () => {
-    this.kax.current.style.transition = 'color 0.5s ease';
-    this.kax.current.style.color = '#111';
-    this.ka.current.style.animation = 'fillbtn 0.5s linear forwards';
+    this.kax.current.style.transition = "color 0.5s ease";
+    this.kax.current.style.color = "#111";
+    this.ka.current.style.animation = "fillbtn 0.5s linear forwards";
   };
 
   hovanim2l = () => {
-    this.kax.current.style.transition = 'color 0.5s ease';
-    this.kax.current.style.color = '#fff';
-    this.ka.current.style.animation = 'fillbtnrev 0.5s ease-in forwards';
+    this.kax.current.style.transition = "color 0.5s ease";
+    this.kax.current.style.color = "#fff";
+    this.ka.current.style.animation = "fillbtnrev 0.5s ease-in forwards";
   };
 
   footerBtnE = () => {
-    this.footerBtnAx.current.style.transition = 'color 0.5s ease';
-    this.footerBtnAx.current.style.color = '#111';
-    this.footerBtnA.current.style.animation = 'fillbtn 0.5s linear forwards';
+    this.footerBtnAx.current.style.transition = "color 0.5s ease";
+    this.footerBtnAx.current.style.color = "#111";
+    this.footerBtnA.current.style.animation = "fillbtn 0.5s linear forwards";
   };
 
   footerBtnL = () => {
-    this.footerBtnAx.current.style.transition = 'color 0.5s ease';
-    this.footerBtnAx.current.style.color = '#fff';
+    this.footerBtnAx.current.style.transition = "color 0.5s ease";
+    this.footerBtnAx.current.style.color = "#fff";
     this.footerBtnA.current.style.animation =
-      'fillbtnrev 0.5s ease-in forwards';
+      "fillbtnrev 0.5s ease-in forwards";
   };
   // fakeRequest = () => {
   //   return new Promise((resolve) => setTimeout(() => resolve(), 12500));
@@ -350,21 +415,16 @@ class Body extends Component {
     if (this.state.projs.length <= 3) {
       this.setState({ lessThan: true });
     }
-    if (this.slides[0]) {
-      let boxWidth = this.slides[0].clientWidth;
-      this.slides.forEach((slide) => {
-        slide.style.width = `${boxWidth}px`;
-      });
-      this.sliderWidth.current.style.width = `${boxWidth * 3 + 12}px`;
-      // ty
-      this.translateY.forEach((li) => {
-        li.addEventListener('mouseleave', this.swapback);
-        li.addEventListener('mouseenter', this.swapfront);
-      });
-    }
-    const dbRef = db.ref('/content');
+    // if (this.slides[0]) {
+    //   let boxWidth = this.slides[0].clientWidth;
+    //   this.slides.forEach((slide) => {
+    //     slide.style.width = `${boxWidth}px`;
+    //   });
+    //   this.sliderWidth.current.style.width = `${boxWidth * 3 + 12}px`;
+    // }
+    const dbRef = db.ref("/content");
     // dbRef.set({ username: 'hello' });
-    dbRef.on('value', (snapshot) => {
+    dbRef.on("value", (snapshot) => {
       const data = snapshot.val();
       console.log(data);
       const copyObj = [];
@@ -372,10 +432,24 @@ class Body extends Component {
       const copyObj2 = [];
       let cnt2 = 0;
       for (let key in data) {
-        if (data[key].imageUrl.length === 1) {
-          copyObj[cnt] = data[key];
-          cnt++;
-        }
+        // if (data[key].imageUrl.length === 1) {
+        copyObj[cnt] = {
+          title: data[key].title,
+          imageUrl: data[key].imageUrl[0].replace(
+            "https://firebasestorage.googleapis.com",
+            `https://ik.imagekit.io/1cryg5xvxsq/tr:w-${
+              window.innerWidth > 768 && window.innerWidth < 1201
+                ? window.innerWidth / 2
+                : window.innerWidth > 1200
+                ? window.innerWidth / 3
+                : window.innerWidth < 501
+                ? window.innerWidth * 0.8
+                : window.innerWidth
+            }`
+          ),
+        };
+        cnt++;
+        // }
       }
       this.setState(
         (state) => ({
@@ -386,18 +460,25 @@ class Body extends Component {
         () => {
           console.log(this.state);
           if (this.projectSlider.current && this.state.projs.length === 1) {
-            this.projectSlider.current.parentElement.style.maxWidth = '50vw';
+            if (window.innerWidth > 800) {
+              this.projectSlider.current.parentElement.style.maxWidth = "50vw";
+            } else if (window.innerWidth <= 500) {
+              this.projectSlider.current.parentElement.style.maxWidth = "77vw";
+            } else {
+              // this.projectSlider.current.children[0].style.width = "77vw";
+              this.projectSlider.current.parentElement.style.maxWidth = "60vw";
+            }
           }
         }
       );
       console.log(copyObj);
     });
 
-    window.addEventListener('orientationchange', () => {
+    window.addEventListener("orientationchange", () => {
       window.location.reload();
     });
 
-    document.title = 'ELEKTROMONTING | Početna';
+    document.title = "ELEKTROMONTING | Početna";
   }
 
   // componentDidUpdate() {
@@ -420,15 +501,13 @@ class Body extends Component {
     } else {
       this.setState({ init: false });
     }
-    this.translateY = [];
-
     return (
       <main>
         <div id="spoji">
           <h2>
             <strong>ELEKTROMONTING</strong>
           </h2>
-          <img src={require('../../../assets/img/emlogo.png')} alt="" />
+          <img src={require("../../../assets/img/emlogo.png")} alt="" />
         </div>
 
         {/* <div id="mainimgcontainer">
@@ -501,7 +580,7 @@ class Body extends Component {
             <div className="usluge">
               <div className="imgwrapper">
                 <img
-                  src={require('../../../assets/img/KNX_logo.svg_-300x143.png')}
+                  src={require("../../../assets/img/KNX_logo.svg_-300x143.png")}
                   alt=""
                 />
               </div>
@@ -708,6 +787,24 @@ class Body extends Component {
             >
               {this.state.projs.map((proj, i) => (
                 <div
+                  id={
+                    this.state.lng === 2
+                      ? "item2"
+                      : this.state.lng === 1
+                      ? "item3"
+                      : "one"
+                  }
+                  className="project"
+                  key={uuid()}
+                  style={{
+                    background: `url(${proj.imageUrl}) no-repeat center/cover`,
+                  }}
+                >
+                  <h3>{proj.title}</h3>
+                </div>
+              ))}
+              {/* {this.state.projs.map((proj, i) => (
+                <div
                   style={{ width: '30vw' }}
                   className="project"
                   id={
@@ -743,7 +840,7 @@ class Body extends Component {
                 >
                   <h3>{proj.title}</h3>
                 </div>
-              ))}
+              ))} */}
               {/* <div
                 className="project"
                 id="one"
@@ -817,21 +914,21 @@ class Body extends Component {
           <div
             id="totop"
             onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <i className="fas fa-chevron-up fa-2x"></i>
           </div>
           <div id="upperrow">
             <div id="footersct1">
-              <img src={require('../../../assets/img/emlogo.png')} alt="" />
+              <img src={require("../../../assets/img/emlogo.png")} alt="" />
               <h2>ELEKTROMONTING</h2>
             </div>
             <div id="footersct2">
               <h2>O NAMA</h2>
               <p>
                 Mi smo kompanija koja na bosanskohercegovačkom tržištu posluje
-                od marta 2014. Firma se nalazi u Sarajevu.
+                od 2015. Firma se nalazi na Ilidži.
               </p>
               <p>
                 Osnovna djelatnost su elektromontažerski i elektroinstalaterski
@@ -855,7 +952,7 @@ class Body extends Component {
                       onClick={this.removeSmooth}
                     >
                       Saznaj Više
-                    </Link>{' '}
+                    </Link>{" "}
                   </strong>
                 </div>
               </div>
@@ -895,43 +992,43 @@ class Body extends Component {
               <ul>
                 <li>
                   <i
-                    style={{ color: 'lightblue', transform: 'scale(1.2)' }}
+                    style={{ color: "lightblue", transform: "scale(1.2)" }}
                     className="fas fa-home"
-                  ></i>{' '}
+                  ></i>{" "}
                   &nbsp;Most Spasa 64, Ilidža
                 </li>
                 <li>
                   <i
-                    style={{ color: 'lightcoral', transform: 'scale(1.2)' }}
+                    style={{ color: "lightcoral", transform: "scale(1.2)" }}
                     className="far fa-clock"
-                  ></i>{' '}
+                  ></i>{" "}
                   &nbsp;pon-pet: 08:00 - 17:00
                 </li>
                 <li>
                   <i
-                    style={{ color: 'lightsalmon', transform: 'scale(1.2)' }}
+                    style={{ color: "lightsalmon", transform: "scale(1.2)" }}
                     className="far fa-clock"
-                  ></i>{' '}
+                  ></i>{" "}
                   &nbsp;subota: 08:00 - 15:00
                 </li>
                 <li>
                   <i
-                    style={{ color: 'lightgreen', transform: 'scale(1.2)' }}
+                    style={{ color: "lightgreen", transform: "scale(1.2)" }}
                     className="fas fa-phone-alt"
-                  ></i>{' '}
-                  +387 33 246 495
+                  ></i>{" "}
+                  +387 62 430 995
                 </li>
-                <li style={{ display: 'flex' }}>
+                <li style={{ display: "flex" }}>
                   <img
                     id="resizeGmail"
-                    src={require('../../../assets/img/Gmail_Icon.png')}
+                    src={require("../../../assets/img/Gmail_Icon.png")}
                     alt="elektromonting email"
                   />
-                  &nbsp;E-mail: elektromontingemail@gmail.com
+                  &nbsp;E-mail: elektromonting.01@gmail.com
                 </li>
                 <li>
                   <a
-                    style={{ textDecoration: 'none', color: 'wheat' }}
+                    style={{ textDecoration: "none", color: "wheat" }}
                     rel="noopener"
                     href="https://www.facebook.com/elektro.monting"
                     target="_blank"
