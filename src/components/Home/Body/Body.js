@@ -451,7 +451,7 @@ class Body extends Component {
         cnt++;
         // }
       }
-      copyObj.splice(2);
+      // copyObj.splice(2);
       this.setState(
         (state) => ({
           ...state,
