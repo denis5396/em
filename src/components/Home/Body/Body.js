@@ -451,6 +451,7 @@ class Body extends Component {
         cnt++;
         // }
       }
+      copyObj.splice(2);
       this.setState(
         (state) => ({
           ...state,
@@ -784,6 +785,18 @@ class Body extends Component {
               id="projectslider"
               ref={this.projectSlider}
               onTransitionEnd={this.handleTransition}
+              // style={{
+              //   gridTemplateColumns: `${
+              //     this.state.projs.length > 6
+              //       ? `repeat(${this.state.projs.length}, 1fr)`
+              //       : "repeat(6, 1fr)"
+              //   }`,
+              // }}
+              style={{
+                gridTemplateColumns: `repeat(${
+                  this.state.projs.length + 1
+                }, 1fr)`,
+              }}
             >
               {this.state.projs.map((proj, i) => (
                 <div

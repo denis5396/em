@@ -1058,7 +1058,7 @@ i {
 
 #projects #project #projectslider {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  /* grid-template-columns: repeat(6, 1fr); */
   align-items: center;
   gap: 1rem;
   width: 100%;
@@ -2252,5 +2252,15 @@ i {
   #whatwedo {
     height: 220vh;
     /* height: 100vh; */
+  }
+}
+@media only screen and (min-width: 1500px) {
+  #one {
+    width: 25.2vw !important;
+  }
+}
+@media only screen and (min-width: 2130px) {
+  #one {
+    width: 25.3vw !important;
   }
 }
